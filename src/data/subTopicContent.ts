@@ -6726,5 +6726,6 @@ export const subTopicData: Record<string, SubTopicContent> = {
       }
     ],
     code: "<%-- Modern JSP using Expression Language --%>\n<div class=\"user-profile\">\n    <h3>User Name: ${sessionScope.user.profileName}</h3>\n    <p>Viewing Record ID: ${param.uid}</p>\n    <p>Browser Info: ${header['User-Agent']}</p>\n</div>"
-  }
+  },
+  
 };
