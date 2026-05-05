@@ -6728,133 +6728,133 @@ export const subTopicData: Record<string, SubTopicContent> = {
     code: "<%-- Modern JSP using Expression Language --%>\n<div class=\"user-profile\">\n    <h3>User Name: ${sessionScope.user.profileName}</h3>\n    <p>Viewing Record ID: ${param.uid}</p>\n    <p>Browser Info: ${header['User-Agent']}</p>\n</div>"
   },
 
-// ============================
-// SPRING FRAMEWORK SECTION
-// ============================
+  // ============================
+  // SPRING FRAMEWORK SECTION
+  // ============================
 
-"Spring Modules": {
-  description: "Spring Framework is a powerful, lightweight, and widely used Java-based framework for building enterprise-level applications. It is divided into multiple modules grouped into layers.",
-  sections: [
-    {
-      heading: "Introduction & Definition",
-      content: "Spring was developed by Rod Johnson in 2003 to simplify complex Java Enterprise Edition (JEE) development. It is an open-source Java framework used to develop enterprise applications."
-    },
-    {
-      heading: "Why Spring Framework",
-      points: [
-        "Reduces complexity of enterprise application development",
-        "Lightweight and modular architecture",
-        "Promotes loose coupling using Dependency Injection",
-        "Easy integration with other technologies like Hibernate, JDBC, JPA",
-        "Provides better testability and maintainability"
-      ]
-    },
-    {
-      heading: "Core Features",
-      points: [
-        "Lightweight Framework – minimal resource usage",
-        "Dependency Injection (DI) – reduces tight coupling",
-        "Inversion of Control (IoC) – container manages objects",
-        "Aspect-Oriented Programming (AOP) – handles cross-cutting concerns",
-        "Transaction Management – simplifies database transactions",
-        "MVC Architecture – structured web development",
-        "Integration Support – works with Hibernate, JDBC, JPA"
-      ]
-    },
-    {
-      heading: "Architecture Overview",
-      content: "Spring architecture is modular and layered, allowing developers to use only required components. The main layers include Core Container, Data Access, Web, AOP, Messaging, and Test."
-    },
-    {
-      heading: "1. Spring Core Container",
-      points: [
-        "Core Module – Provides IoC and Dependency Injection",
-        "Beans Module – Manages beans (objects)",
-        "Context Module – Provides application context",
-        "SpEL (Spring Expression Language) – Used for querying and manipulating objects"
-      ]
-    },
-    {
-      heading: "2. Spring Data Access Modules",
-      points: [
-        "JDBC Module – Simplifies database operations",
-        "ORM Module – Integrates with Hibernate and JPA",
-        "Transaction Module – Manages transactions",
-        "OXM Module – Handles XML to Object mapping"
-      ]
-    },
-    {
-      heading: "3. Spring Web Modules",
-      points: [
-        "Spring Web – Basic web features",
-        "Spring MVC – Implements Model-View-Controller architecture",
-        "Spring WebFlux – Supports reactive programming"
-      ]
-    },
-    {
-      heading: "4. Spring AOP Module",
-      points: [
-        "Used for logging, security, transaction handling",
-        "Improves code modularity",
-        "Reduces code duplication"
-      ]
-    },
-    {
-      heading: "5. Spring Messaging Module",
-      points: [
-        "Supports WebSocket communication",
-        "Supports STOMP messaging protocol",
-        "Used for real-time applications"
-      ]
-    },
-    {
-      heading: "6. Spring Test Module",
-      points: [
-        "Supports JUnit and TestNG",
-        "Helps in unit and integration testing",
-        "Provides mock objects for testing"
-      ]
-    },
-    {
-      heading: "Spring Ecosystem",
-      points: [
-        "Spring Boot – Simplifies application setup with auto-configuration",
-        "Spring Security – Provides authentication and authorization",
-        "Spring Data – Simplifies database access",
-        "Spring Cloud – Supports microservices and distributed systems"
-      ]
-    },
-    {
-      heading: "Working of Spring Framework",
-      points: [
-        "Developer writes configuration (XML or annotations)",
-        "Spring container reads configuration",
-        "Beans are created",
-        "Dependencies are injected",
-        "Application runs successfully"
-      ]
-    },
-    {
-      heading: "Advantages & Limitations",
-      points: [
-        "PRO: Reduces development effort and improves maintainability",
-        "PRO: Supports modular design and easy integration",
-        "PRO: Strong community support",
-        "CON: Initial learning curve",
-        "CON: Configuration complexity (without Spring Boot)",
-        "CON: Requires understanding of DI and AOP concepts"
-      ]
-    }
-  ],
-  keyPoints: [
-    "Developed by Rod Johnson",
-    "Provides Dependency Injection and AOP",
-    "Supports MVC architecture",
-    "Forms the base for Spring Boot and Microservices"
-  ]
-},
-"Dependency Injection": {
-  description: "Dependency Injection (DI) is a design pattern used in the Spring Framework where the Spring container provides the required dependencies (objects) to a class instead of the class creating them itself.",
+  "Spring Modules": {
+    description: "Spring Framework is a powerful, lightweight, and widely used Java-based framework for building enterprise-level applications. It is divided into multiple modules grouped into layers.",
+    sections: [
+      {
+        heading: "Introduction & Definition",
+        content: "Spring was developed by Rod Johnson in 2003 to simplify complex Java Enterprise Edition (JEE) development. It is an open-source Java framework used to develop enterprise applications."
+      },
+      {
+        heading: "Why Spring Framework",
+        points: [
+          "Reduces complexity of enterprise application development",
+          "Lightweight and modular architecture",
+          "Promotes loose coupling using Dependency Injection",
+          "Easy integration with other technologies like Hibernate, JDBC, JPA",
+          "Provides better testability and maintainability"
+        ]
+      },
+      {
+        heading: "Core Features",
+        points: [
+          "Lightweight Framework – minimal resource usage",
+          "Dependency Injection (DI) – reduces tight coupling",
+          "Inversion of Control (IoC) – container manages objects",
+          "Aspect-Oriented Programming (AOP) – handles cross-cutting concerns",
+          "Transaction Management – simplifies database transactions",
+          "MVC Architecture – structured web development",
+          "Integration Support – works with Hibernate, JDBC, JPA"
+        ]
+      },
+      {
+        heading: "Architecture Overview",
+        content: "Spring architecture is modular and layered, allowing developers to use only required components. The main layers include Core Container, Data Access, Web, AOP, Messaging, and Test."
+      },
+      {
+        heading: "1. Spring Core Container",
+        points: [
+          "Core Module – Provides IoC and Dependency Injection",
+          "Beans Module – Manages beans (objects)",
+          "Context Module – Provides application context",
+          "SpEL (Spring Expression Language) – Used for querying and manipulating objects"
+        ]
+      },
+      {
+        heading: "2. Spring Data Access Modules",
+        points: [
+          "JDBC Module – Simplifies database operations",
+          "ORM Module – Integrates with Hibernate and JPA",
+          "Transaction Module – Manages transactions",
+          "OXM Module – Handles XML to Object mapping"
+        ]
+      },
+      {
+        heading: "3. Spring Web Modules",
+        points: [
+          "Spring Web – Basic web features",
+          "Spring MVC – Implements Model-View-Controller architecture",
+          "Spring WebFlux – Supports reactive programming"
+        ]
+      },
+      {
+        heading: "4. Spring AOP Module",
+        points: [
+          "Used for logging, security, transaction handling",
+          "Improves code modularity",
+          "Reduces code duplication"
+        ]
+      },
+      {
+        heading: "5. Spring Messaging Module",
+        points: [
+          "Supports WebSocket communication",
+          "Supports STOMP messaging protocol",
+          "Used for real-time applications"
+        ]
+      },
+      {
+        heading: "6. Spring Test Module",
+        points: [
+          "Supports JUnit and TestNG",
+          "Helps in unit and integration testing",
+          "Provides mock objects for testing"
+        ]
+      },
+      {
+        heading: "Spring Ecosystem",
+        points: [
+          "Spring Boot – Simplifies application setup with auto-configuration",
+          "Spring Security – Provides authentication and authorization",
+          "Spring Data – Simplifies database access",
+          "Spring Cloud – Supports microservices and distributed systems"
+        ]
+      },
+      {
+        heading: "Working of Spring Framework",
+        points: [
+          "Developer writes configuration (XML or annotations)",
+          "Spring container reads configuration",
+          "Beans are created",
+          "Dependencies are injected",
+          "Application runs successfully"
+        ]
+      },
+      {
+        heading: "Advantages & Limitations",
+        points: [
+          "PRO: Reduces development effort and improves maintainability",
+          "PRO: Supports modular design and easy integration",
+          "PRO: Strong community support",
+          "CON: Initial learning curve",
+          "CON: Configuration complexity (without Spring Boot)",
+          "CON: Requires understanding of DI and AOP concepts"
+        ]
+      }
+    ],
+    keyPoints: [
+      "Developed by Rod Johnson",
+      "Provides Dependency Injection and AOP",
+      "Supports MVC architecture",
+      "Forms the base for Spring Boot and Microservices"
+    ]
+  },
+  "Dependency Injection": {
+    description: "Dependency Injection (DI) is a design pattern used in the Spring Framework where the Spring container provides the required dependencies (objects) to a class instead of the class creating them itself.",
 
     sections: [
       {
@@ -6935,15 +6935,15 @@ export const subTopicData: Record<string, SubTopicContent> = {
       }
     ],
 
-      keyPoints: [
-        "Dependency Injection is part of Inversion of Control (IoC)",
-        "Spring container manages object creation",
-        "Helps achieve loose coupling",
-        "Supports Constructor, Setter, and Field Injection",
-        "Improves testability and maintainability"
-      ],
+    keyPoints: [
+      "Dependency Injection is part of Inversion of Control (IoC)",
+      "Spring container manages object creation",
+      "Helps achieve loose coupling",
+      "Supports Constructor, Setter, and Field Injection",
+      "Improves testability and maintainability"
+    ],
 
-        code: `// Example using Constructor Injection
+    code: `// Example using Constructor Injection
 
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6969,9 +6969,9 @@ class Car {
         System.out.println(engine.start());
     }
 }`
-},
-"Spring Containers": {
-  description: "Spring Container is the core component of the Spring Framework responsible for creating, configuring, and managing the lifecycle of objects (beans). It uses Dependency Injection to manage dependencies between components.",
+  },
+  "Spring Containers": {
+    description: "Spring Container is the core component of the Spring Framework responsible for creating, configuring, and managing the lifecycle of objects (beans). It uses Dependency Injection to manage dependencies between components.",
 
     sections: [
       {
@@ -7057,15 +7057,15 @@ class Car {
       }
     ],
 
-      keyPoints: [
-        "Spring Container is the core of Spring Framework",
-        "Manages beans and their lifecycle",
-        "Uses Dependency Injection",
-        "Two main types: BeanFactory and ApplicationContext",
-        "Supports XML, Annotation, and Java-based configuration"
-      ],
+    keyPoints: [
+      "Spring Container is the core of Spring Framework",
+      "Manages beans and their lifecycle",
+      "Uses Dependency Injection",
+      "Two main types: BeanFactory and ApplicationContext",
+      "Supports XML, Annotation, and Java-based configuration"
+    ],
 
-        code: `// Example of ApplicationContext
+    code: `// Example of ApplicationContext
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -7087,9 +7087,9 @@ public class MainApp {
         student.display();
     }
 }`
-},
-"Bean Wiring": {
-  description: "Bean Wiring in Spring refers to the process of connecting different beans (objects) together by injecting dependencies. It defines how one bean is associated with another within the Spring Container.",
+  },
+  "Bean Wiring": {
+    description: "Bean Wiring in Spring refers to the process of connecting different beans (objects) together by injecting dependencies. It defines how one bean is associated with another within the Spring Container.",
 
     sections: [
       {
@@ -7163,15 +7163,15 @@ public class MainApp {
       }
     ],
 
-      keyPoints: [
-        "Bean Wiring connects different Spring beans",
-        "Achieved using Dependency Injection",
-        "Can be done manually or automatically",
-        "Autowiring reduces configuration effort",
-        "Essential for building loosely coupled applications"
-      ],
+    keyPoints: [
+      "Bean Wiring connects different Spring beans",
+      "Achieved using Dependency Injection",
+      "Can be done manually or automatically",
+      "Autowiring reduces configuration effort",
+      "Essential for building loosely coupled applications"
+    ],
 
-        code: `// Example of Autowiring using @Autowired
+    code: `// Example of Autowiring using @Autowired
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -7193,9 +7193,9 @@ class Car {
         System.out.println(engine.start());
     }
 }`
-},
-"Bean Life Cycle": {
-  description: "Bean Life Cycle in Spring defines the stages a bean goes through from creation to destruction. The Spring Container manages the complete lifecycle of a bean.",
+  },
+  "Bean Life Cycle": {
+    description: "Bean Life Cycle in Spring defines the stages a bean goes through from creation to destruction. The Spring Container manages the complete lifecycle of a bean.",
 
     sections: [
       {
@@ -7278,15 +7278,15 @@ class Car {
       }
     ],
 
-      keyPoints: [
-        "Bean lifecycle is managed by Spring Container",
-        "Includes creation, initialization, and destruction",
-        "Supports annotations and interfaces",
-        "Important for resource management",
-        "Ensures proper setup and cleanup of beans"
-      ],
+    keyPoints: [
+      "Bean lifecycle is managed by Spring Container",
+      "Includes creation, initialization, and destruction",
+      "Supports annotations and interfaces",
+      "Important for resource management",
+      "Ensures proper setup and cleanup of beans"
+    ],
 
-        code: `// Example of Bean Lifecycle using annotations
+    code: `// Example of Bean Lifecycle using annotations
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -7313,9 +7313,9 @@ class Student {
         System.out.println("Bean Destroyed");
     }
 }`
-},
-"JDBC with Spring": {
-  description: "Spring Data Access layer provides support for interacting with databases. Spring JDBC simplifies database operations by reducing boilerplate code and handling exceptions efficiently.",
+  },
+  "JDBC with Spring": {
+    description: "Spring Data Access layer provides support for interacting with databases. Spring JDBC simplifies database operations by reducing boilerplate code and handling exceptions efficiently.",
 
     sections: [
       {
@@ -7387,15 +7387,15 @@ class Student {
       }
     ],
 
-      keyPoints: [
-        "Spring JDBC simplifies database interaction",
-        "JdbcTemplate is the core class",
-        "Reduces boilerplate code",
-        "Handles exceptions and resource management",
-        "Supports safe handling of String data in queries"
-      ],
+    keyPoints: [
+      "Spring JDBC simplifies database interaction",
+      "JdbcTemplate is the core class",
+      "Reduces boilerplate code",
+      "Handles exceptions and resource management",
+      "Supports safe handling of String data in queries"
+    ],
 
-        code: `// Example: Spring JDBC with String
+    code: `// Example: Spring JDBC with String
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7417,9 +7417,9 @@ class StudentRepository {
         return jdbcTemplate.queryForObject(sql, String.class, id);
     }
 }`
-},
-"DataSource": {
-  description: "DataSource in Spring is used to establish and manage connections with a database. It acts as a factory for database connections and is a key component in Spring JDBC.",
+  },
+  "DataSource": {
+    description: "DataSource in Spring is used to establish and manage connections with a database. It acts as a factory for database connections and is a key component in Spring JDBC.",
 
     sections: [
       {
@@ -7504,15 +7504,15 @@ class StudentRepository {
       }
     ],
 
-      keyPoints: [
-        "DataSource is used to manage database connections",
-        "Acts as a connection factory",
-        "Improves performance using connection pooling",
-        "Used by JdbcTemplate and ORM frameworks",
-        "HikariCP is the most recommended DataSource"
-      ],
+    keyPoints: [
+      "DataSource is used to manage database connections",
+      "Acts as a connection factory",
+      "Improves performance using connection pooling",
+      "Used by JdbcTemplate and ORM frameworks",
+      "HikariCP is the most recommended DataSource"
+    ],
 
-        code: `// Example: DataSource Configuration using Java
+    code: `// Example: DataSource Configuration using Java
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7533,9 +7533,9 @@ public class AppConfig {
         return ds;
     }
 }`
-},
-"JdbcTemplate": {
-  description: "JdbcTemplate is the core class in Spring JDBC that simplifies database operations by handling connection management, exception handling, and executing SQL queries.",
+  },
+  "JdbcTemplate": {
+    description: "JdbcTemplate is the core class in Spring JDBC that simplifies database operations by handling connection management, exception handling, and executing SQL queries.",
 
     sections: [
       {
@@ -7625,15 +7625,15 @@ public class AppConfig {
       }
     ],
 
-      keyPoints: [
-        "JdbcTemplate simplifies JDBC operations",
-        "Handles connection and exception management",
-        "Provides methods for CRUD operations",
-        "Uses prepared statements for safety",
-        "Widely used in Spring applications"
-      ],
+    keyPoints: [
+      "JdbcTemplate simplifies JDBC operations",
+      "Handles connection and exception management",
+      "Provides methods for CRUD operations",
+      "Uses prepared statements for safety",
+      "Widely used in Spring applications"
+    ],
 
-        code: `// Example: JdbcTemplate CRUD operations
+    code: `// Example: JdbcTemplate CRUD operations
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7669,9 +7669,9 @@ class StudentRepository {
         return jdbcTemplate.queryForObject(sql, String.class, id);
     }
 }`
-},
-"DML Operations": {
-  description: "DML (Data Manipulation Language) operations are used to manipulate data stored in a database. In Spring, these operations are commonly performed using JdbcTemplate.",
+  },
+  "DML Operations": {
+    description: "DML (Data Manipulation Language) operations are used to manipulate data stored in a database. In Spring, these operations are commonly performed using JdbcTemplate.",
 
     sections: [
       {
@@ -7751,15 +7751,15 @@ class StudentRepository {
       }
     ],
 
-      keyPoints: [
-        "DML is used to manipulate database data",
-        "Includes INSERT, UPDATE, DELETE, SELECT",
-        "JdbcTemplate simplifies DML operations",
-        "update() method is used for INSERT, UPDATE, DELETE",
-        "query() and queryForObject() are used for SELECT"
-      ],
+    keyPoints: [
+      "DML is used to manipulate database data",
+      "Includes INSERT, UPDATE, DELETE, SELECT",
+      "JdbcTemplate simplifies DML operations",
+      "update() method is used for INSERT, UPDATE, DELETE",
+      "query() and queryForObject() are used for SELECT"
+    ],
 
-        code: `// Example: DML Operations using JdbcTemplate
+    code: `// Example: DML Operations using JdbcTemplate
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7795,9 +7795,9 @@ class StudentRepository {
         return jdbcTemplate.queryForObject(sql, String.class, id);
     }
 }`
-},
-"Spring Web MVC": {
-  description: "Spring Web MVC is a web framework in Spring used to build web applications following the Model-View-Controller (MVC) design pattern. It separates application logic, user interface, and control flow.",
+  },
+  "Spring Web MVC": {
+    description: "Spring Web MVC is a web framework in Spring used to build web applications following the Model-View-Controller (MVC) design pattern. It separates application logic, user interface, and control flow.",
 
     sections: [
       {
@@ -7849,17 +7849,17 @@ class StudentRepository {
       }
     ],
 
-      keyPoints: [
-        "Spring MVC follows Model-View-Controller pattern",
-        "DispatcherServlet acts as front controller",
-        "Separates business logic and UI",
-        "Supports web and REST applications",
-        "Widely used in enterprise applications"
-      ]
-},
+    keyPoints: [
+      "Spring MVC follows Model-View-Controller pattern",
+      "DispatcherServlet acts as front controller",
+      "Separates business logic and UI",
+      "Supports web and REST applications",
+      "Widely used in enterprise applications"
+    ]
+  },
 
-"Controllers": {
-  description: "Controllers in Spring MVC handle incoming HTTP requests, process them, and return responses. They act as a bridge between Model and View.",
+  "Controllers": {
+    description: "Controllers in Spring MVC handle incoming HTTP requests, process them, and return responses. They act as a bridge between Model and View.",
 
     sections: [
       {
@@ -7919,15 +7919,15 @@ class StudentRepository {
       }
     ],
 
-      keyPoints: [
-        "Controller handles HTTP requests",
-        "@Controller returns views",
-        "@RestController returns JSON/XML",
-        "Uses mapping annotations for routing",
-        "Acts as bridge between Model and View"
-      ],
+    keyPoints: [
+      "Controller handles HTTP requests",
+      "@Controller returns views",
+      "@RestController returns JSON/XML",
+      "Uses mapping annotations for routing",
+      "Acts as bridge between Model and View"
+    ],
 
-        code: `// Example: Spring MVC Controller
+    code: `// Example: Spring MVC Controller
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7956,8 +7956,8 @@ class StudentController {
         return "Student Data";
     }
 }`
-},
-"Handling Web Requests": {
+  },
+  "Handling Web Requests": {
     description: "Handling Web Requests in Spring MVC involves receiving HTTP requests from clients, processing them using controllers, and returning appropriate responses such as views or JSON data.",
 
     sections: [
@@ -8075,7 +8075,7 @@ class UserController {
     }
 }`
   },
-"Mapping Requests": {
+  "Mapping Requests": {
     description: "Mapping Web Requests in Spring MVC is the process of linking HTTP requests (URLs) to specific controller methods using annotations.",
 
     sections: [
@@ -8206,7 +8206,7 @@ class ProductController {
 }`
   },
 
-"Form Submissions": {
+  "Form Submissions": {
     description: "Form submission in Spring MVC refers to sending user input data from a web form (HTML) to the server, where it is processed by controller methods.",
 
     sections: [
@@ -8327,7 +8327,7 @@ class UserController {
     }
 }`
   },
-"View Resolvers": {
+  "View Resolvers": {
     description: "View Resolver in Spring MVC is used to map logical view names returned by controllers to actual view resources like JSP, HTML, or Thymeleaf templates.",
 
     sections: [
@@ -8445,7 +8445,7 @@ class HomeController {
 }`
   },
 
-"Validations": {
+  "Validations": {
     description: "Validation in Spring MVC ensures that user input data is correct, complete, and meets defined constraints before processing it in the application.",
 
     sections: [
@@ -8577,7 +8577,7 @@ class UserController {
 }`
   },
 
-"Join Points": {
+  "Join Points": {
     description: "Aspect-Oriented Programming (AOP) is a programming paradigm used in Spring to separate cross-cutting concerns like logging, security, and transaction management from business logic.",
 
     sections: [
@@ -8699,7 +8699,7 @@ class LoggingAspect {
 }`
   },
 
-"Advice": {
+  "Advice": {
     description: "Advice in Aspect-Oriented Programming (AOP) defines the action that should be taken at a specific join point. It represents the behavior that is applied to a method during execution.",
 
     sections: [
@@ -8838,7 +8838,7 @@ class MyAspect {
 }`
   },
 
-"Advice Aspects": {
+  "Advice Aspects": {
     description: "Advice Aspects refer to the implementation of cross-cutting concerns in Aspect-Oriented Programming, where an Aspect contains multiple Advice methods that are applied at specific join points.",
 
     sections: [
@@ -8955,7 +8955,7 @@ class LoggingAspect {
 }`
   },
 
-"AspectJ Syntax": {
+  "AspectJ Syntax": {
     description: "AspectJ Syntax is used in Spring AOP to define pointcuts and apply advice to specific join points using expressions and annotations.",
 
     sections: [
@@ -9082,7 +9082,7 @@ class MyAspect {
     }
 }`
   },
-"Transaction Meaning": {
+  "Transaction Meaning": {
     description: "Spring Transactions provide a way to manage database operations reliably by ensuring that a group of operations are executed as a single unit of work.",
 
     sections: [
@@ -9201,7 +9201,7 @@ class BankService {
 }`
   },
 
-"Transaction Attributes": {
+  "Transaction Attributes": {
     description: "Transaction attributes in Spring define how transactions behave during method execution. They control aspects like propagation, isolation, timeout, read-only mode, and rollback rules.",
 
     sections: [
@@ -9323,7 +9323,7 @@ class OrderService {
 }`
   },
 
-"Management Support": {
+  "Management Support": {
     description: "Spring provides comprehensive transaction management support that simplifies handling database operations by managing commit and rollback automatically.",
 
     sections: [
@@ -9440,7 +9440,7 @@ class PaymentService {
     }
 }`
   },
-"Introduction to ORM": {
+  "Introduction to ORM": {
     description: "ORM (Object Relational Mapping) is a technique used to convert data between object-oriented programming languages (like Java) and relational databases.",
 
     sections: [
@@ -9562,7 +9562,7 @@ class Student {
     public void setName(String name) { this.name = name; }
 }`
   },
-"Hibernate Integration": {
+  "Hibernate Integration": {
     description: "Hibernate Integration in Spring allows seamless interaction between the Spring Framework and Hibernate ORM to perform database operations efficiently using objects instead of SQL.",
 
     sections: [
@@ -9639,8 +9639,4 @@ public class HibernateConfig {
     }
 }`
   },
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> fca8d5c8265d1acc87b4c0add19e9dd034e535d6
