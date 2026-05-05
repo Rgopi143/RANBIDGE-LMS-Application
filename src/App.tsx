@@ -985,7 +985,7 @@ export default function App() {
                           currentLessonIdx === syllabus[currentSectionIdx].lessons.length - 1 &&
                           (!currentLesson.subTopics || currentLesson.subTopics.length === 0 || selectedSubTopic === currentLesson.subTopics[currentLesson.subTopics.length - 1])
                         }
-                        className="flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-lg shadow-blue-300/40"
+                        className="flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-xl border-2 border-black bg-black text-white hover:bg-gray-800 hover:border-gray-800 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md shadow-black/30"
                       >
                         <div className="font-semibold">Continue</div>
                         <ArrowRight size={18} />
