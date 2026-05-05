@@ -6726,5 +6726,1331 @@ export const subTopicData: Record<string, SubTopicContent> = {
       }
     ],
     code: "<%-- Modern JSP using Expression Language --%>\n<div class=\"user-profile\">\n    <h3>User Name: ${sessionScope.user.profileName}</h3>\n    <p>Viewing Record ID: ${param.uid}</p>\n    <p>Browser Info: ${header['User-Agent']}</p>\n</div>"
-  }
+  },
+    },
+
+  // ============================
+  // SPRING FRAMEWORK SECTION
+  // ============================
+
+  "Introduction to Spring Framework": {
+    description: "Spring Framework is a powerful, lightweight, and widely used Java-based framework for building enterprise-level applications.",
+    sections: [
+      {
+        heading: "Definition",
+        content: "Spring Framework is an open-source Java framework used to develop enterprise applications. It provides comprehensive infrastructure support for developing Java applications easily and efficiently."
+      },
+      {
+        heading: "Introduction",
+        content: "Spring was developed by Rod Johnson in 2003 to simplify complex Java Enterprise Edition (JEE) development. It helps developers build scalable, maintainable, and loosely coupled applications by providing features like Dependency Injection and Aspect-Oriented Programming."
+      },
+      {
+        heading: "Why Spring Framework",
+        points: [
+          "Reduces complexity of enterprise application development",
+          "Lightweight and modular architecture",
+          "Promotes loose coupling using Dependency Injection",
+          "Easy integration with other technologies like Hibernate, JDBC, JPA",
+          "Provides better testability and maintainability"
+        ]
+      }
+    ],
+    keyPoints: [
+      "Developed by Rod Johnson",
+      "Lightweight and open-source framework",
+      "Used for enterprise-level applications",
+      "Supports Dependency Injection and AOP"
+    ]
+  },
+
+  "Features of Spring Framework": {
+    description: "Spring provides many powerful features that simplify Java development.",
+    sections: [
+      {
+        heading: "Core Features",
+        points: [
+          "Lightweight Framework – minimal resource usage",
+          "Dependency Injection (DI) – reduces tight coupling",
+          "Inversion of Control (IoC) – container manages objects",
+          "Aspect-Oriented Programming (AOP) – handles cross-cutting concerns",
+          "Transaction Management – simplifies database transactions",
+          "MVC Architecture – structured web development",
+          "Integration Support – works with Hibernate, JDBC, JPA"
+        ]
+      },
+      {
+        heading: "Dependency Injection",
+        content: "Dependency Injection is a design pattern where objects are created and managed by the Spring container instead of being created manually by the developer."
+      },
+      {
+        heading: "Inversion of Control (IoC)",
+        content: "IoC transfers control of object creation from the programmer to the Spring container, improving modularity and flexibility."
+      },
+      {
+        heading: "Aspect-Oriented Programming (AOP)",
+        content: "AOP allows separation of cross-cutting concerns like logging, security, and transaction management."
+      }
+    ]
+  },
+
+  "Spring Architecture": {
+    description: "Spring Framework is divided into multiple modules grouped into layers, each responsible for specific functionality.",
+    sections: [
+      {
+        heading: "Architecture Overview",
+        content: "Spring architecture is modular and layered, allowing developers to use only required components. The main layers include Core Container, Data Access, Web, AOP, Messaging, and Test."
+      }
+    ]
+  },
+
+  "Spring Core Container": {
+    description: "The Core Container is the heart of the Spring Framework and provides fundamental functionalities.",
+    sections: [
+      {
+        heading: "Modules in Core Container",
+        points: [
+          "Core Module – Provides IoC and Dependency Injection",
+          "Beans Module – Manages beans (objects)",
+          "Context Module – Provides application context",
+          "SpEL (Spring Expression Language) – Used for querying and manipulating objects"
+        ]
+      }
+    ]
+  },
+
+  "Spring Data Access Modules": {
+    description: "This layer handles database interaction and integration with persistence frameworks.",
+    sections: [
+      {
+        heading: "Modules",
+        points: [
+          "JDBC Module – Simplifies database operations",
+          "ORM Module – Integrates with Hibernate and JPA",
+          "Transaction Module – Manages transactions",
+          "OXM Module – Handles XML to Object mapping"
+        ]
+      }
+    ]
+  },
+
+  "Spring Web Modules": {
+    description: "Spring Web layer is used to build web applications and REST APIs.",
+    sections: [
+      {
+        heading: "Modules",
+        points: [
+          "Spring Web – Basic web features",
+          "Spring MVC – Implements Model-View-Controller architecture",
+          "Spring WebFlux – Supports reactive programming"
+        ]
+      }
+    ]
+  },
+
+  "Spring AOP Module": {
+    description: "AOP module enables separation of cross-cutting concerns.",
+    sections: [
+      {
+        heading: "Details",
+        points: [
+          "Used for logging, security, transaction handling",
+          "Improves code modularity",
+          "Reduces code duplication"
+        ]
+      }
+    ]
+  },
+
+  "Spring Messaging Module": {
+    description: "Supports messaging and real-time communication.",
+    sections: [
+      {
+        heading: "Features",
+        points: [
+          "Supports WebSocket communication",
+          "Supports STOMP messaging protocol",
+          "Used for real-time applications"
+        ]
+      }
+    ]
+  },
+
+  "Spring Test Module": {
+    description: "Provides support for testing Spring applications.",
+    sections: [
+      {
+        heading: "Features",
+        points: [
+          "Supports JUnit and TestNG",
+          "Helps in unit and integration testing",
+          "Provides mock objects for testing"
+        ]
+      }
+    ]
+  },
+
+  "Spring Ecosystem": {
+    description: "Spring ecosystem includes additional projects that extend Spring capabilities.",
+    sections: [
+      {
+        heading: "Important Projects",
+        points: [
+          "Spring Boot – Simplifies application setup with auto-configuration",
+          "Spring Security – Provides authentication and authorization",
+          "Spring Data – Simplifies database access",
+          "Spring Cloud – Supports microservices and distributed systems"
+        ]
+      }
+    ]
+  },
+
+  "Working of Spring Framework": {
+    description: "Spring Framework works based on IoC and DI principles.",
+    sections: [
+      {
+        heading: "Working Flow",
+        points: [
+          "Developer writes configuration (XML or annotations)",
+          "Spring container reads configuration",
+          "Beans are created",
+          "Dependencies are injected",
+          "Application runs successfully"
+        ]
+      }
+    ]
+  },
+
+  "Advantages of Spring": {
+    description: "Spring provides many advantages for developers.",
+    keyPoints: [
+      "Reduces development effort",
+      "Improves code maintainability",
+      "Supports modular design",
+      "Easy integration with other technologies",
+      "Strong community support"
+    ]
+  },
+
+  "Limitations of Spring": {
+    description: "Despite its advantages, Spring has some limitations.",
+    keyPoints: [
+      "Initial learning curve",
+      "Configuration complexity (without Spring Boot)",
+      "Requires understanding of DI and AOP concepts"
+    ]
+  },
+
+  "Summary of Spring Framework": {
+    description: "Spring Framework is a powerful, modular, and flexible framework used for enterprise application development.",
+    keyPoints: [
+      "Provides Dependency Injection and AOP",
+      "Supports MVC architecture",
+      "Widely used in enterprise and web applications",
+      "Forms the base for Spring Boot and Microservices"
+    ]
+  },
+  "Dependency Injection (DI)": {
+    description: "Dependency Injection (DI) is a design pattern used in the Spring Framework where the Spring container provides the required dependencies (objects) to a class instead of the class creating them itself.",
+    
+    sections: [
+      {
+        heading: "Definition",
+        content: "Dependency Injection is a technique in which the responsibility of creating objects is transferred from the application code to the Spring container. The container injects required dependencies into a class at runtime."
+      },
+
+      {
+        heading: "What is Dependency?",
+        content: "A dependency is an object that another object requires to function. For example, if a class uses another class, then the second class is called a dependency."
+      },
+
+      {
+        heading: "Why Dependency Injection?",
+        points: [
+          "Reduces tight coupling between classes",
+          "Improves code reusability",
+          "Makes testing easier (supports unit testing)",
+          "Enhances maintainability of code",
+          "Promotes loose coupling and modular design"
+        ]
+      },
+
+      {
+        heading: "Without Dependency Injection",
+        content: "In traditional programming, objects create their dependencies manually using 'new' keyword, which leads to tight coupling.",
+        points: [
+          "Class is responsible for creating its dependencies",
+          "Difficult to modify or replace dependencies",
+          "Hard to test the code"
+        ]
+      },
+
+      {
+        heading: "With Dependency Injection",
+        content: "In DI, Spring container creates and injects dependencies automatically.",
+        points: [
+          "Objects do not create dependencies",
+          "Dependencies are injected by Spring",
+          "Loose coupling between classes",
+          "Easy to change implementation"
+        ]
+      },
+
+      {
+        heading: "Types of Dependency Injection",
+        points: [
+          "Constructor Injection – Dependencies are provided through constructor",
+          "Setter Injection – Dependencies are provided using setter methods",
+          "Field Injection – Dependencies are injected directly into fields"
+        ]
+      },
+
+      {
+        heading: "1. Constructor Injection",
+        content: "Dependencies are injected through the class constructor. It is the most recommended approach because it ensures that the object is fully initialized.",
+      },
+
+      {
+        heading: "2. Setter Injection",
+        content: "Dependencies are injected using setter methods. It is useful when dependencies are optional.",
+      },
+
+      {
+        heading: "3. Field Injection",
+        content: "Dependencies are injected directly into class fields using annotations. It is easy to use but not recommended for large applications."
+      },
+
+      {
+        heading: "How Dependency Injection Works in Spring",
+        points: [
+          "Spring container reads configuration (XML or annotations)",
+          "Creates objects (beans)",
+          "Identifies dependencies",
+          "Injects dependencies into required classes",
+          "Manages lifecycle of beans"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Dependency Injection is part of Inversion of Control (IoC)",
+      "Spring container manages object creation",
+      "Helps achieve loose coupling",
+      "Supports Constructor, Setter, and Field Injection",
+      "Improves testability and maintainability"
+    ],
+
+    code: `// Example using Constructor Injection
+
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+
+@Component
+class Engine {
+    public String start() {
+        return "Engine started";
+    }
+}
+
+@Component
+class Car {
+
+    private Engine engine;
+
+    @Autowired
+    public Car(Engine engine) {
+        this.engine = engine;
+    }
+
+    public void drive() {
+        System.out.println(engine.start());
+    }
+}`
+  },
+  "Spring Container": {
+    description: "Spring Container is the core component of the Spring Framework responsible for creating, configuring, and managing the lifecycle of objects (beans). It uses Dependency Injection to manage dependencies between components.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Spring Container is a part of the Spring Framework that instantiates, configures, and assembles beans. It reads configuration metadata (XML, annotations, or Java configuration) to manage application components."
+      },
+
+      {
+        heading: "What is a Bean?",
+        content: "A bean is an object that is created, configured, and managed by the Spring Container. Beans are the backbone of a Spring application."
+      },
+
+      {
+        heading: "Responsibilities of Spring Container",
+        points: [
+          "Creates and manages objects (beans)",
+          "Performs Dependency Injection",
+          "Configures application components",
+          "Manages bean lifecycle (initialization and destruction)",
+          "Handles configuration metadata"
+        ]
+      },
+
+      {
+        heading: "Types of Spring Containers",
+        points: [
+          "BeanFactory – Basic container with minimal features",
+          "ApplicationContext – Advanced container with more features"
+        ]
+      },
+
+      {
+        heading: "1. BeanFactory",
+        content: "BeanFactory is the simplest container that provides basic Dependency Injection support. It creates beans only when they are requested (lazy initialization).",
+        points: [
+          "Lightweight container",
+          "Uses lazy loading",
+          "Suitable for simple applications"
+        ]
+      },
+
+      {
+        heading: "2. ApplicationContext",
+        content: "ApplicationContext is an advanced container built on top of BeanFactory. It provides additional features like event handling, internationalization, and eager initialization.",
+        points: [
+          "Eager initialization (creates beans at startup)",
+          "Supports AOP, events, and internationalization",
+          "Widely used in enterprise applications"
+        ]
+      },
+
+      {
+        heading: "Configuration Metadata",
+        content: "Spring Container uses configuration metadata to understand how to create and manage beans.",
+        points: [
+          "XML Configuration (beans.xml)",
+          "Annotation-based Configuration (@Component, @Autowired)",
+          "Java-based Configuration (@Configuration, @Bean)"
+        ]
+      },
+
+      {
+        heading: "Bean Lifecycle",
+        content: "Spring Container manages the complete lifecycle of a bean.",
+        points: [
+          "Bean Instantiation",
+          "Dependency Injection",
+          "Initialization (init method)",
+          "Bean is ready for use",
+          "Destruction (destroy method)"
+        ]
+      },
+
+      {
+        heading: "How Spring Container Works",
+        points: [
+          "Reads configuration metadata",
+          "Creates beans",
+          "Injects dependencies",
+          "Manages lifecycle",
+          "Provides beans when required"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Spring Container is the core of Spring Framework",
+      "Manages beans and their lifecycle",
+      "Uses Dependency Injection",
+      "Two main types: BeanFactory and ApplicationContext",
+      "Supports XML, Annotation, and Java-based configuration"
+    ],
+
+    code: `// Example of ApplicationContext
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
+
+@Component
+class Student {
+    public void display() {
+        System.out.println("Bean created by Spring Container");
+    }
+}
+
+public class MainApp {
+    public static void main(String[] args) {
+        ApplicationContext context =
+            new AnnotationConfigApplicationContext(Student.class);
+
+        Student student = context.getBean(Student.class);
+        student.display();
+    }
+}`
+  },
+  "Bean Wiring": {
+    description: "Bean Wiring in Spring refers to the process of connecting different beans (objects) together by injecting dependencies. It defines how one bean is associated with another within the Spring Container.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Bean Wiring is the process of linking beans with their dependencies so that they can work together. The Spring Container automatically handles this wiring using Dependency Injection."
+      },
+
+      {
+        heading: "What is Wiring?",
+        content: "Wiring means establishing relationships between different beans. For example, if one class depends on another class, Spring connects them automatically."
+      },
+
+      {
+        heading: "Why Bean Wiring?",
+        points: [
+          "Reduces manual object creation",
+          "Promotes loose coupling between classes",
+          "Improves code maintainability",
+          "Makes application flexible and scalable",
+          "Simplifies dependency management"
+        ]
+      },
+
+      {
+        heading: "Types of Bean Wiring",
+        points: [
+          "Manual Wiring (XML-based configuration)",
+          "Auto Wiring (Annotation-based configuration)"
+        ]
+      },
+
+      {
+        heading: "1. Manual Wiring (XML Configuration)",
+        content: "In manual wiring, dependencies are explicitly defined in XML configuration files (beans.xml).",
+        points: [
+          "Developer manually specifies dependencies",
+          "Uses <property> or constructor-arg tags",
+          "More control but more configuration"
+        ]
+      },
+
+      {
+        heading: "2. Auto Wiring (Spring Autowiring)",
+        content: "In autowiring, Spring automatically injects dependencies based on type or name.",
+        points: [
+          "Reduces configuration effort",
+          "Uses annotations like @Autowired",
+          "Spring resolves dependencies automatically"
+        ]
+      },
+
+      {
+        heading: "Types of Autowiring",
+        points: [
+          "By Type – Matches bean based on class type",
+          "By Name – Matches bean based on property name",
+          "Constructor – Injects dependencies via constructor",
+          "No Autowiring – Default, no automatic injection"
+        ]
+      },
+
+      {
+        heading: "How Bean Wiring Works",
+        points: [
+          "Spring Container reads configuration",
+          "Identifies beans and their dependencies",
+          "Creates bean objects",
+          "Injects dependencies into beans",
+          "Makes beans ready for use"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Bean Wiring connects different Spring beans",
+      "Achieved using Dependency Injection",
+      "Can be done manually or automatically",
+      "Autowiring reduces configuration effort",
+      "Essential for building loosely coupled applications"
+    ],
+
+    code: `// Example of Autowiring using @Autowired
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+class Engine {
+    public String start() {
+        return "Engine started";
+    }
+}
+
+@Component
+class Car {
+
+    @Autowired
+    private Engine engine;
+
+    public void drive() {
+        System.out.println(engine.start());
+    }
+}`
+  },
+  "Bean Life Cycle": {
+    description: "Bean Life Cycle in Spring defines the stages a bean goes through from creation to destruction. The Spring Container manages the complete lifecycle of a bean.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Bean Life Cycle refers to the process in which a Spring bean is created, initialized, used, and finally destroyed by the Spring Container."
+      },
+
+      {
+        heading: "Phases of Bean Life Cycle",
+        points: [
+          "Bean Instantiation",
+          "Dependency Injection",
+          "Bean Initialization",
+          "Bean Ready for Use",
+          "Bean Destruction"
+        ]
+      },
+
+      {
+        heading: "1. Bean Instantiation",
+        content: "The Spring Container creates the bean instance using constructor or factory method."
+      },
+
+      {
+        heading: "2. Dependency Injection",
+        content: "Spring injects all required dependencies into the bean using constructor, setter, or field injection."
+      },
+
+      {
+        heading: "3. Bean Initialization",
+        content: "After dependencies are injected, initialization methods are called.",
+        points: [
+          "Custom init method (init-method)",
+          "@PostConstruct annotation",
+          "InitializingBean interface (afterPropertiesSet method)"
+        ]
+      },
+
+      {
+        heading: "4. Bean Ready for Use",
+        content: "The bean is now fully initialized and ready to be used in the application."
+      },
+
+      {
+        heading: "5. Bean Destruction",
+        content: "Before the bean is removed from the container, destruction methods are called.",
+        points: [
+          "Custom destroy method (destroy-method)",
+          "@PreDestroy annotation",
+          "DisposableBean interface (destroy method)"
+        ]
+      },
+
+      {
+        heading: "Bean Lifecycle Interfaces",
+        points: [
+          "InitializingBean – used for initialization logic",
+          "DisposableBean – used for cleanup logic"
+        ]
+      },
+
+      {
+        heading: "Annotations Used",
+        points: [
+          "@PostConstruct – called after bean initialization",
+          "@PreDestroy – called before bean destruction"
+        ]
+      },
+
+      {
+        heading: "How Spring Manages Lifecycle",
+        points: [
+          "Reads configuration metadata",
+          "Creates bean objects",
+          "Injects dependencies",
+          "Calls initialization methods",
+          "Provides bean for usage",
+          "Calls destroy methods before removing bean"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Bean lifecycle is managed by Spring Container",
+      "Includes creation, initialization, and destruction",
+      "Supports annotations and interfaces",
+      "Important for resource management",
+      "Ensures proper setup and cleanup of beans"
+    ],
+
+    code: `// Example of Bean Lifecycle using annotations
+
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import org.springframework.stereotype.Component;
+
+@Component
+class Student {
+
+    public Student() {
+        System.out.println("Bean Instantiated");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Bean Initialized");
+    }
+
+    public void study() {
+        System.out.println("Bean is ready to use");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("Bean Destroyed");
+    }
+}`
+  },
+  "Spring Data Access & JDBC": {
+    description: "Spring Data Access layer provides support for interacting with databases. Spring JDBC simplifies database operations by reducing boilerplate code and handling exceptions efficiently.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Spring Data Access is a part of the Spring Framework that provides abstraction for database interaction. It supports JDBC, ORM frameworks like Hibernate, and transaction management."
+      },
+
+      {
+        heading: "What is JDBC?",
+        content: "JDBC (Java Database Connectivity) is an API used to connect and execute queries with a database. Spring simplifies JDBC by removing repetitive code like connection handling and exception management."
+      },
+
+      {
+        heading: "Why Spring JDBC?",
+        points: [
+          "Reduces boilerplate code",
+          "Handles resource management automatically",
+          "Provides consistent exception handling",
+          "Simplifies SQL execution",
+          "Improves readability and maintainability"
+        ]
+      },
+
+      {
+        heading: "Spring JDBC Core Classes",
+        points: [
+          "JdbcTemplate – Main class for executing SQL queries",
+          "NamedParameterJdbcTemplate – Supports named parameters",
+          "RowMapper – Maps rows of result set to objects",
+          "DataSource – Provides database connection"
+        ]
+      },
+
+      {
+        heading: "JdbcTemplate",
+        content: "JdbcTemplate is the central class in Spring JDBC. It simplifies database operations like insert, update, delete, and query execution."
+      },
+
+      {
+        heading: "Steps to Use Spring JDBC",
+        points: [
+          "Configure DataSource (database connection)",
+          "Create JdbcTemplate object",
+          "Write SQL queries",
+          "Execute queries using JdbcTemplate methods",
+          "Process results"
+        ]
+      },
+
+      {
+        heading: "Working of Spring JDBC",
+        points: [
+          "Spring gets database connection from DataSource",
+          "Executes SQL query using JdbcTemplate",
+          "Handles exceptions automatically",
+          "Closes resources (connection, statement, result set)"
+        ]
+      },
+
+      {
+        heading: "String Handling in JDBC",
+        content: "Strings are commonly used in SQL queries for inserting, updating, and retrieving text data from the database.",
+        points: [
+          "Used in SQL queries (INSERT, UPDATE, SELECT)",
+          "Can be passed as parameters in JdbcTemplate",
+          "Helps in dynamic query building",
+          "Avoid SQL injection using prepared statements"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Spring JDBC simplifies database interaction",
+      "JdbcTemplate is the core class",
+      "Reduces boilerplate code",
+      "Handles exceptions and resource management",
+      "Supports safe handling of String data in queries"
+    ],
+
+    code: `// Example: Spring JDBC with String
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
+class StudentRepository {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public void insertStudent(String name) {
+        String sql = "INSERT INTO students(name) VALUES (?)";
+        jdbcTemplate.update(sql, name);
+    }
+
+    public String getStudentName(int id) {
+        String sql = "SELECT name FROM students WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, String.class, id);
+    }
+}`
+  },
+  "DataSource": {
+    description: "DataSource in Spring is used to establish and manage connections with a database. It acts as a factory for database connections and is a key component in Spring JDBC.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "DataSource is an interface (javax.sql.DataSource) used to provide database connections. In Spring, it is configured as a bean and used by JdbcTemplate or ORM frameworks to interact with the database."
+      },
+
+      {
+        heading: "Purpose of DataSource",
+        points: [
+          "Provides database connections",
+          "Manages connection creation and closing",
+          "Improves performance using connection pooling",
+          "Centralizes database configuration",
+          "Used by JdbcTemplate and other persistence frameworks"
+        ]
+      },
+
+      {
+        heading: "Why DataSource is Important?",
+        points: [
+          "Avoids repeated creation of database connections",
+          "Supports connection pooling (reuse of connections)",
+          "Improves application performance",
+          "Simplifies database configuration",
+          "Ensures efficient resource management"
+        ]
+      },
+
+      {
+        heading: "Types of DataSource",
+        points: [
+          "DriverManagerDataSource – Simple implementation (no pooling)",
+          "BasicDataSource – Supports connection pooling",
+          "HikariDataSource – High-performance connection pooling (recommended)"
+        ]
+      },
+
+      {
+        heading: "1. DriverManagerDataSource",
+        content: "This is a simple DataSource implementation used mainly for testing or small applications. It does not support connection pooling.",
+      },
+
+      {
+        heading: "2. BasicDataSource",
+        content: "Provided by Apache DBCP, it supports connection pooling and improves performance compared to DriverManagerDataSource."
+      },
+
+      {
+        heading: "3. HikariDataSource",
+        content: "HikariCP is a fast and efficient connection pooling library. It is the default DataSource used in Spring Boot."
+      },
+
+      {
+        heading: "How DataSource Works",
+        points: [
+          "Application requests a database connection",
+          "DataSource provides connection from pool",
+          "Application executes SQL queries",
+          "Connection is returned back to pool after use",
+          "Reused for future requests"
+        ]
+      },
+
+      {
+        heading: "Configuration Methods",
+        points: [
+          "XML Configuration",
+          "Java-based Configuration (@Bean)",
+          "Spring Boot auto-configuration (application.properties)"
+        ]
+      },
+
+      {
+        heading: "Common Properties",
+        points: [
+          "url – Database URL",
+          "username – Database username",
+          "password – Database password",
+          "driverClassName – JDBC driver class"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "DataSource is used to manage database connections",
+      "Acts as a connection factory",
+      "Improves performance using connection pooling",
+      "Used by JdbcTemplate and ORM frameworks",
+      "HikariCP is the most recommended DataSource"
+    ],
+
+    code: `// Example: DataSource Configuration using Java
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import javax.sql.DataSource;
+
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource ds = new DriverManagerDataSource();
+        ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        ds.setUrl("jdbc:mysql://localhost:3306/testdb");
+        ds.setUsername("root");
+        ds.setPassword("password");
+        return ds;
+    }
+}`
+  },
+  "JdbcTemplate": {
+    description: "JdbcTemplate is the core class in Spring JDBC that simplifies database operations by handling connection management, exception handling, and executing SQL queries.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "JdbcTemplate is a helper class provided by Spring Framework to simplify JDBC operations. It eliminates boilerplate code like opening/closing connections and handling exceptions."
+      },
+
+      {
+        heading: "Why JdbcTemplate?",
+        points: [
+          "Removes repetitive JDBC code",
+          "Handles resource management automatically",
+          "Provides built-in exception handling",
+          "Simplifies execution of SQL queries",
+          "Improves readability and maintainability"
+        ]
+      },
+
+      {
+        heading: "Key Responsibilities",
+        points: [
+          "Executes SQL queries",
+          "Handles database connections",
+          "Manages PreparedStatement and ResultSet",
+          "Converts SQL exceptions into Spring exceptions",
+          "Processes query results"
+        ]
+      },
+
+      {
+        heading: "Common Methods of JdbcTemplate",
+        points: [
+          "update() – Used for INSERT, UPDATE, DELETE operations",
+          "queryForObject() – Returns single value/object",
+          "query() – Returns multiple rows (List)",
+          "execute() – Executes SQL statements",
+          "batchUpdate() – Executes multiple queries in batch"
+        ]
+      },
+
+      {
+        heading: "update() Method",
+        content: "Used for inserting, updating, and deleting records in the database."
+      },
+
+      {
+        heading: "queryForObject() Method",
+        content: "Used when a query returns a single value or a single row."
+      },
+
+      {
+        heading: "query() Method",
+        content: "Used to retrieve multiple rows from the database and map them into objects."
+      },
+
+      {
+        heading: "Steps to Use JdbcTemplate",
+        points: [
+          "Configure DataSource",
+          "Create JdbcTemplate bean",
+          "Write SQL query",
+          "Call JdbcTemplate methods",
+          "Process the result"
+        ]
+      },
+
+      {
+        heading: "Advantages of JdbcTemplate",
+        points: [
+          "Reduces boilerplate code",
+          "Automatically manages resources",
+          "Provides consistent exception handling",
+          "Supports prepared statements (safe queries)",
+          "Easy to integrate with Spring"
+        ]
+      },
+
+      {
+        heading: "How JdbcTemplate Works",
+        points: [
+          "Gets connection from DataSource",
+          "Prepares SQL statement",
+          "Executes query",
+          "Processes result set",
+          "Closes connection automatically"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "JdbcTemplate simplifies JDBC operations",
+      "Handles connection and exception management",
+      "Provides methods for CRUD operations",
+      "Uses prepared statements for safety",
+      "Widely used in Spring applications"
+    ],
+
+    code: `// Example: JdbcTemplate CRUD operations
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
+class StudentRepository {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    // Insert
+    public void insertStudent(int id, String name) {
+        String sql = "INSERT INTO students(id, name) VALUES (?, ?)";
+        jdbcTemplate.update(sql, id, name);
+    }
+
+    // Update
+    public void updateStudent(int id, String name) {
+        String sql = "UPDATE students SET name = ? WHERE id = ?";
+        jdbcTemplate.update(sql, name, id);
+    }
+
+    // Delete
+    public void deleteStudent(int id) {
+        String sql = "DELETE FROM students WHERE id = ?";
+        jdbcTemplate.update(sql, id);
+    }
+
+    // Select
+    public String getStudentName(int id) {
+        String sql = "SELECT name FROM students WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, String.class, id);
+    }
+}`
+  },
+  "DML Operations": {
+    description: "DML (Data Manipulation Language) operations are used to manipulate data stored in a database. In Spring, these operations are commonly performed using JdbcTemplate.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "DML stands for Data Manipulation Language. It includes SQL commands used to insert, update, delete, and retrieve data from a database."
+      },
+
+      {
+        heading: "Types of DML Operations",
+        points: [
+          "INSERT – Adds new records",
+          "UPDATE – Modifies existing records",
+          "DELETE – Removes records",
+          "SELECT – Retrieves data from database"
+        ]
+      },
+
+      {
+        heading: "1. INSERT Operation",
+        content: "INSERT is used to add new records into a table.",
+        points: [
+          "Adds new data into database",
+          "Uses VALUES keyword",
+          "Can insert single or multiple records"
+        ]
+      },
+
+      {
+        heading: "2. UPDATE Operation",
+        content: "UPDATE is used to modify existing data in a table.",
+        points: [
+          "Updates existing records",
+          "Uses SET keyword",
+          "Usually combined with WHERE clause"
+        ]
+      },
+
+      {
+        heading: "3. DELETE Operation",
+        content: "DELETE is used to remove records from a table.",
+        points: [
+          "Deletes specific records",
+          "Uses WHERE clause for conditions",
+          "Without WHERE deletes all records"
+        ]
+      },
+
+      {
+        heading: "4. SELECT Operation",
+        content: "SELECT is used to retrieve data from the database.",
+        points: [
+          "Fetches data from tables",
+          "Can use conditions (WHERE)",
+          "Supports sorting (ORDER BY)",
+          "Supports filtering (LIKE, IN, etc.)"
+        ]
+      },
+
+      {
+        heading: "DML in Spring JdbcTemplate",
+        content: "Spring JdbcTemplate provides simple methods to perform DML operations without writing complex JDBC code.",
+        points: [
+          "update() – Used for INSERT, UPDATE, DELETE",
+          "queryForObject() – Used for single value SELECT",
+          "query() – Used for multiple rows SELECT"
+        ]
+      },
+
+      {
+        heading: "Advantages of Using JdbcTemplate for DML",
+        points: [
+          "Reduces boilerplate code",
+          "Handles connections automatically",
+          "Prevents SQL injection using placeholders (?)",
+          "Provides clean and readable code"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "DML is used to manipulate database data",
+      "Includes INSERT, UPDATE, DELETE, SELECT",
+      "JdbcTemplate simplifies DML operations",
+      "update() method is used for INSERT, UPDATE, DELETE",
+      "query() and queryForObject() are used for SELECT"
+    ],
+
+    code: `// Example: DML Operations using JdbcTemplate
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
+class StudentRepository {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    // INSERT
+    public void insertStudent(int id, String name) {
+        String sql = "INSERT INTO students(id, name) VALUES (?, ?)";
+        jdbcTemplate.update(sql, id, name);
+    }
+
+    // UPDATE
+    public void updateStudent(int id, String name) {
+        String sql = "UPDATE students SET name = ? WHERE id = ?";
+        jdbcTemplate.update(sql, name, id);
+    }
+
+    // DELETE
+    public void deleteStudent(int id) {
+        String sql = "DELETE FROM students WHERE id = ?";
+        jdbcTemplate.update(sql, id);
+    }
+
+    // SELECT
+    public String getStudentName(int id) {
+        String sql = "SELECT name FROM students WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, String.class, id);
+    }
+}`
+  },
+  "Spring Web MVC": {
+    description: "Spring Web MVC is a web framework in Spring used to build web applications following the Model-View-Controller (MVC) design pattern. It separates application logic, user interface, and control flow.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Spring Web MVC is a module of the Spring Framework that helps in building web applications using the Model-View-Controller architecture."
+      },
+
+      {
+        heading: "What is MVC?",
+        content: "MVC stands for Model-View-Controller, a design pattern that separates application into three components."
+      },
+
+      {
+        heading: "Components of MVC",
+        points: [
+          "Model – Represents application data and business logic",
+          "View – Represents UI (HTML, JSP, Thymeleaf)",
+          "Controller – Handles user requests and responses"
+        ]
+      },
+
+      {
+        heading: "How Spring MVC Works",
+        points: [
+          "Client sends request (HTTP Request)",
+          "DispatcherServlet receives request",
+          "HandlerMapping finds the appropriate controller",
+          "Controller processes request",
+          "Returns Model and View",
+          "ViewResolver resolves view",
+          "Response sent back to client"
+        ]
+      },
+
+      {
+        heading: "DispatcherServlet",
+        content: "DispatcherServlet is the front controller in Spring MVC that handles all incoming HTTP requests and routes them to appropriate controllers."
+      },
+
+      {
+        heading: "Advantages of Spring MVC",
+        points: [
+          "Clear separation of concerns",
+          "Flexible and modular architecture",
+          "Easy integration with other frameworks",
+          "Supports RESTful web services",
+          "Highly testable"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Spring MVC follows Model-View-Controller pattern",
+      "DispatcherServlet acts as front controller",
+      "Separates business logic and UI",
+      "Supports web and REST applications",
+      "Widely used in enterprise applications"
+    ]
+  },
+
+  "Controllers in Spring MVC": {
+    description: "Controllers in Spring MVC handle incoming HTTP requests, process them, and return responses. They act as a bridge between Model and View.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "A Controller is a Java class that handles user requests and returns appropriate responses using Spring MVC."
+      },
+
+      {
+        heading: "Role of Controller",
+        points: [
+          "Handles incoming HTTP requests",
+          "Processes business logic",
+          "Interacts with Model",
+          "Returns view or response data"
+        ]
+      },
+
+      {
+        heading: "Types of Controllers",
+        points: [
+          "@Controller – Used for returning views (HTML/JSP)",
+          "@RestController – Used for REST APIs (JSON/XML response)"
+        ]
+      },
+
+      {
+        heading: "@Controller",
+        content: "Used when returning a view (UI). It works with ViewResolver to render pages."
+      },
+
+      {
+        heading: "@RestController",
+        content: "@RestController is a combination of @Controller and @ResponseBody. It is used to build REST APIs and returns data directly in JSON or XML format."
+      },
+
+      {
+        heading: "Request Mapping",
+        content: "Spring uses annotations to map HTTP requests to controller methods.",
+        points: [
+          "@RequestMapping – General mapping",
+          "@GetMapping – Handles GET requests",
+          "@PostMapping – Handles POST requests",
+          "@PutMapping – Handles PUT requests",
+          "@DeleteMapping – Handles DELETE requests"
+        ]
+      },
+
+      {
+        heading: "How Controller Works",
+        points: [
+          "Client sends request",
+          "DispatcherServlet forwards request",
+          "Controller method is called",
+          "Processes request",
+          "Returns response (View or JSON)"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Controller handles HTTP requests",
+      "@Controller returns views",
+      "@RestController returns JSON/XML",
+      "Uses mapping annotations for routing",
+      "Acts as bridge between Model and View"
+    ],
+
+    code: `// Example: Spring MVC Controller
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+class HomeController {
+
+    @GetMapping("/home")
+    @ResponseBody
+    public String home() {
+        return "Welcome to Spring MVC!";
+    }
+}
+
+// Example: REST Controller
+
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@RestController
+class StudentController {
+
+    @GetMapping("/student")
+    public String getStudent() {
+        return "Student Data";
+    }
+}`
+  },
 };
