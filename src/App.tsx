@@ -793,8 +793,8 @@ export default function App() {
                           onClick={() => toggleLessonCompletion(selectedSubTopic ? `${currentLesson.id}:${selectedSubTopic}` : currentLesson.id)}
                           className={`flex items-center gap-2 px-6 py-2.5 rounded-2xl font-bold transition-all shadow-lg ${
                             completedLessons.includes(selectedSubTopic ? `${currentLesson.id}:${selectedSubTopic}` : currentLesson.id)
-                            ? 'bg-emerald-50 text-emerald-700 shadow-emerald-100/50 border border-emerald-100'
-                            : 'bg-emerald-600 text-white shadow-emerald-600/40 hover:scale-105 active:scale-100'
+                            ? 'bg-gradient-to-r from-emerald-100 to-emerald-50 text-emerald-800 shadow-emerald-200/50 border-2 border-emerald-200'
+                            : 'bg-gradient-to-r from-emerald-600 to-emerald-700 text-white shadow-emerald-600/40 hover:scale-105 active:scale-100 hover:from-emerald-700 hover:to-emerald-800'
                           }`}
                           disabled={isActionLoading}
                         >
@@ -846,7 +846,7 @@ export default function App() {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => alert("AI Summary functionality will be implemented in a future update!")}
-                                className="flex items-center gap-2 px-4 py-2 text-sm font-bold bg-violet-100 text-violet-700 hover:bg-violet-200 rounded-xl transition-colors shadow-sm"
+                                className="flex items-center gap-2 px-4 py-2 text-sm font-bold bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700 rounded-xl transition-all shadow-md shadow-violet-300/40"
                               >
                                 <Sparkles size={16} />
                                 Summarize
@@ -970,7 +970,7 @@ export default function App() {
                         whileTap={{ scale: 0.95 }}
                         onClick={prevLesson}
                         disabled={currentSectionIdx === 0 && currentLessonIdx === 0 && selectedSubTopic === null}
-                        className="flex items-center gap-2 px-6 py-3 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                        className="flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:border-blue-400 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md shadow-blue-200/50"
                       >
                         <ArrowLeft size={18} />
                         <div className="font-semibold">Back</div>
@@ -985,7 +985,7 @@ export default function App() {
                           currentLessonIdx === syllabus[currentSectionIdx].lessons.length - 1 &&
                           (!currentLesson.subTopics || currentLesson.subTopics.length === 0 || selectedSubTopic === currentLesson.subTopics[currentLesson.subTopics.length - 1])
                         }
-                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-lg shadow-slate-200"
+                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-lg shadow-blue-300/40"
                       >
                         <div className="font-semibold">Continue</div>
                         <ArrowRight size={18} />
