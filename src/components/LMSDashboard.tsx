@@ -2103,7 +2103,11 @@ Enable JPA repositories with @EnableJpaRepositories`,
                       placeholder="Edit your note content..."
                     />
                   ) : (
-                    <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">{selectedNote.content}</p>
+                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-6 shadow-lg">
+                      <div className="bg-white/80 backdrop-blur rounded-lg p-4">
+                        <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">{selectedNote.content}</p>
+                      </div>
+                    </div>
                   )}
                 </div>
 
@@ -3919,7 +3923,11 @@ Enable JPA repositories with @EnableJpaRepositories`,
                         placeholder="Edit your note content..."
                       />
                     ) : (
-                      <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">{selectedNote.content}</p>
+                      <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-6 shadow-lg">
+                        <div className="bg-white/80 backdrop-blur rounded-lg p-4">
+                          <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">{selectedNote.content}</p>
+                        </div>
+                      </div>
                     )}
 
                   </div>

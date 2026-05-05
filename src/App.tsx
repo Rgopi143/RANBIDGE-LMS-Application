@@ -62,7 +62,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentView, setCurrentView] = useState<'home' | 'landing' | 'lms' | 'lesson' | 'playground' | 'notes' | 'assignments' | 'references' | 'admin'>(() => {
     const saved = localStorage.getItem('appCurrentView');
-    return saved ? JSON.parse(saved) : 'lms';
+    return saved ? JSON.parse(saved) : 'home';
   });
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
   const [moduleStats, setModuleStats] = useState<Record<string, { startTime: string | null, endTime: string | null }>>({});
@@ -929,8 +929,12 @@ export default function App() {
                           </motion.div>
                         ) : (
                           <>
-                            <h2 className="text-2xl font-bold text-slate-900 mb-4">{currentLesson.title}</h2>
-                            {currentLesson.content}
+                            <div className="bg-white border-2 border-slate-200 rounded-xl p-6 shadow-lg mb-6">
+                              <h2 className="text-2xl font-bold text-slate-900 mb-4">{currentLesson.title}</h2>
+                              <div className="text-slate-700 leading-relaxed whitespace-pre-wrap">
+                                {currentLesson.content}
+                              </div>
+                            </div>
                           </>
                         )}
                       </div>
