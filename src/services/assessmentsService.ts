@@ -119,7 +119,7 @@ export const mockAnswers: Answer[] = [
     score: 0, 
     graded: false, 
     submitted: '2024-03-25T13:30:00Z', 
-    feedback: null 
+    feedback: undefined 
   }
 ];
 

@@ -224,6 +224,55 @@ export default function LMSDashboard({
 
   const [showNotifications, setShowNotifications] = useState(false);
 
+  const [notifications, setNotifications] = useState([
+    {
+      id: 1,
+      type: 'assignment',
+      title: 'New Assignment Posted',
+      message: 'Java Spring Boot Assignment #3 is now available',
+      time: '5 minutes ago',
+      read: false,
+      icon: FileText,
+      color: 'bg-blue-500'
+    },
+    {
+      id: 2,
+      type: 'achievement',
+      title: 'Achievement Unlocked!',
+      message: 'You completed your first week of learning',
+      time: '1 hour ago',
+      read: false,
+      icon: Award,
+      color: 'bg-slate-500'
+    },
+    {
+      id: 3,
+      type: 'course',
+      title: 'Course Update',
+      message: 'React Fundamentals has new content',
+      time: '3 hours ago',
+      read: true,
+      icon: BookOpen,
+      color: 'bg-purple-500'
+    },
+    {
+      id: 4,
+      type: 'reminder',
+      title: 'Study Reminder',
+      message: 'Don\'t forget to continue your Java course',
+      time: '1 day ago',
+      read: true,
+      icon: Bell,
+      color: 'bg-orange-500'
+    }
+  ]);
+
+  // Clear all notifications
+  const clearNotifications = () => {
+    setNotifications([]);
+    setShowNotifications(false);
+  };
+
   const [showProfile, setShowProfile] = useState(false);
 
   const [showSettings, setShowSettings] = useState(false);
@@ -574,92 +623,7 @@ export default function LMSDashboard({
 
 
 
-  // Mock notifications data
-
-  const notifications = [
-
-    {
-
-      id: 1,
-
-      type: 'assignment',
-
-      title: 'New Assignment Posted',
-
-      message: 'Java Spring Boot Assignment #3 is now available',
-
-      time: '5 minutes ago',
-
-      read: false,
-
-      icon: FileText,
-
-      color: 'bg-blue-500'
-
-    },
-
-    {
-
-      id: 2,
-
-      type: 'achievement',
-
-      title: 'Achievement Unlocked!',
-
-      message: 'You completed your first week of learning',
-
-      time: '1 hour ago',
-
-      read: false,
-
-      icon: Award,
-
-      color: 'bg-slate-500'
-
-    },
-
-    {
-
-      id: 3,
-
-      type: 'course',
-
-      title: 'Course Update',
-
-      message: 'React Fundamentals has new content',
-
-      time: '3 hours ago',
-
-      read: true,
-
-      icon: BookOpen,
-
-      color: 'bg-purple-500'
-
-    },
-
-    {
-
-      id: 4,
-
-      type: 'reminder',
-
-      title: 'Study Reminder',
-
-      message: 'Don\'t forget to continue your Java course',
-
-      time: '1 day ago',
-
-      read: true,
-
-      icon: Bell,
-
-      color: 'bg-orange-500'
-
-    }
-
-  ];
-
+  
 
 
   // Mock data for demonstration
@@ -1524,9 +1488,11 @@ Enable JPA repositories with @EnableJpaRepositories`,
                   whileTap={{ scale: 0.95 }}
 
                   onClick={() => {
-
-                    setShowNotifications(!showNotifications);
-
+                    if (!showNotifications && notifications.length > 0) {
+                      clearNotifications();
+                    } else {
+                      setShowNotifications(!showNotifications);
+                    }
                     setShowProfile(false);
 
                     setShowSettings(false);
@@ -1597,11 +1563,13 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                           whileTap={{ scale: 0.95 }}
 
+                          onClick={clearNotifications}
+
                           className="text-xs text-slate-600 hover:text-slate-700 font-medium"
 
                         >
 
-                          Mark all as read
+                          Clear all notifications
 
                         </motion.button>
 
@@ -1612,13 +1580,16 @@ Enable JPA repositories with @EnableJpaRepositories`,
                     
 
                     <div className="max-h-96 overflow-y-auto">
+                      {notifications.length > 0 ? (
+                        notifications.map((notification, index) => (
 
-                      {notifications.map((notification, index) => (
+                          <motion.div
 
-                        <motion.div
+                            key={notification.id}
 
-                          key={notification.id}
+                            initial={{ opacity: 0, x: -20 }}
 
+                            animate={{ opacity: 1, x: 0 }}
                           initial={{ opacity: 0, x: -20 }}
 
                           animate={{ opacity: 1, x: 0 }}
@@ -1681,8 +1652,13 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                         </motion.div>
 
-                      ))}
-
+                      ))
+                      : (
+                        <div className="text-center py-12">
+                          <Bell size={32} className="text-slate-200 mx-auto mb-4" />
+                          <p className="text-sm text-slate-400 font-medium">No notifications yet</p>
+                        </div>
+                      )}
                     </div>
 
                     
@@ -2103,7 +2079,11 @@ Enable JPA repositories with @EnableJpaRepositories`,
                       placeholder="Edit your note content..."
                     />
                   ) : (
-                    <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">{selectedNote.content}</p>
+                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-6 shadow-lg">
+                      <div className="bg-white/80 backdrop-blur rounded-lg p-4">
+                        <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">{selectedNote.content}</p>
+                      </div>
+                    </div>
                   )}
                 </div>
 
@@ -3919,7 +3899,11 @@ Enable JPA repositories with @EnableJpaRepositories`,
                         placeholder="Edit your note content..."
                       />
                     ) : (
-                      <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">{selectedNote.content}</p>
+                      <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-6 shadow-lg">
+                        <div className="bg-white/80 backdrop-blur rounded-lg p-4">
+                          <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">{selectedNote.content}</p>
+                        </div>
+                      </div>
                     )}
 
                   </div>

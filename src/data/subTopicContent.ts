@@ -9639,4 +9639,8 @@ public class HibernateConfig {
     }
 }`
   },
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> fca8d5c8265d1acc87b4c0add19e9dd034e535d6
