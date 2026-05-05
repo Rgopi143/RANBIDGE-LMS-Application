@@ -567,7 +567,7 @@ export default function App() {
         <div className="flex h-screen overflow-hidden">
           {currentView === 'lesson' && (
             <aside 
-              className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} z-40 w-84 bg-white border-r border-slate-200 h-full overflow-y-auto transition-all duration-300 ease-in-out shrink-0`}
+              className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} z-40 w-72 sm:w-80 lg:w-84 bg-white border-r border-slate-200 h-full overflow-y-auto transition-all duration-300 ease-in-out shrink-0`}
             >
               <div className="p-6 border-b border-slate-100 bg-slate-50/50">
                 <div className="flex items-center justify-between mb-4">
@@ -745,10 +745,10 @@ export default function App() {
             {currentView === 'lesson' && !isSidebarOpen && (
               <button 
                 onClick={() => setIsSidebarOpen(true)}
-                className="fixed top-6 left-6 z-50 p-3 bg-white rounded-2xl shadow-xl border border-slate-100 text-slate-600 hover:text-slate-900 transition-all hover:scale-110 active:scale-95 group"
+                className="fixed top-4 left-4 z-50 p-2.5 sm:p-3 bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl border border-slate-100 text-slate-600 hover:text-slate-900 transition-all hover:scale-110 active:scale-95 group"
                 title="Open Sidebar"
               >
-                <Menu size={20} className="group-hover:rotate-12 transition-transform" />
+                <Menu size={18} className="sm:group-hover:rotate-12 transition-transform" />
               </button>
             )}
             {currentView === 'home' ? (
@@ -770,7 +770,7 @@ export default function App() {
                   />
                 </div>
 
-                <div className="max-w-4xl mx-auto px-6 py-12 lg:px-12">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 lg:px-12 lg:py-12">
                   <motion.div
                     key={currentLesson.id}
                     initial={{ opacity: 0, y: 20 }}
@@ -783,7 +783,7 @@ export default function App() {
                         <BookOpen size={16} />
                         <span>{currentSection.title}</span>
                       </div>
-                      <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
+                      <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-slate-900 tracking-tight">
                         {currentLesson.title}
                       </h1>
                       
@@ -791,7 +791,7 @@ export default function App() {
                         <motion.button 
                           whileTap={{ scale: 0.95 }}
                           onClick={() => toggleLessonCompletion(selectedSubTopic ? `${currentLesson.id}:${selectedSubTopic}` : currentLesson.id)}
-                          className={`flex items-center gap-2 px-6 py-2.5 rounded-2xl font-bold transition-all shadow-lg ${
+                          className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 rounded-2xl font-bold transition-all shadow-lg w-full sm:w-auto ${
                             completedLessons.includes(selectedSubTopic ? `${currentLesson.id}:${selectedSubTopic}` : currentLesson.id)
                             ? 'bg-gradient-to-r from-emerald-100 to-emerald-50 text-emerald-800 shadow-emerald-200/50 border-2 border-emerald-200'
                             : 'bg-gradient-to-r from-emerald-600 to-emerald-700 text-white shadow-emerald-600/40 hover:scale-105 active:scale-100 hover:from-emerald-700 hover:to-emerald-800'
@@ -964,13 +964,13 @@ export default function App() {
                     )}
 
                     {/* Navigation Buttons */}
-                    <div className="pt-12 border-t border-slate-100 flex items-center justify-between">
+                    <div className="pt-8 sm:pt-12 border-t border-slate-100 flex items-center justify-between gap-4">
                       <motion.button 
                         whileHover={{ x: -4 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={prevLesson}
                         disabled={currentSectionIdx === 0 && currentLessonIdx === 0 && selectedSubTopic === null}
-                        className="flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-blue-300 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:border-blue-400 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md shadow-blue-200/50"
+                        className="flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-xl border-2 border-black bg-black text-white hover:bg-gray-800 hover:border-gray-800 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md shadow-black/30"
                       >
                         <ArrowLeft size={18} />
                         <div className="font-semibold">Back</div>
@@ -985,7 +985,7 @@ export default function App() {
                           currentLessonIdx === syllabus[currentSectionIdx].lessons.length - 1 &&
                           (!currentLesson.subTopics || currentLesson.subTopics.length === 0 || selectedSubTopic === currentLesson.subTopics[currentLesson.subTopics.length - 1])
                         }
-                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-lg shadow-blue-300/40"
+                        className="flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-lg shadow-blue-300/40"
                       >
                         <div className="font-semibold">Continue</div>
                         <ArrowRight size={18} />
