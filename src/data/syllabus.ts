@@ -149,7 +149,7 @@ export const syllabus: Section[] = [
         id: "spring-mvc-new",
         title: "3. Spring Web-MVC",
         content: "3.1 Controllers\n3.2 Handling Web Requests\n3.3 Mapping Requests\n3.4 Form Submissions\n3.5 View Resolvers\n3.6 Validations",
-        subTopics: ["Controllers", "Handling Web Requests", "Mapping Requests", "Form Submissions", "View Resolvers", "Validations"]
+        subTopics: ["Spring Web MVC", "Controllers", "Handling Web Requests", "Mapping Requests", "Form Submissions", "View Resolvers", "Validations"]
       },
       {
         id: "aop-new",

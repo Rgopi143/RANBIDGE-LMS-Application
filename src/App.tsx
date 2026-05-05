@@ -27,7 +27,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { User } from '@supabase/supabase-js';
-import { supabase } from './supabase';
+import { supabase } from './supabase.ts';
 import Auth from './components/Auth';
 import LandingPage from './components/LandingPage';
 import LoadingSpinner from './components/LoadingSpinner';
