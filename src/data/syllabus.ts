@@ -184,32 +184,32 @@ export const syllabus: Section[] = [
       {
         id: "html-new",
         title: "HTML (HYPERTEXT MARKUP LANGUAGE)",
-        content: "Module 1-8: Intro to Forms",
+        content: "I. Introduction to HTML\nII. Basic HTML Tags\nIII. HTML Links\nIV. HTML Media\nV. HTML Lists\nVI. HTML Tables\nVII. HTML Forms\nVIII. Semantic HTML",
         subTopics: ["Introduction to HTML", "Basic HTML Tags", "HTML Links", "HTML Media", "HTML Lists", "HTML Tables", "HTML Forms", "Semantic HTML"]
       },
       {
         id: "css-new",
         title: "CSS (CASCADING STYLE SHEETS)",
-        content: "Module 1-11: Basics to Animations",
+        content: "I. CSS and Selectors\nII. CSS Box Model\nIII. CSS Positioning\nIV. CSS Flexbox\nV. CSS Grid\nVI. Responsive Web Design\nVII. CSS Variables\nVIII. CSS Animations",
         subTopics: ["CSS and Selectors", "CSS Box Model", "CSS Positioning", "CSS Flexbox", "CSS Grid", "Responsive Web Design", "CSS Variables", "CSS Animations"]
       },
       {
         id: "js-new",
         title: "JAVASCRIPT",
-        content: "Module 1-12: Basics to Async/Await",
+        content: "I. JS Variables\nII. JS Data Types\nIII. JS Operators\nIV. JS Control Flow\nV. JS Functions\nVI. JS Scopes\nVII. JS Arrays\nVIII. JS Objects\nIX. JS DOM\nX. JS Events\nXI. JS Promises\nXII. JS Async Await",
         subTopics: ["JS Variables", "JS Data Types", "JS Operators", "JS Control Flow", "JS Functions", "JS Scopes", "JS Arrays", "JS Objects", "JS DOM", "JS Events", "JS Promises", "JS Async Await"]
       }
     ]
   },
   {
     id: "sql-new",
-    title: "SQL (Structured Query Language)",
+    title: "SQL",
     lessons: [
       {
         id: "sql-modules-new",
         title: "SQL Complete Modules",
-        content: "Module 1-22: Full SQL Path",
-        subTopics: ["Database Overview", "SQL Intro", "DDL / DML", "Operators", "Constraints", "Joins", "Subqueries", "Stored Procs", "Optimization"]
+        content: "I. Database Overview\nII. Introduction\nIII. DDL and DML Commands\nIV. Operators\nV. Constraints\nVI. Joins\nVII. Subqueries\nVIII. Stored Procedures\nIX. Query Optimization",
+        subTopics: ["Database Overview ", "Introduction ", "DDL and DML Commands ", "Operators ", "Constraints ", "Joins ", "Subqueries ", "Stored Procedures ", "Query Optimization "]
       }
     ]
   },
@@ -220,8 +220,8 @@ export const syllabus: Section[] = [
       {
         id: "mongodb-modules-new",
         title: "MongoDB Modules",
-        content: "Module 1-10: Basic MongoDB Path",
-        subTopics: ["Intro", "Structure", "Install", "Commands", "CRUD", "Operators", "Aggregates", "Indexing"]
+        content: "I. Basics and Introduction\nII. Structure\nIII. Installation Process\nIV. Commands\nV. CRUD Operations\nVI. Operators\nVII. Aggregation\nVIII. Indexing",
+        subTopics: ["Basics and Introduction to Modules", "Structure ", "Installation Process", "Commands", "CRUD Operations", "Operators  ", "Aggregation", "Indexing"]
       }
     ]
   },
@@ -232,8 +232,8 @@ export const syllabus: Section[] = [
       {
         id: "sb-modules-new",
         title: "Spring Boot Path",
-        content: "Module 1-17: Comprehensive curriculum",
-        subTopics: ["Auto Config", "Starters", "Actuator", "Data JPA", "Security", "Microservices"]
+        content: "I. Auto Configuration\nII. Starters\nIII. Actuator\nIV. Data JPA\nV. Security\nVI. Microservices",
+        subTopics: ["Auto Configuration", "Starters", "Actuator", "Data JPA", "Security", "Microservices"]
       }
     ]
   }

@@ -2960,7 +2960,7 @@ export const subTopicData: Record<string, SubTopicContent> = {
         ]
       }
     ],
-    code: "class Student {\n    String name = \"Haritha\";\n\n    // Overriding toString()\n    public String toString() {\n        return name;\n    }\n}\n\npublic class ObjectDemo {\n    public static void main(String[] args) {\n        // toString() example\n        Student s = new Student();\n        System.out.println(\"toString(): \" + s); // Calls overridden toString()\n\n        // equals() example\n        String a = \"Hello\";\n        String b = \"Hello\";\n        System.out.println(\"equals(): \" + a.equals(b)); // true\n\n        // hashCode() example\n        System.out.println(\"hashCode(): \" + \"Hello\".hashCode());\n\n        // getClass() example\n        String str = \"Java\";\n        System.out.println(\"getClass(): \" + str.getClass());\n    }\n}"
+    code: "class Student {\n    String name = \"Rahul\";\n\n    // Overriding toString()\n    public String toString() {\n        return name;\n    }\n}\n\npublic class ObjectDemo {\n    public static void main(String[] args) {\n        // toString() example\n        Student s = new Student();\n        System.out.println(\"toString(): \" + s); // Calls overridden toString()\n\n        // equals() example\n        String a = \"Hello\";\n        String b = \"Hello\";\n        System.out.println(\"equals(): \" + a.equals(b)); // true\n\n        // hashCode() example\n        System.out.println(\"hashCode(): \" + \"Hello\".hashCode());\n\n        // getClass() example\n        String str = \"Java\";\n        System.out.println(\"getClass(): \" + str.getClass());\n    }\n}"
   },
   "Wrapper Classes": {
     description: "Wrapper classes in Java are used to convert primitive data types into objects. Each primitive type has a corresponding wrapper class in the java.lang package.",
@@ -6363,7 +6363,7 @@ User Request → Server → Database → Dynamic Response → Browser`
 
         <tr>
             <td>101</td>
-            <td>Haritha</td>
+            <td>Rahul</td>
             <td>Java Full Stack</td>
         </tr>
 
@@ -8259,7 +8259,7 @@ User Request → Server → Database → Dynamic Response → Browser`
     <script>
 
         // var example
-        var name = "Haritha";
+        var name = "Rahul";
 
         // let example
         let age = 21;
@@ -8428,7 +8428,7 @@ User Request → Server → Database → Dynamic Response → Browser`
     <script>
 
         // String
-        let name = "Haritha";
+        let name = "Rahul";
 
         // Number
         let age = 21;
@@ -8447,7 +8447,7 @@ User Request → Server → Database → Dynamic Response → Browser`
 
         // Object
         let user = {
-            name: "Haritha",
+            name: "Rahul",
             age: 21
         };
 
@@ -8957,7 +8957,7 @@ User Request → Server → Database → Dynamic Response → Browser`
             return "Hello " + name;
         }
 
-        console.log(greet("Haritha"));
+        console.log(greet("Rahul"));
 
         // Function Expression
         const add = function(a, b) {
@@ -9432,7 +9432,7 @@ User Request → Server → Database → Dynamic Response → Browser`
         // Creating Object
         let student = {
 
-            name: "Haritha",
+            name: "Rahul",
 
             age: 21,
 
@@ -10078,6 +10078,1751 @@ User Request → Server → Database → Dynamic Response → Browser`
   },
 
   // SQL
+  "Database Overview ": {
+    description: "A database is an organized collection of data that can be stored, managed, retrieved, and updated efficiently using database management systems (DBMS). Databases play a major role in modern software applications, websites, banking systems, e-commerce platforms, healthcare systems, and enterprise applications.",
+
+    sections: [
+      {
+        heading: "Definition of Database",
+        content: "A database is a structured collection of related data stored electronically in a computer system. It allows users and applications to efficiently store, access, manage, and manipulate information."
+      },
+
+      {
+        heading: "What is Data?",
+        content: "Data refers to raw facts, figures, observations, or values that can be processed into meaningful information.",
+        points: [
+          "Example: Student names, marks, employee salaries, customer details",
+          "Data can be numeric, textual, audio, video, or graphical"
+        ]
+      },
+
+      {
+        heading: "What is DBMS?",
+        content: "DBMS (Database Management System) is software used to create, manage, and control databases.",
+        points: [
+          "Acts as interface between users and database",
+          "Manages data storage and retrieval",
+          "Provides security and backup features",
+          "Examples: MySQL, Oracle, PostgreSQL, MongoDB"
+        ]
+      },
+
+      {
+        heading: "Importance of Databases",
+        points: [
+          "Stores large amounts of information efficiently",
+          "Supports fast data retrieval",
+          "Improves data security",
+          "Reduces data redundancy",
+          "Supports multi-user access",
+          "Maintains data consistency and integrity",
+          "Essential for modern web and enterprise applications"
+        ]
+      },
+
+      {
+        heading: "Features of Databases",
+        points: [
+          "Data Organization",
+          "Data Security",
+          "Backup and Recovery",
+          "Concurrency Control",
+          "Data Integrity",
+          "Scalability",
+          "Data Sharing"
+        ]
+      },
+
+      {
+        heading: "Types of Databases",
+        points: [
+          "Relational Databases",
+          "NoSQL Databases",
+          "Hierarchical Databases",
+          "Network Databases",
+          "Object-Oriented Databases",
+          "Cloud Databases"
+        ]
+      },
+
+      {
+        heading: "1. Relational Databases",
+        content: "Relational databases store data in tables consisting of rows and columns.",
+        points: [
+          "Uses Structured Query Language (SQL)",
+          "Maintains relationships using keys",
+          "Examples: MySQL, PostgreSQL, Oracle"
+        ]
+      },
+
+      {
+        heading: "2. NoSQL Databases",
+        content: "NoSQL databases are designed for unstructured and semi-structured data.",
+        points: [
+          "Highly scalable",
+          "Suitable for big data applications",
+          "Examples: MongoDB, Cassandra"
+        ]
+      },
+
+      {
+        heading: "3. Hierarchical Databases",
+        content: "Hierarchical databases organize data in a tree-like structure."
+      },
+
+      {
+        heading: "4. Network Databases",
+        content: "Network databases allow many-to-many relationships between records."
+      },
+
+      {
+        heading: "5. Object-Oriented Databases",
+        content: "Object-oriented databases store data as objects similar to object-oriented programming."
+      },
+
+      {
+        heading: "6. Cloud Databases",
+        content: "Cloud databases are hosted on cloud platforms and accessed over the Internet."
+      },
+
+      {
+        heading: "Components of Database System",
+        points: [
+          "Database",
+          "DBMS Software",
+          "Users",
+          "Applications",
+          "Hardware",
+          "Query Language"
+        ]
+      },
+
+      {
+        heading: "Database Users",
+        points: [
+          "Database Administrator (DBA)",
+          "Developers",
+          "End Users",
+          "System Analysts"
+        ]
+      },
+
+      {
+        heading: "Database Administrator (DBA)",
+        content: "A DBA manages database security, performance, backup, and maintenance."
+      },
+
+      {
+        heading: "Advantages of Databases",
+        points: [
+          "Reduced data redundancy",
+          "Improved data consistency",
+          "Enhanced security",
+          "Easy data access",
+          "Supports data sharing",
+          "Backup and recovery support",
+          "Improved decision making"
+        ]
+      },
+
+      {
+        heading: "Disadvantages of Databases",
+        points: [
+          "High setup cost",
+          "Requires skilled administrators",
+          "Complex management",
+          "Hardware and maintenance costs"
+        ]
+      },
+
+      {
+        heading: "Database Applications",
+        points: [
+          "Banking Systems",
+          "Hospital Management Systems",
+          "E-commerce Websites",
+          "Social Media Platforms",
+          "Library Management Systems",
+          "College Management Systems",
+          "Enterprise Applications"
+        ]
+      },
+
+      {
+        heading: "Database Languages",
+        points: [
+          "DDL – Data Definition Language",
+          "DML – Data Manipulation Language",
+          "DCL – Data Control Language",
+          "TCL – Transaction Control Language"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "When a user logs into an online shopping website, the application retrieves user information, order details, and product data from the database."
+      }
+    ],
+
+    keyPoints: [
+      "Database is an organized collection of data",
+      "DBMS manages databases efficiently",
+      "Databases improve data storage, retrieval, and security",
+      "Relational databases use tables and SQL",
+      "Databases are essential for modern applications"
+    ],
+
+    code: `-- Example of Simple SQL Database Operations
+
+-- Create Database
+CREATE DATABASE CollegeDB;
+
+-- Use Database
+USE CollegeDB;
+
+-- Create Table
+CREATE TABLE Students (
+
+    id INT PRIMARY KEY,
+
+    name VARCHAR(50),
+
+    course VARCHAR(50)
+);
+
+-- Insert Data
+INSERT INTO Students
+VALUES (101, 'Rahul', 'Java Full Stack');
+
+-- Retrieve Data
+SELECT * FROM Students;`
+  },
+
+  "Introduction ": {
+    description: "SQL (Structured Query Language) is a standard programming language used to store, manage, manipulate, and retrieve data from relational databases.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "SQL stands for Structured Query Language. It is used to communicate with relational database management systems (RDBMS) such as MySQL, Oracle, SQL Server, and PostgreSQL."
+      },
+
+      {
+        heading: "History of SQL",
+        points: [
+          "Developed by IBM in the 1970s",
+          "Originally called SEQUEL",
+          "Became standard language for relational databases",
+          "Widely used in modern software applications"
+        ]
+      },
+
+      {
+        heading: "Why SQL?",
+        points: [
+          "Efficient data management",
+          "Easy data retrieval",
+          "Supports large databases",
+          "Provides security and access control",
+          "Used in almost all enterprise applications"
+        ]
+      },
+
+      {
+        heading: "Features of SQL",
+        points: [
+          "Simple and easy to learn",
+          "Supports relational databases",
+          "Fast data retrieval",
+          "Supports multiple users",
+          "Provides data security",
+          "Supports transactions",
+          "Portable across database systems"
+        ]
+      },
+
+      {
+        heading: "Uses of SQL",
+        points: [
+          "Creating databases and tables",
+          "Inserting records",
+          "Updating data",
+          "Deleting records",
+          "Retrieving information",
+          "Managing users and permissions"
+        ]
+      },
+
+      {
+        heading: "What is RDBMS?",
+        content: "RDBMS (Relational Database Management System) is software used to manage relational databases where data is stored in tables."
+      },
+
+      {
+        heading: "Popular SQL Databases",
+        points: [
+          "MySQL",
+          "Oracle Database",
+          "Microsoft SQL Server",
+          "PostgreSQL",
+          "SQLite"
+        ]
+      },
+
+      {
+        heading: "Database Table Structure",
+        content: "In relational databases, data is stored in tables made up of rows and columns.",
+        points: [
+          "Rows represent records",
+          "Columns represent fields or attributes"
+        ]
+      },
+
+      {
+        heading: "Types of SQL Commands",
+        points: [
+          "DDL – Data Definition Language",
+          "DML – Data Manipulation Language",
+          "DQL – Data Query Language",
+          "DCL – Data Control Language",
+          "TCL – Transaction Control Language"
+        ]
+      },
+
+      {
+        heading: "1. DDL Commands",
+        content: "DDL commands are used to define database structure.",
+        points: [
+          "CREATE",
+          "ALTER",
+          "DROP",
+          "TRUNCATE"
+        ]
+      },
+
+      {
+        heading: "2. DML Commands",
+        content: "DML commands are used to manipulate data inside tables.",
+        points: [
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ]
+      },
+
+      {
+        heading: "3. DQL Commands",
+        content: "DQL commands are used to retrieve data from databases.",
+        points: [
+          "SELECT"
+        ]
+      },
+
+      {
+        heading: "4. DCL Commands",
+        content: "DCL commands are used to control user permissions.",
+        points: [
+          "GRANT",
+          "REVOKE"
+        ]
+      },
+
+      {
+        heading: "5. TCL Commands",
+        content: "TCL commands manage database transactions.",
+        points: [
+          "COMMIT",
+          "ROLLBACK",
+          "SAVEPOINT"
+        ]
+      },
+
+      {
+        heading: "Advantages of SQL",
+        points: [
+          "Easy to understand",
+          "Efficient data handling",
+          "Supports large databases",
+          "Provides high security",
+          "Widely accepted standard"
+        ]
+      },
+
+      {
+        heading: "Applications of SQL",
+        points: [
+          "Banking Systems",
+          "E-commerce Websites",
+          "College Management Systems",
+          "Social Media Applications",
+          "Hospital Management Systems"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "SQL is used to manage relational databases",
+      "SQL stands for Structured Query Language",
+      "Supports data creation, retrieval, update, and deletion",
+      "Used with databases like MySQL and Oracle",
+      "Essential for backend and database development"
+    ],
+
+    code: `-- Example of Basic SQL Commands
+
+-- Create Database
+CREATE DATABASE StudentDB;
+
+-- Use Database
+USE StudentDB;
+
+-- Create Table
+CREATE TABLE Students (
+
+    id INT PRIMARY KEY,
+
+    name VARCHAR(50),
+
+    course VARCHAR(50)
+);
+
+-- Insert Data
+INSERT INTO Students
+VALUES (101, 'Rahul', 'Java Full Stack');
+
+-- Retrieve Data
+SELECT * FROM Students;`
+  },
+
+  "DDL and DML Commands ": {
+    description: "DDL (Data Definition Language) and DML (Data Manipulation Language) are important categories of SQL commands used to define database structures and manipulate data inside tables.",
+
+    sections: [
+      {
+        heading: "Definition of DDL",
+        content: "DDL (Data Definition Language) consists of SQL commands used to create, modify, and delete database structures such as databases and tables."
+      },
+
+      {
+        heading: "Features of DDL",
+        points: [
+          "Defines database schema",
+          "Automatically commits changes",
+          "Used for structure management",
+          "Affects database objects"
+        ]
+      },
+
+      {
+        heading: "Common DDL Commands",
+        points: [
+          "CREATE",
+          "ALTER",
+          "DROP",
+          "TRUNCATE",
+          "RENAME"
+        ]
+      },
+
+      {
+        heading: "1. CREATE Command",
+        content: "The CREATE command is used to create databases, tables, views, and other database objects."
+      },
+
+      {
+        heading: "2. ALTER Command",
+        content: "The ALTER command modifies the structure of existing database objects.",
+        points: [
+          "Add columns",
+          "Modify column data types",
+          "Delete columns"
+        ]
+      },
+
+      {
+        heading: "3. DROP Command",
+        content: "The DROP command permanently deletes database objects."
+      },
+
+      {
+        heading: "4. TRUNCATE Command",
+        content: "The TRUNCATE command removes all records from a table while keeping the table structure intact."
+      },
+
+      {
+        heading: "5. RENAME Command",
+        content: "The RENAME command changes the name of database objects."
+      },
+
+      {
+        heading: "Definition of DML",
+        content: "DML (Data Manipulation Language) consists of SQL commands used to insert, update, delete, and manipulate data inside database tables."
+      },
+
+      {
+        heading: "Features of DML",
+        points: [
+          "Manipulates table data",
+          "Does not affect table structure",
+          "Supports transactions",
+          "Can be rolled back"
+        ]
+      },
+
+      {
+        heading: "Common DML Commands",
+        points: [
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ]
+      },
+
+      {
+        heading: "1. INSERT Command",
+        content: "The INSERT command adds new records into a table."
+      },
+
+      {
+        heading: "2. UPDATE Command",
+        content: "The UPDATE command modifies existing records in a table."
+      },
+
+      {
+        heading: "3. DELETE Command",
+        content: "The DELETE command removes records from a table."
+      },
+
+      {
+        heading: "Difference between DELETE and TRUNCATE",
+        points: [
+          "DELETE removes selected rows",
+          "TRUNCATE removes all rows",
+          "DELETE can use WHERE condition",
+          "TRUNCATE cannot use WHERE condition",
+          "DELETE supports rollback",
+          "TRUNCATE is faster"
+        ]
+      },
+
+      {
+        heading: "Advantages of DDL and DML",
+        points: [
+          "Efficient database management",
+          "Easy data handling",
+          "Supports database design",
+          "Improves data manipulation"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "A college management system uses DDL commands to create student tables and DML commands to insert and update student records."
+      }
+    ],
+
+    keyPoints: [
+      "DDL manages database structure",
+      "DML manipulates table data",
+      "CREATE and ALTER are DDL commands",
+      "INSERT and UPDATE are DML commands",
+      "DDL affects schema, DML affects records"
+    ],
+
+    code: `-- Example of DDL Commands
+
+-- Create Database
+CREATE DATABASE CollegeDB;
+
+-- Create Table
+CREATE TABLE Students (
+
+    id INT PRIMARY KEY,
+
+    name VARCHAR(50),
+
+    course VARCHAR(50)
+);
+
+-- Alter Table
+ALTER TABLE Students
+ADD age INT;
+
+-- Rename Table
+RENAME TABLE Students TO StudentDetails;
+
+-- Truncate Table
+TRUNCATE TABLE StudentDetails;
+
+------------------------------------------------
+
+-- Example of DML Commands
+
+-- Insert Record
+INSERT INTO StudentDetails
+VALUES (101, 'Rahul', 'Java Full Stack', 21);
+
+-- Update Record
+UPDATE StudentDetails
+SET course = 'Spring Boot'
+WHERE id = 101;
+
+-- Delete Record
+DELETE FROM StudentDetails
+WHERE id = 101;
+
+-- Retrieve Records
+SELECT * FROM StudentDetails;`
+  },
+
+  "Operators ": {
+    description: "SQL operators are special symbols or keywords used to perform operations on data values in database queries.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Operators in SQL are used to compare values, perform calculations, combine conditions, and filter records in database queries."
+      },
+
+      {
+        heading: "Why SQL Operators?",
+        points: [
+          "Filter records efficiently",
+          "Perform mathematical calculations",
+          "Compare data values",
+          "Combine multiple conditions",
+          "Improve query flexibility"
+        ]
+      },
+
+      {
+        heading: "Types of SQL Operators",
+        points: [
+          "Arithmetic Operators",
+          "Comparison Operators",
+          "Logical Operators",
+          "Special Operators",
+          "Bitwise Operators"
+        ]
+      },
+
+      {
+        heading: "1. Arithmetic Operators",
+        content: "Arithmetic operators perform mathematical calculations on numeric values.",
+        points: [
+          "+ → Addition",
+          "- → Subtraction",
+          "* → Multiplication",
+          "/ → Division",
+          "% → Modulus (Remainder)"
+        ]
+      },
+
+      {
+        heading: "2. Comparison Operators",
+        content: "Comparison operators compare two values and return matching records.",
+        points: [
+          "= → Equal to",
+          "!= or <> → Not equal to",
+          "> → Greater than",
+          "< → Less than",
+          ">= → Greater than or equal to",
+          "<= → Less than or equal to"
+        ]
+      },
+
+      {
+        heading: "3. Logical Operators",
+        content: "Logical operators combine multiple conditions in SQL queries.",
+        points: [
+          "AND → Returns true if all conditions are true",
+          "OR → Returns true if at least one condition is true",
+          "NOT → Reverses condition result"
+        ]
+      },
+
+      {
+        heading: "4. Special Operators",
+        content: "Special operators perform advanced filtering and matching operations.",
+        points: [
+          "IN → Matches values in a list",
+          "BETWEEN → Checks value range",
+          "LIKE → Pattern matching",
+          "IS NULL → Checks NULL values",
+          "EXISTS → Checks subquery existence"
+        ]
+      },
+
+      {
+        heading: "LIKE Operator",
+        content: "The LIKE operator is used for pattern matching.",
+        points: [
+          "% → Represents multiple characters",
+          "_ → Represents single character"
+        ]
+      },
+
+      {
+        heading: "IN Operator",
+        content: "The IN operator checks whether a value exists within a specified list."
+      },
+
+      {
+        heading: "BETWEEN Operator",
+        content: "The BETWEEN operator selects values within a specified range."
+      },
+
+      {
+        heading: "IS NULL Operator",
+        content: "The IS NULL operator checks for missing or undefined values."
+      },
+
+      {
+        heading: "5. Bitwise Operators",
+        content: "Bitwise operators perform operations at binary level.",
+        points: [
+          "& → Bitwise AND",
+          "| → Bitwise OR",
+          "^ → Bitwise XOR"
+        ]
+      },
+
+      {
+        heading: "Operator Precedence",
+        content: "Operator precedence determines the order in which SQL operations are evaluated."
+      },
+
+      {
+        heading: "Advantages of SQL Operators",
+        points: [
+          "Efficient data filtering",
+          "Supports complex queries",
+          "Improves database searching",
+          "Simplifies data manipulation"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "SQL operators perform calculations and comparisons",
+      "Logical operators combine conditions",
+      "LIKE supports pattern matching",
+      "BETWEEN filters ranges",
+      "Operators improve SQL query flexibility"
+    ],
+
+    code: `-- Example of SQL Operators
+
+-- Create Table
+CREATE TABLE Employees (
+
+    id INT,
+
+    name VARCHAR(50),
+
+    salary INT,
+
+    department VARCHAR(50)
+);
+
+-- Insert Records
+INSERT INTO Employees
+VALUES
+(1, 'Rahul', 50000, 'IT'),
+(2, 'Rahul', 35000, 'HR'),
+(3, 'Priya', 45000, 'IT');
+
+------------------------------------------------
+
+-- Arithmetic Operator
+SELECT salary + 5000 AS UpdatedSalary
+FROM Employees;
+
+------------------------------------------------
+
+-- Comparison Operator
+SELECT * FROM Employees
+WHERE salary > 40000;
+
+------------------------------------------------
+
+-- Logical Operator
+SELECT * FROM Employees
+WHERE department = 'IT'
+AND salary > 40000;
+
+------------------------------------------------
+
+-- LIKE Operator
+SELECT * FROM Employees
+WHERE name LIKE 'H%';
+
+------------------------------------------------
+
+-- BETWEEN Operator
+SELECT * FROM Employees
+WHERE salary BETWEEN 30000 AND 50000;
+
+------------------------------------------------
+
+-- IN Operator
+SELECT * FROM Employees
+WHERE department IN ('IT', 'HR');`
+  },
+
+  "Constraints ": {
+    description: "Constraints in SQL are rules applied to table columns to enforce data accuracy, integrity, and reliability in a database.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "SQL constraints are restrictions or rules applied to columns in a database table to ensure valid and consistent data storage."
+      },
+
+      {
+        heading: "Why Constraints?",
+        points: [
+          "Maintain data integrity",
+          "Prevent invalid data entry",
+          "Ensure uniqueness of records",
+          "Maintain relationships between tables",
+          "Improve database reliability"
+        ]
+      },
+
+      {
+        heading: "Features of Constraints",
+        points: [
+          "Applied during table creation or modification",
+          "Automatically enforce rules",
+          "Improve data consistency",
+          "Reduce duplicate and invalid records"
+        ]
+      },
+
+      {
+        heading: "Types of SQL Constraints",
+        points: [
+          "NOT NULL",
+          "UNIQUE",
+          "PRIMARY KEY",
+          "FOREIGN KEY",
+          "CHECK",
+          "DEFAULT"
+        ]
+      },
+
+      {
+        heading: "1. NOT NULL Constraint",
+        content: "The NOT NULL constraint ensures that a column cannot contain NULL values.",
+        points: [
+          "Mandatory field",
+          "Prevents empty values"
+        ]
+      },
+
+      {
+        heading: "2. UNIQUE Constraint",
+        content: "The UNIQUE constraint ensures that all values in a column are different.",
+        points: [
+          "No duplicate values allowed",
+          "Multiple UNIQUE constraints possible"
+        ]
+      },
+
+      {
+        heading: "3. PRIMARY KEY Constraint",
+        content: "The PRIMARY KEY uniquely identifies each record in a table.",
+        points: [
+          "Cannot contain NULL values",
+          "Must contain unique values",
+          "Only one primary key per table"
+        ]
+      },
+
+      {
+        heading: "4. FOREIGN KEY Constraint",
+        content: "The FOREIGN KEY creates relationships between two tables.",
+        points: [
+          "References primary key of another table",
+          "Maintains referential integrity"
+        ]
+      },
+
+      {
+        heading: "5. CHECK Constraint",
+        content: "The CHECK constraint ensures that values satisfy a specific condition."
+      },
+
+      {
+        heading: "6. DEFAULT Constraint",
+        content: "The DEFAULT constraint assigns a default value when no value is provided."
+      },
+
+      {
+        heading: "Difference between PRIMARY KEY and UNIQUE",
+        points: [
+          "PRIMARY KEY cannot contain NULL values",
+          "UNIQUE can contain one NULL value",
+          "Only one PRIMARY KEY per table",
+          "Multiple UNIQUE constraints allowed"
+        ]
+      },
+
+      {
+        heading: "Advantages of Constraints",
+        points: [
+          "Improves data quality",
+          "Maintains consistency",
+          "Prevents duplicate records",
+          "Supports relational database integrity",
+          "Reduces data errors"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "In a college database, student ID is set as PRIMARY KEY to uniquely identify each student record."
+      }
+    ],
+
+    keyPoints: [
+      "Constraints enforce rules on database tables",
+      "PRIMARY KEY uniquely identifies records",
+      "FOREIGN KEY maintains table relationships",
+      "NOT NULL prevents empty values",
+      "Constraints improve data integrity"
+    ],
+
+    code: `-- Example of SQL Constraints
+
+-- Create Department Table
+CREATE TABLE Departments (
+
+    dept_id INT PRIMARY KEY,
+
+    dept_name VARCHAR(50) UNIQUE
+);
+
+------------------------------------------------
+
+-- Create Student Table
+CREATE TABLE Students (
+
+    id INT PRIMARY KEY,
+
+    name VARCHAR(50) NOT NULL,
+
+    age INT CHECK(age >= 18),
+
+    course VARCHAR(50) DEFAULT 'Java',
+
+    dept_id INT,
+
+    FOREIGN KEY (dept_id)
+    REFERENCES Departments(dept_id)
+);
+
+------------------------------------------------
+
+-- Insert Records
+INSERT INTO Departments
+VALUES (1, 'Computer Science');
+
+INSERT INTO Students
+(id, name, age, dept_id)
+
+VALUES
+(101, 'Rahul', 21, 1);
+
+------------------------------------------------
+
+-- View Data
+SELECT * FROM Students;`
+  },
+
+  "Joins ": {
+    description: "SQL Joins are used to combine records from two or more tables based on related columns between them.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "A JOIN in SQL is used to retrieve data from multiple tables by combining rows based on a common column or relationship."
+      },
+
+      {
+        heading: "Why Joins?",
+        points: [
+          "Combine related data from multiple tables",
+          "Reduce data redundancy",
+          "Support relational database design",
+          "Retrieve meaningful information",
+          "Improve database normalization"
+        ]
+      },
+
+      {
+        heading: "Features of SQL Joins",
+        points: [
+          "Combines rows from multiple tables",
+          "Uses common columns for matching",
+          "Supports relational databases",
+          "Retrieves complex data efficiently"
+        ]
+      },
+
+      {
+        heading: "Types of SQL Joins",
+        points: [
+          "INNER JOIN",
+          "LEFT JOIN",
+          "RIGHT JOIN",
+          "FULL JOIN",
+          "SELF JOIN",
+          "CROSS JOIN"
+        ]
+      },
+
+      {
+        heading: "1. INNER JOIN",
+        content: "INNER JOIN returns only the matching records from both tables.",
+        points: [
+          "Most commonly used join",
+          "Non-matching rows are excluded"
+        ]
+      },
+
+      {
+        heading: "2. LEFT JOIN",
+        content: "LEFT JOIN returns all records from the left table and matching records from the right table.",
+        points: [
+          "Non-matching right table values become NULL"
+        ]
+      },
+
+      {
+        heading: "3. RIGHT JOIN",
+        content: "RIGHT JOIN returns all records from the right table and matching records from the left table."
+      },
+
+      {
+        heading: "4. FULL JOIN",
+        content: "FULL JOIN returns all records when there is a match in either left or right table.",
+        points: [
+          "Combines LEFT and RIGHT JOIN results"
+        ]
+      },
+
+      {
+        heading: "5. SELF JOIN",
+        content: "SELF JOIN joins a table with itself.",
+        points: [
+          "Useful for hierarchical relationships"
+        ]
+      },
+
+      {
+        heading: "6. CROSS JOIN",
+        content: "CROSS JOIN returns the Cartesian product of two tables.",
+        points: [
+          "Every row from first table combines with every row from second table"
+        ]
+      },
+
+      {
+        heading: "Join Condition",
+        content: "Joins commonly use the ON keyword to specify matching conditions between tables."
+      },
+
+      {
+        heading: "Primary Key and Foreign Key in Joins",
+        points: [
+          "Primary key uniquely identifies records",
+          "Foreign key creates relationship between tables",
+          "Joins use these relationships for data retrieval"
+        ]
+      },
+
+      {
+        heading: "Advantages of SQL Joins",
+        points: [
+          "Efficient data retrieval",
+          "Supports relational databases",
+          "Reduces duplicate data",
+          "Combines related information easily"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "In a college database, student details can be joined with department details using department ID."
+      }
+    ],
+
+    keyPoints: [
+      "Joins combine data from multiple tables",
+      "INNER JOIN returns matching rows",
+      "LEFT JOIN returns all left table rows",
+      "RIGHT JOIN returns all right table rows",
+      "Joins are essential in relational databases"
+    ],
+
+    code: `-- Example of SQL Joins
+
+-- Department Table
+CREATE TABLE Departments (
+
+    dept_id INT PRIMARY KEY,
+
+    dept_name VARCHAR(50)
+);
+
+------------------------------------------------
+
+-- Student Table
+CREATE TABLE Students (
+
+    id INT PRIMARY KEY,
+
+    name VARCHAR(50),
+
+    dept_id INT,
+
+    FOREIGN KEY (dept_id)
+    REFERENCES Departments(dept_id)
+);
+
+------------------------------------------------
+
+-- Insert Department Data
+INSERT INTO Departments
+VALUES
+(1, 'CSE'),
+(2, 'ECE');
+
+------------------------------------------------
+
+-- Insert Student Data
+INSERT INTO Students
+VALUES
+(101, 'Rahul', 1),
+(102, 'Rahul', 2),
+(103, 'Priya', 1);
+
+------------------------------------------------
+
+-- INNER JOIN
+SELECT Students.name, Departments.dept_name
+FROM Students
+INNER JOIN Departments
+ON Students.dept_id = Departments.dept_id;
+
+------------------------------------------------
+
+-- LEFT JOIN
+SELECT Students.name, Departments.dept_name
+FROM Students
+LEFT JOIN Departments
+ON Students.dept_id = Departments.dept_id;
+
+------------------------------------------------
+
+-- RIGHT JOIN
+SELECT Students.name, Departments.dept_name
+FROM Students
+RIGHT JOIN Departments
+ON Students.dept_id = Departments.dept_id;`
+  },
+
+  "Subqueries ": {
+    description: "A subquery is a query written inside another SQL query. It is used to perform operations that depend on the result of another query.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "A subquery is an SQL query nested inside another query such as SELECT, INSERT, UPDATE, or DELETE."
+      },
+
+      {
+        heading: "Why Subqueries?",
+        points: [
+          "Perform complex queries",
+          "Retrieve filtered data dynamically",
+          "Simplify query logic",
+          "Combine multiple query operations",
+          "Improve data analysis"
+        ]
+      },
+
+      {
+        heading: "Features of Subqueries",
+        points: [
+          "Executed inside another query",
+          "Can return single or multiple values",
+          "Can be used with SELECT, INSERT, UPDATE, DELETE",
+          "Supports nested query execution"
+        ]
+      },
+
+      {
+        heading: "How Subqueries Work",
+        content: "The inner query executes first and its result is passed to the outer query."
+      },
+
+      {
+        heading: "Types of Subqueries",
+        points: [
+          "Single Row Subquery",
+          "Multiple Row Subquery",
+          "Multiple Column Subquery",
+          "Correlated Subquery",
+          "Nested Subquery"
+        ]
+      },
+
+      {
+        heading: "1. Single Row Subquery",
+        content: "Returns only one row or single value.",
+        points: [
+          "Uses operators like =, >, <"
+        ]
+      },
+
+      {
+        heading: "2. Multiple Row Subquery",
+        content: "Returns multiple rows.",
+        points: [
+          "Uses operators like IN, ANY, ALL"
+        ]
+      },
+
+      {
+        heading: "3. Multiple Column Subquery",
+        content: "Returns multiple columns from inner query."
+      },
+
+      {
+        heading: "4. Correlated Subquery",
+        content: "A correlated subquery depends on values from the outer query.",
+        points: [
+          "Executed repeatedly for each row"
+        ]
+      },
+
+      {
+        heading: "5. Nested Subquery",
+        content: "A subquery placed inside another subquery."
+      },
+
+      {
+        heading: "Subqueries with SELECT",
+        content: "Used to retrieve records based on results from another query."
+      },
+
+      {
+        heading: "Subqueries with INSERT",
+        content: "Used to insert records retrieved from another table."
+      },
+
+      {
+        heading: "Subqueries with UPDATE",
+        content: "Used to update records using values from another query."
+      },
+
+      {
+        heading: "Subqueries with DELETE",
+        content: "Used to delete records based on another query result."
+      },
+
+      {
+        heading: "Advantages of Subqueries",
+        points: [
+          "Simplifies complex queries",
+          "Improves readability",
+          "Supports dynamic filtering",
+          "Reduces need for temporary tables"
+        ]
+      },
+
+      {
+        heading: "Limitations of Subqueries",
+        points: [
+          "Complex nested queries reduce performance",
+          "Harder to debug when deeply nested"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "A company database can use subqueries to find employees earning more than the average salary."
+      }
+    ],
+
+    keyPoints: [
+      "Subqueries are queries inside another query",
+      "Inner query executes before outer query",
+      "Used with SELECT, INSERT, UPDATE, DELETE",
+      "Supports dynamic and complex querying",
+      "Essential for advanced SQL operations"
+    ],
+
+    code: `-- Example of SQL Subqueries
+
+-- Employee Table
+CREATE TABLE Employees (
+
+    id INT PRIMARY KEY,
+
+    name VARCHAR(50),
+
+    salary INT,
+
+    department VARCHAR(50)
+);
+
+------------------------------------------------
+
+-- Insert Records
+INSERT INTO Employees
+VALUES
+(1, 'Rahul', 50000, 'IT'),
+(2, 'Rahul', 35000, 'HR'),
+(3, 'Priya', 45000, 'IT');
+
+------------------------------------------------
+
+-- Single Row Subquery
+-- Find employees earning more than average salary
+
+SELECT name, salary
+FROM Employees
+WHERE salary >
+
+(
+    SELECT AVG(salary)
+    FROM Employees
+);
+
+------------------------------------------------
+
+-- Multiple Row Subquery
+-- Find employees working in IT department
+
+SELECT name
+FROM Employees
+WHERE department IN
+
+(
+    SELECT department
+    FROM Employees
+    WHERE department = 'IT'
+);
+
+------------------------------------------------
+
+-- Subquery with UPDATE
+
+UPDATE Employees
+SET salary = salary + 5000
+WHERE salary <
+
+(
+    SELECT AVG(salary)
+    FROM Employees
+);
+
+------------------------------------------------
+
+-- View Updated Records
+SELECT * FROM Employees;`
+  },
+
+  "Stored Procedures ": {
+    description: "Stored Procedures are precompiled collections of SQL statements stored inside the database and executed as a single unit to perform specific tasks.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "A Stored Procedure is a reusable set of SQL statements stored in the database that can be executed whenever needed."
+      },
+
+      {
+        heading: "Why Stored Procedures?",
+        points: [
+          "Reduce repetitive SQL code",
+          "Improve performance",
+          "Enhance security",
+          "Support modular programming",
+          "Simplify complex database operations"
+        ]
+      },
+
+      {
+        heading: "Features of Stored Procedures",
+        points: [
+          "Stored inside database",
+          "Reusable and precompiled",
+          "Can accept parameters",
+          "Supports conditional logic and loops",
+          "Improves execution speed"
+        ]
+      },
+
+      {
+        heading: "Advantages of Stored Procedures",
+        points: [
+          "Code reusability",
+          "Reduced network traffic",
+          "Better performance",
+          "Improved security",
+          "Easy maintenance"
+        ]
+      },
+
+      {
+        heading: "Disadvantages of Stored Procedures",
+        points: [
+          "Complex debugging",
+          "Database dependency",
+          "Difficult migration between databases"
+        ]
+      },
+
+      {
+        heading: "Creating Stored Procedures",
+        content: "Stored procedures are created using the CREATE PROCEDURE statement."
+      },
+
+      {
+        heading: "Executing Stored Procedures",
+        content: "Stored procedures are executed using EXEC or CALL command depending on database system."
+      },
+
+      {
+        heading: "Dropping Stored Procedures",
+        content: "Stored procedures can be removed using DROP PROCEDURE command."
+      },
+
+      {
+        heading: "Parameters in Stored Procedures",
+        points: [
+          "IN Parameter → Accepts input value",
+          "OUT Parameter → Returns output value",
+          "INOUT Parameter → Accepts and returns values"
+        ]
+      },
+
+      {
+        heading: "Control Statements in Procedures",
+        points: [
+          "IF...ELSE",
+          "CASE",
+          "WHILE Loop",
+          "LOOP Statements"
+        ]
+      },
+
+      {
+        heading: "Uses of Stored Procedures",
+        points: [
+          "Banking applications",
+          "Payroll systems",
+          "Inventory management",
+          "Enterprise applications",
+          "Automated database tasks"
+        ]
+      },
+
+      {
+        heading: "Stored Procedures vs Functions",
+        points: [
+          "Procedures may not return value",
+          "Functions always return value",
+          "Procedures can perform multiple operations",
+          "Functions are mainly used in expressions"
+        ]
+      },
+
+      {
+        heading: "Security in Stored Procedures",
+        content: "Stored procedures improve security by restricting direct table access and controlling operations through predefined procedures."
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "An ATM system uses stored procedures to process money transfers and balance updates securely."
+      }
+    ],
+
+    keyPoints: [
+      "Stored procedures are reusable SQL programs",
+      "Stored inside the database",
+      "Improve performance and security",
+      "Can accept parameters",
+      "Used in enterprise-level applications"
+    ],
+
+    code: `-- Example of Stored Procedure
+
+-- Create Employee Table
+CREATE TABLE Employees (
+
+    id INT PRIMARY KEY,
+
+    name VARCHAR(50),
+
+    salary INT
+);
+
+------------------------------------------------
+
+-- Insert Records
+INSERT INTO Employees
+VALUES
+(1, 'Rahul', 50000),
+(2, 'Rahul', 40000);
+
+------------------------------------------------
+
+-- Create Stored Procedure
+
+DELIMITER //
+
+CREATE PROCEDURE GetEmployees()
+
+BEGIN
+
+    SELECT * FROM Employees;
+
+END //
+
+DELIMITER ;
+
+------------------------------------------------
+
+-- Execute Stored Procedure
+
+CALL GetEmployees();
+
+------------------------------------------------
+
+-- Stored Procedure with Parameter
+
+DELIMITER //
+
+CREATE PROCEDURE GetEmployeeById(
+
+    IN emp_id INT
+)
+
+BEGIN
+
+    SELECT *
+    FROM Employees
+    WHERE id = emp_id;
+
+END //
+
+DELIMITER ;
+
+------------------------------------------------
+
+-- Execute Parameterized Procedure
+
+CALL GetEmployeeById(1);
+
+------------------------------------------------
+
+-- Drop Procedure
+
+DROP PROCEDURE GetEmployees;`
+  },
+
+  "Query Optimization ": {
+    description: "SQL Query Optimization is the process of improving the performance and efficiency of SQL queries to retrieve data faster and reduce database resource usage.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Query optimization is the technique of modifying SQL queries and database structures to improve execution speed and overall database performance."
+      },
+
+      {
+        heading: "Why Query Optimization?",
+        points: [
+          "Improves query execution speed",
+          "Reduces database load",
+          "Minimizes memory usage",
+          "Enhances application performance",
+          "Handles large datasets efficiently"
+        ]
+      },
+
+      {
+        heading: "Importance of Optimization",
+        points: [
+          "Essential for enterprise applications",
+          "Improves user experience",
+          "Supports scalable systems",
+          "Prevents server overload",
+          "Reduces execution time"
+        ]
+      },
+
+      {
+        heading: "Common Causes of Poor Performance",
+        points: [
+          "Using SELECT * unnecessarily",
+          "Missing indexes",
+          "Complex joins",
+          "Large table scans",
+          "Improper WHERE conditions",
+          "Unoptimized subqueries"
+        ]
+      },
+
+      {
+        heading: "Techniques for SQL Optimization",
+        points: [
+          "Using Indexes",
+          "Optimizing SELECT Queries",
+          "Avoiding Unnecessary Columns",
+          "Using Proper WHERE Conditions",
+          "Optimizing Joins",
+          "Using Query Execution Plans"
+        ]
+      },
+
+      {
+        heading: "1. Using Indexes",
+        content: "Indexes improve data retrieval speed by allowing faster searching of rows.",
+        points: [
+          "Works like a book index",
+          "Improves SELECT query performance",
+          "Can slow down INSERT and UPDATE operations"
+        ]
+      },
+
+      {
+        heading: "2. Optimizing SELECT Queries",
+        content: "Retrieve only required columns instead of using SELECT *."
+      },
+
+      {
+        heading: "3. Using WHERE Clause Efficiently",
+        content: "Proper filtering reduces unnecessary data scanning."
+      },
+
+      {
+        heading: "4. Optimizing Joins",
+        content: "Efficient joins reduce execution time and improve query performance."
+      },
+
+      {
+        heading: "5. Avoiding Redundant Subqueries",
+        content: "Complex nested subqueries should be minimized when possible."
+      },
+
+      {
+        heading: "6. Using LIMIT",
+        content: "LIMIT reduces returned records and improves performance."
+      },
+
+      {
+        heading: "7. Query Execution Plan",
+        content: "Execution plans show how SQL queries are processed by the database engine."
+      },
+
+      {
+        heading: "Normalization and Optimization",
+        content: "Proper normalization reduces redundancy and improves consistency, while denormalization may improve performance in some cases."
+      },
+
+      {
+        heading: "Index Types",
+        points: [
+          "Primary Index",
+          "Unique Index",
+          "Composite Index",
+          "Clustered Index",
+          "Non-Clustered Index"
+        ]
+      },
+
+      {
+        heading: "Advantages of Query Optimization",
+        points: [
+          "Faster data retrieval",
+          "Reduced CPU and memory usage",
+          "Improved scalability",
+          "Better database performance",
+          "Enhanced user experience"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "An e-commerce website optimizes product search queries using indexes to provide faster search results to users."
+      }
+    ],
+
+    keyPoints: [
+      "Optimization improves SQL performance",
+      "Indexes speed up data retrieval",
+      "Avoid unnecessary SELECT * queries",
+      "Efficient joins and conditions improve speed",
+      "Essential for handling large databases"
+    ],
+
+    code: `-- Example of SQL Optimization
+
+-- Create Employee Table
+CREATE TABLE Employees (
+
+    id INT PRIMARY KEY,
+
+    name VARCHAR(50),
+
+    department VARCHAR(50),
+
+    salary INT
+);
+
+------------------------------------------------
+
+-- Create Index
+CREATE INDEX idx_department
+ON Employees(department);
+
+------------------------------------------------
+
+-- Unoptimized Query
+SELECT *
+FROM Employees;
+
+------------------------------------------------
+
+-- Optimized Query
+SELECT name, salary
+FROM Employees
+WHERE department = 'IT';
+
+------------------------------------------------
+
+-- Using LIMIT
+SELECT name, salary
+FROM Employees
+LIMIT 5;
+
+------------------------------------------------
+
+-- View Query Execution Plan
+EXPLAIN
+SELECT name, salary
+FROM Employees
+WHERE department = 'IT';`
+  },
+
   "JDBC Overview": {
     description: "JDBC (Java Database Connectivity) is a standard Java API that enables Java applications to communicate with databases. It provides methods and interfaces to execute SQL queries, retrieve results, and act as a bridge between Java programs and databases like MySQL or Oracle.",
     keyPoints: [
@@ -11555,7 +13300,7 @@ User Request → Server → Database → Dynamic Response → Browser`
         heading: "3. Dynamic Parameters with <jsp:param>",
         content: "Appends extra request parameters dynamically during an include or forward operation.",
         points: [
-          "Syntax: <jsp:param name='user' value='Haritha' />.",
+          "Syntax: <jsp:param name='user' value='Rahul' />.",
           "Retrieval: The target resource can fetch these values normally using request.getParameter()."
         ]
       },
@@ -14727,5 +16472,3118 @@ public class HibernateConfig {
         return sessionFactory;
     }
 }`
+  },
+  "Basics and Introduction to Modules": {
+    description: "MongoDB is a popular NoSQL database used for storing large amounts of unstructured and semi-structured data in JSON-like documents. It is widely used in modern web applications, cloud systems, big data applications, and real-time systems.",
+
+    sections: [
+      {
+        heading: "Definition of MongoDB",
+        content: "MongoDB is an open-source NoSQL database that stores data in flexible, JSON-like documents called BSON (Binary JSON)."
+      },
+
+      {
+        heading: "What is NoSQL?",
+        content: "NoSQL stands for 'Not Only SQL'. It is a database model designed to handle large volumes of structured, semi-structured, and unstructured data."
+      },
+
+      {
+        heading: "Why MongoDB?",
+        points: [
+          "Handles large amounts of data",
+          "Flexible schema design",
+          "High scalability",
+          "Fast performance",
+          "Suitable for cloud and big data applications",
+          "Easy integration with JavaScript and Node.js"
+        ]
+      },
+
+      {
+        heading: "Features of MongoDB",
+        points: [
+          "Document-oriented database",
+          "Schema-less design",
+          "High performance",
+          "Horizontal scalability",
+          "Replication and high availability",
+          "Supports indexing",
+          "Flexible data model"
+        ]
+      },
+
+      {
+        heading: "History of MongoDB",
+        points: [
+          "Developed by MongoDB Inc.",
+          "First released in 2009",
+          "Designed for modern internet applications",
+          "Widely used in MERN stack development"
+        ]
+      },
+
+      {
+        heading: "MongoDB Architecture",
+        points: [
+          "Database",
+          "Collection",
+          "Document",
+          "Field"
+        ]
+      },
+
+      {
+        heading: "1. Database",
+        content: "A database is a container that stores collections."
+      },
+
+      {
+        heading: "2. Collection",
+        content: "A collection is a group of MongoDB documents similar to tables in SQL."
+      },
+
+      {
+        heading: "3. Document",
+        content: "A document is a set of key-value pairs stored in BSON format.",
+        points: [
+          "Equivalent to rows in SQL",
+          "Flexible structure"
+        ]
+      },
+
+      {
+        heading: "4. Field",
+        content: "A field is a key-value pair inside a document."
+      },
+
+      {
+        heading: "Difference between SQL and MongoDB",
+        points: [
+          "SQL uses tables | MongoDB uses collections",
+          "SQL uses rows | MongoDB uses documents",
+          "SQL follows fixed schema | MongoDB uses flexible schema",
+          "SQL uses joins | MongoDB uses embedded documents"
+        ]
+      },
+
+      {
+        heading: "Advantages of MongoDB",
+        points: [
+          "Flexible schema",
+          "High scalability",
+          "Fast read/write operations",
+          "Handles unstructured data",
+          "Suitable for distributed systems"
+        ]
+      },
+
+      {
+        heading: "Disadvantages of MongoDB",
+        points: [
+          "Consumes more memory",
+          "Complex transactions compared to SQL",
+          "Limited joins"
+        ]
+      },
+
+      {
+        heading: "Applications of MongoDB",
+        points: [
+          "Social media applications",
+          "E-commerce websites",
+          "Real-time analytics",
+          "Content management systems",
+          "IoT applications",
+          "Big data systems"
+        ]
+      },
+
+      {
+        heading: "Introduction to MongoDB Modules",
+        content: "MongoDB modules are functionalities and components used to manage data operations, indexing, aggregation, replication, and scalability."
+      },
+
+      {
+        heading: "Core MongoDB Modules",
+        points: [
+          "CRUD Operations",
+          "Aggregation Framework",
+          "Indexes",
+          "Replication",
+          "Sharding",
+          "Security and Authentication"
+        ]
+      },
+
+      {
+        heading: "1. CRUD Operations",
+        content: "CRUD stands for Create, Read, Update, and Delete operations."
+      },
+
+      {
+        heading: "2. Aggregation Framework",
+        content: "Used for data processing and analysis operations."
+      },
+
+      {
+        heading: "3. Indexes",
+        content: "Indexes improve query performance and searching speed."
+      },
+
+      {
+        heading: "4. Replication",
+        content: "Replication creates multiple copies of data for high availability."
+      },
+
+      {
+        heading: "5. Sharding",
+        content: "Sharding distributes data across multiple servers for scalability."
+      },
+
+      {
+        heading: "6. Security and Authentication",
+        content: "MongoDB provides authentication and authorization mechanisms to secure databases."
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "A social media platform uses MongoDB to store user profiles, posts, comments, and chat messages because of its flexible document structure."
+      }
+    ],
+
+    keyPoints: [
+      "MongoDB is a NoSQL document-oriented database",
+      "Stores data in collections and documents",
+      "Uses flexible schema design",
+      "Supports scalability and high performance",
+      "Widely used in modern web applications"
+    ],
+
+    code: `// Example of MongoDB Basic Commands
+
+// Show Databases
+show dbs
+
+//------------------------------------------------
+
+// Create / Switch Database
+use StudentDB
+
+//------------------------------------------------
+
+// Create Collection
+db.createCollection("students")
+
+//------------------------------------------------
+
+// Insert Document
+db.students.insertOne({
+
+    name: "Rahul",
+
+    course: "Java Full Stack",
+
+    age: 21
+})
+
+//------------------------------------------------
+
+// View Documents
+db.students.find()
+
+//------------------------------------------------
+
+// Update Document
+db.students.updateOne(
+
+    { name: "Rahul" },
+
+    { $set: { age: 22 } }
+)
+
+//------------------------------------------------
+
+// Delete Document
+db.students.deleteOne(
+
+    { name: "Rahul" }
+)`
+  },
+
+  "Structure ": {
+    description: "MongoDB uses a document-oriented structure to store data. Instead of tables and rows like relational databases, MongoDB stores data in databases, collections, and documents.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "MongoDB structure refers to the hierarchical organization of data using databases, collections, documents, and fields."
+      },
+
+      {
+        heading: "Hierarchy of MongoDB Structure",
+        points: [
+          "Server",
+          "Database",
+          "Collection",
+          "Document",
+          "Field"
+        ]
+      },
+
+      {
+        heading: "1. MongoDB Server",
+        content: "The MongoDB server is the main database service that stores and manages multiple databases."
+      },
+
+      {
+        heading: "2. Database",
+        content: "A database is a container that stores collections.",
+        points: [
+          "Similar to databases in SQL",
+          "Can contain multiple collections"
+        ]
+      },
+
+      {
+        heading: "3. Collection",
+        content: "A collection is a group of MongoDB documents.",
+        points: [
+          "Equivalent to tables in SQL",
+          "Does not require fixed schema",
+          "Stores related documents"
+        ]
+      },
+
+      {
+        heading: "4. Document",
+        content: "A document is the basic unit of data storage in MongoDB.",
+        points: [
+          "Stored in BSON format",
+          "Contains key-value pairs",
+          "Equivalent to rows in SQL"
+        ]
+      },
+
+      {
+        heading: "5. Field",
+        content: "A field is an individual key-value pair inside a document.",
+        points: [
+          "Equivalent to columns in SQL",
+          "Stores actual data values"
+        ]
+      },
+
+      {
+        heading: "Document Structure",
+        content: "MongoDB documents use JSON-like structure for storing data.",
+        points: [
+          "Flexible schema",
+          "Supports nested objects",
+          "Supports arrays"
+        ]
+      },
+
+      {
+        heading: "Embedded Documents",
+        content: "MongoDB allows documents to contain other documents inside them."
+      },
+
+      {
+        heading: "Arrays in Documents",
+        content: "Documents can store multiple values using arrays."
+      },
+
+      {
+        heading: "Schema-less Design",
+        content: "MongoDB collections do not require all documents to have the same structure."
+      },
+
+      {
+        heading: "Comparison with SQL Structure",
+        points: [
+          "Database → Database",
+          "Table → Collection",
+          "Row → Document",
+          "Column → Field"
+        ]
+      },
+
+      {
+        heading: "Advantages of MongoDB Structure",
+        points: [
+          "Flexible data storage",
+          "Easy handling of unstructured data",
+          "Supports nested and complex data",
+          "High scalability",
+          "Faster development process"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "An e-commerce application stores product details, reviews, and categories inside a single MongoDB document using nested structures."
+      }
+    ],
+
+    keyPoints: [
+      "MongoDB stores data in documents",
+      "Collections contain multiple documents",
+      "Documents use BSON format",
+      "Supports flexible schema design",
+      "Ideal for modern scalable applications"
+    ],
+
+    code: `// MongoDB Structure Example
+
+// Database
+use CollegeDB
+
+//------------------------------------------------
+
+// Collection
+db.createCollection("students")
+
+//------------------------------------------------
+
+// Document Structure
+db.students.insertOne({
+
+    studentId: 101,
+
+    name: "Student One",
+
+    age: 21,
+
+    course: "Java Full Stack",
+
+    skills: [
+
+        "HTML",
+        "CSS",
+        "JavaScript"
+    ],
+
+    address: {
+
+        city: "Vijayawada",
+
+        state: "Andhra Pradesh"
+    }
+})
+
+//------------------------------------------------
+
+// View Documents
+db.students.find()`
+  },
+  "Installation Process": {
+    description: "MongoDB installation is the process of downloading, configuring, and setting up the MongoDB database server and tools on a computer system.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "MongoDB installation involves setting up the MongoDB server, database tools, and environment required to create and manage MongoDB databases."
+      },
+
+      {
+        heading: "System Requirements",
+        points: [
+          "Windows 10/11, Linux, or macOS",
+          "Minimum 4GB RAM recommended",
+          "Internet connection for download",
+          "Administrator permissions"
+        ]
+      },
+
+      {
+        heading: "MongoDB Components",
+        points: [
+          "MongoDB Server",
+          "MongoDB Shell",
+          "MongoDB Compass",
+          "Database Tools"
+        ]
+      },
+
+      {
+        heading: "1. MongoDB Server",
+        content: "The MongoDB server stores and manages databases."
+      },
+
+      {
+        heading: "2. MongoDB Shell",
+        content: "MongoDB Shell (mongosh) is a command-line interface used to interact with MongoDB databases."
+      },
+
+      {
+        heading: "3. MongoDB Compass",
+        content: "MongoDB Compass is a graphical user interface (GUI) for MongoDB."
+      },
+
+      {
+        heading: "4. Database Tools",
+        content: "Database tools provide backup, restore, import, and export functionalities."
+      },
+
+      {
+        heading: "Steps to Install MongoDB on Windows",
+        points: [
+          "Visit official MongoDB website",
+          "Download MongoDB Community Server",
+          "Run installer setup file",
+          "Choose Complete installation option",
+          "Install MongoDB Compass if required",
+          "Complete installation process"
+        ]
+      },
+
+      {
+        heading: "Configuring MongoDB",
+        points: [
+          "Create data directory if needed",
+          "Configure environment variables",
+          "Start MongoDB service",
+          "Verify installation"
+        ]
+      },
+
+      {
+        heading: "Environment Variables",
+        content: "MongoDB bin folder path should be added to system PATH variable for global command access."
+      },
+
+      {
+        heading: "Starting MongoDB Service",
+        content: "MongoDB service must be started to use the database server."
+      },
+
+      {
+        heading: "Verifying Installation",
+        content: "The installation can be verified using MongoDB version commands."
+      },
+
+      {
+        heading: "MongoDB Compass Usage",
+        points: [
+          "Connect to local MongoDB server",
+          "Create databases and collections",
+          "Insert and manage documents",
+          "Visualize data easily"
+        ]
+      },
+
+      {
+        heading: "Advantages of MongoDB Installation",
+        points: [
+          "Supports local database development",
+          "Easy database management",
+          "GUI and command-line support",
+          "Suitable for full-stack applications"
+        ]
+      },
+
+      {
+        heading: "Common Installation Issues",
+        points: [
+          "PATH variable not configured",
+          "MongoDB service not running",
+          "Port conflicts",
+          "Permission-related issues"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "MongoDB installation includes server and tools setup",
+      "MongoDB Compass provides graphical interface",
+      "mongosh is used for command-line interaction",
+      "Environment variables help global access",
+      "Installation is required for local database development"
+    ],
+
+    code: `// Verify MongoDB Installation
+
+mongod --version
+
+//------------------------------------------------
+
+// Start MongoDB Server
+
+mongod
+
+//------------------------------------------------
+
+// Open MongoDB Shell
+
+mongosh
+
+//------------------------------------------------
+
+// Show Databases
+
+show dbs
+
+//------------------------------------------------
+
+// Create / Switch Database
+
+use CollegeDB
+
+//------------------------------------------------
+
+// Create Collection
+
+db.createCollection("students")
+
+//------------------------------------------------
+
+// Insert Document
+
+db.students.insertOne({
+
+    studentId: 101,
+
+    name: "Student One",
+
+    course: "MongoDB"
+})
+
+//------------------------------------------------
+
+// View Documents
+
+db.students.find()`
+  },
+
+  "Commands": {
+    description: "MongoDB commands are used to create, manage, retrieve, update, and delete databases, collections, and documents in MongoDB.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "MongoDB commands are instructions executed in MongoDB Shell (mongosh) to perform database operations."
+      },
+
+      {
+        heading: "Why MongoDB Commands?",
+        points: [
+          "Manage databases efficiently",
+          "Perform CRUD operations",
+          "Handle collections and documents",
+          "Control database administration",
+          "Support application development"
+        ]
+      },
+
+      {
+        heading: "Types of MongoDB Commands",
+        points: [
+          "Database Commands",
+          "Collection Commands",
+          "Document Commands",
+          "Query Commands",
+          "Administrative Commands"
+        ]
+      },
+
+      {
+        heading: "1. Database Commands",
+        content: "Database commands are used to create, view, and delete databases."
+      },
+
+      {
+        heading: "Show Databases",
+        content: "Displays all available databases.",
+        points: [
+          "Command: show dbs"
+        ]
+      },
+
+      {
+        heading: "Create / Switch Database",
+        content: "The use command creates or switches to a database.",
+        points: [
+          "Command: use databaseName"
+        ]
+      },
+
+      {
+        heading: "Current Database",
+        content: "Displays the currently selected database.",
+        points: [
+          "Command: db"
+        ]
+      },
+
+      {
+        heading: "Drop Database",
+        content: "Deletes the current database permanently.",
+        points: [
+          "Command: db.dropDatabase()"
+        ]
+      },
+
+      {
+        heading: "2. Collection Commands",
+        content: "Collection commands manage collections inside databases."
+      },
+
+      {
+        heading: "Create Collection",
+        content: "Creates a new collection.",
+        points: [
+          "Command: db.createCollection()"
+        ]
+      },
+
+      {
+        heading: "Show Collections",
+        content: "Displays collections in the current database.",
+        points: [
+          "Command: show collections"
+        ]
+      },
+
+      {
+        heading: "Drop Collection",
+        content: "Deletes a collection permanently.",
+        points: [
+          "Command: db.collectionName.drop()"
+        ]
+      },
+
+      {
+        heading: "3. Document Commands",
+        content: "Document commands manage records inside collections."
+      },
+
+      {
+        heading: "Insert One Document",
+        content: "Adds a single document into collection.",
+        points: [
+          "Command: insertOne()"
+        ]
+      },
+
+      {
+        heading: "Insert Multiple Documents",
+        content: "Adds multiple documents into collection.",
+        points: [
+          "Command: insertMany()"
+        ]
+      },
+
+      {
+        heading: "Find Documents",
+        content: "Retrieves documents from collection.",
+        points: [
+          "Command: find()"
+        ]
+      },
+
+      {
+        heading: "Update Document",
+        content: "Modifies existing document values.",
+        points: [
+          "Command: updateOne()",
+          "Command: updateMany()"
+        ]
+      },
+
+      {
+        heading: "Delete Document",
+        content: "Removes documents from collection.",
+        points: [
+          "Command: deleteOne()",
+          "Command: deleteMany()"
+        ]
+      },
+
+      {
+        heading: "4. Query Commands",
+        content: "Query commands retrieve filtered data from collections."
+      },
+
+      {
+        heading: "Filtering Data",
+        points: [
+          "Uses conditions inside find()",
+          "Supports comparison operators"
+        ]
+      },
+
+      {
+        heading: "Sorting Data",
+        content: "sort() arranges documents in ascending or descending order."
+      },
+
+      {
+        heading: "Limiting Records",
+        content: "limit() restricts number of returned documents."
+      },
+
+      {
+        heading: "Advantages of MongoDB Commands",
+        points: [
+          "Easy database management",
+          "Fast data operations",
+          "Supports flexible document structure",
+          "Efficient CRUD handling"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "MongoDB commands manage databases and documents",
+      "CRUD operations are performed using commands",
+      "find() retrieves documents",
+      "updateOne() modifies data",
+      "Commands are executed in mongosh"
+    ],
+
+    code: `// Show Databases
+show dbs
+
+//------------------------------------------------
+
+// Create / Switch Database
+use CollegeDB
+
+//------------------------------------------------
+
+// Show Current Database
+db
+
+//------------------------------------------------
+
+// Create Collection
+db.createCollection("students")
+
+//------------------------------------------------
+
+// Show Collections
+show collections
+
+//------------------------------------------------
+
+// Insert One Document
+db.students.insertOne({
+
+    studentId: 101,
+
+    name: "Student One",
+
+    course: "MongoDB"
+})
+
+//------------------------------------------------
+
+// Insert Multiple Documents
+db.students.insertMany([
+
+    {
+
+        studentId: 102,
+
+        name: "Student Two",
+
+        course: "Java"
+    },
+
+    {
+
+        studentId: 103,
+
+        name: "Student Three",
+
+        course: "Spring Boot"
+    }
+])
+
+//------------------------------------------------
+
+// View Documents
+db.students.find()
+
+//------------------------------------------------
+
+// Update Document
+db.students.updateOne(
+
+    { studentId: 101 },
+
+    { $set: { course: "Full Stack" } }
+)
+
+//------------------------------------------------
+
+// Delete Document
+db.students.deleteOne(
+
+    { studentId: 103 }
+)
+
+//------------------------------------------------
+
+// Drop Collection
+db.students.drop()
+
+//------------------------------------------------
+
+// Drop Database
+db.dropDatabase()`
+  },
+
+  "CRUD Operations": {
+    description: "CRUD operations in MongoDB are the basic database operations used to Create, Read, Update, and Delete documents from collections.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "CRUD stands for Create, Read, Update, and Delete. These are the fundamental operations used to manage data in MongoDB."
+      },
+
+      {
+        heading: "Why CRUD Operations?",
+        points: [
+          "Manage database records efficiently",
+          "Perform data insertion and retrieval",
+          "Modify existing documents",
+          "Remove unwanted data",
+          "Support application functionality"
+        ]
+      },
+
+      {
+        heading: "MongoDB CRUD Components",
+        points: [
+          "Create Operation",
+          "Read Operation",
+          "Update Operation",
+          "Delete Operation"
+        ]
+      },
+
+      {
+        heading: "1. Create Operation",
+        content: "Create operation inserts new documents into a collection."
+      },
+
+      {
+        heading: "insertOne()",
+        content: "insertOne() inserts a single document into a collection."
+      },
+
+      {
+        heading: "insertMany()",
+        content: "insertMany() inserts multiple documents at once."
+      },
+
+      {
+        heading: "2. Read Operation",
+        content: "Read operation retrieves documents from collections."
+      },
+
+      {
+        heading: "find()",
+        content: "find() retrieves all matching documents from a collection."
+      },
+
+      {
+        heading: "findOne()",
+        content: "findOne() retrieves the first matching document."
+      },
+
+      {
+        heading: "Filtering Documents",
+        content: "MongoDB allows filtering records using conditions inside queries."
+      },
+
+      {
+        heading: "3. Update Operation",
+        content: "Update operation modifies existing documents."
+      },
+
+      {
+        heading: "updateOne()",
+        content: "updateOne() updates a single matching document."
+      },
+
+      {
+        heading: "updateMany()",
+        content: "updateMany() updates multiple matching documents."
+      },
+
+      {
+        heading: "$set Operator",
+        content: "The $set operator modifies specific fields in a document."
+      },
+
+      {
+        heading: "4. Delete Operation",
+        content: "Delete operation removes documents from collections."
+      },
+
+      {
+        heading: "deleteOne()",
+        content: "deleteOne() removes a single matching document."
+      },
+
+      {
+        heading: "deleteMany()",
+        content: "deleteMany() removes multiple matching documents."
+      },
+
+      {
+        heading: "Query Operators in CRUD",
+        points: [
+          "$gt → Greater than",
+          "$lt → Less than",
+          "$gte → Greater than or equal",
+          "$lte → Less than or equal",
+          "$eq → Equal to"
+        ]
+      },
+
+      {
+        heading: "Advantages of CRUD Operations",
+        points: [
+          "Efficient data management",
+          "Flexible document handling",
+          "Easy integration with applications",
+          "Supports dynamic databases"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "An online shopping website uses CRUD operations to add products, display products, update stock information, and remove unavailable products."
+      }
+    ],
+
+    keyPoints: [
+      "CRUD means Create, Read, Update, Delete",
+      "insertOne() adds documents",
+      "find() retrieves documents",
+      "updateOne() modifies documents",
+      "deleteOne() removes documents"
+    ],
+
+    code: `// Create / Switch Database
+use CollegeDB
+
+//------------------------------------------------
+
+// Create Collection
+db.createCollection("students")
+
+//------------------------------------------------
+
+// CREATE Operation
+
+// Insert One Document
+db.students.insertOne({
+
+    studentId: 101,
+
+    name: "Student One",
+
+    course: "MongoDB",
+
+    age: 21
+})
+
+//------------------------------------------------
+
+// Insert Multiple Documents
+db.students.insertMany([
+
+    {
+
+        studentId: 102,
+
+        name: "Student Two",
+
+        course: "Java",
+
+        age: 22
+    },
+
+    {
+
+        studentId: 103,
+
+        name: "Student Three",
+
+        course: "Spring Boot",
+
+        age: 23
+    }
+])
+
+//------------------------------------------------
+
+// READ Operation
+
+// View All Documents
+db.students.find()
+
+//------------------------------------------------
+
+// Find Specific Document
+db.students.find({
+
+    age: 22
+})
+
+//------------------------------------------------
+
+// Find One Document
+db.students.findOne({
+
+    studentId: 101
+})
+
+//------------------------------------------------
+
+// UPDATE Operation
+
+db.students.updateOne(
+
+    { studentId: 101 },
+
+    {
+
+        $set: {
+
+            course: "Full Stack Development"
+        }
+    }
+)
+
+//------------------------------------------------
+
+// Update Multiple Documents
+db.students.updateMany(
+
+    { age: { $gte: 22 } },
+
+    {
+
+        $set: {
+
+            status: "Active"
+        }
+    }
+)
+
+//------------------------------------------------
+
+// DELETE Operation
+
+// Delete One Document
+db.students.deleteOne(
+
+    { studentId: 103 }
+)
+
+//------------------------------------------------
+
+// Delete Multiple Documents
+db.students.deleteMany(
+
+    { age: { $lt: 22 } }
+)
+
+//------------------------------------------------
+
+// View Final Documents
+db.students.find()`
+  },
+
+  "Operators  ": {
+    description: "MongoDB operators are special keywords used to perform operations on documents, fields, and query conditions in MongoDB databases.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Operators in MongoDB are predefined symbols or keywords used for filtering, updating, comparing, and manipulating data in collections."
+      },
+
+      {
+        heading: "Why MongoDB Operators?",
+        points: [
+          "Filter documents efficiently",
+          "Perform comparisons",
+          "Update document values",
+          "Handle logical conditions",
+          "Support advanced querying"
+        ]
+      },
+
+      {
+        heading: "Types of MongoDB Operators",
+        points: [
+          "Comparison Operators",
+          "Logical Operators",
+          "Element Operators",
+          "Update Operators",
+          "Array Operators"
+        ]
+      },
+
+      {
+        heading: "1. Comparison Operators",
+        content: "Comparison operators compare field values inside documents."
+      },
+
+      {
+        heading: "$eq Operator",
+        content: "Checks if field value is equal to specified value."
+      },
+
+      {
+        heading: "$ne Operator",
+        content: "Checks if field value is not equal to specified value."
+      },
+
+      {
+        heading: "$gt Operator",
+        content: "Checks if field value is greater than specified value."
+      },
+
+      {
+        heading: "$lt Operator",
+        content: "Checks if field value is less than specified value."
+      },
+
+      {
+        heading: "$gte Operator",
+        content: "Checks if field value is greater than or equal to specified value."
+      },
+
+      {
+        heading: "$lte Operator",
+        content: "Checks if field value is less than or equal to specified value."
+      },
+
+      {
+        heading: "$in Operator",
+        content: "Checks whether value exists inside a specified array."
+      },
+
+      {
+        heading: "2. Logical Operators",
+        content: "Logical operators combine multiple query conditions."
+      },
+
+      {
+        heading: "$and Operator",
+        content: "Returns documents where all conditions are true."
+      },
+
+      {
+        heading: "$or Operator",
+        content: "Returns documents where at least one condition is true."
+      },
+
+      {
+        heading: "$not Operator",
+        content: "Negates a query condition."
+      },
+
+      {
+        heading: "$nor Operator",
+        content: "Returns documents that fail all conditions."
+      },
+
+      {
+        heading: "3. Element Operators",
+        content: "Element operators check existence and data types of fields."
+      },
+
+      {
+        heading: "$exists Operator",
+        content: "Checks whether a field exists in documents."
+      },
+
+      {
+        heading: "$type Operator",
+        content: "Checks the BSON data type of a field."
+      },
+
+      {
+        heading: "4. Update Operators",
+        content: "Update operators modify document values."
+      },
+
+      {
+        heading: "$set Operator",
+        content: "Updates or adds field values."
+      },
+
+      {
+        heading: "$unset Operator",
+        content: "Removes fields from documents."
+      },
+
+      {
+        heading: "$inc Operator",
+        content: "Increments numeric field values."
+      },
+
+      {
+        heading: "$rename Operator",
+        content: "Renames document fields."
+      },
+
+      {
+        heading: "5. Array Operators",
+        content: "Array operators work with array fields in documents."
+      },
+
+      {
+        heading: "$push Operator",
+        content: "Adds elements into arrays."
+      },
+
+      {
+        heading: "$pull Operator",
+        content: "Removes elements from arrays."
+      },
+
+      {
+        heading: "$addToSet Operator",
+        content: "Adds unique values into arrays."
+      },
+
+      {
+        heading: "Advantages of MongoDB Operators",
+        points: [
+          "Efficient querying",
+          "Flexible filtering",
+          "Supports complex operations",
+          "Improves database management"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "An e-commerce website uses MongoDB operators to filter products based on price, category, stock availability, and ratings."
+      }
+    ],
+
+    keyPoints: [
+      "MongoDB operators perform filtering and updates",
+      "Comparison operators compare values",
+      "Logical operators combine conditions",
+      "Update operators modify documents",
+      "Array operators handle array fields"
+    ],
+
+    code: `// Create / Switch Database
+use CollegeDB
+
+//------------------------------------------------
+
+// Create Collection
+db.createCollection("students")
+
+//------------------------------------------------
+
+// Insert Documents
+db.students.insertMany([
+
+    {
+
+        studentId: 101,
+
+        name: "Student One",
+
+        age: 21,
+
+        course: "Java",
+
+        skills: ["HTML", "CSS"]
+    },
+
+    {
+
+        studentId: 102,
+
+        name: "Student Two",
+
+        age: 24,
+
+        course: "MongoDB",
+
+        skills: ["JavaScript"]
+    }
+])
+
+//------------------------------------------------
+
+// Comparison Operator - $gt
+db.students.find({
+
+    age: { $gt: 22 }
+})
+
+//------------------------------------------------
+
+// Logical Operator - $and
+db.students.find({
+
+    $and: [
+
+        { age: { $gte: 21 } },
+
+        { course: "Java" }
+    ]
+})
+
+//------------------------------------------------
+
+// Update Operator - $set
+db.students.updateOne(
+
+    { studentId: 101 },
+
+    {
+
+        $set: {
+
+            course: "Full Stack"
+        }
+    }
+)
+
+//------------------------------------------------
+
+// Update Operator - $inc
+db.students.updateOne(
+
+    { studentId: 102 },
+
+    {
+
+        $inc: {
+
+            age: 1
+        }
+    }
+)
+
+//------------------------------------------------
+
+// Array Operator - $push
+db.students.updateOne(
+
+    { studentId: 101 },
+
+    {
+
+        $push: {
+
+            skills: "JavaScript"
+        }
+    }
+)
+
+//------------------------------------------------
+
+// View Documents
+db.students.find()`
+  },
+
+  "Aggregation": {
+    description: "Aggregation in MongoDB is the process of performing calculations, data analysis, and transformations on documents to generate summarized and meaningful results.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "MongoDB Aggregation is a framework used to process multiple documents and return computed or grouped results."
+      },
+
+      {
+        heading: "Why Aggregation?",
+        points: [
+          "Perform data analysis",
+          "Generate reports",
+          "Calculate totals and averages",
+          "Group related data",
+          "Transform and filter documents"
+        ]
+      },
+
+      {
+        heading: "Features of Aggregation",
+        points: [
+          "Supports data grouping",
+          "Performs calculations",
+          "Handles large datasets",
+          "Supports filtering and sorting",
+          "Provides pipeline-based processing"
+        ]
+      },
+
+      {
+        heading: "Aggregation Pipeline",
+        content: "MongoDB aggregation works using a pipeline where documents pass through multiple stages."
+      },
+
+      {
+        heading: "Stages of Aggregation Pipeline",
+        points: [
+          "$match",
+          "$group",
+          "$project",
+          "$sort",
+          "$limit",
+          "$skip",
+          "$unwind"
+        ]
+      },
+
+      {
+        heading: "1. $match Stage",
+        content: "$match filters documents based on conditions.",
+        points: [
+          "Similar to WHERE clause in SQL"
+        ]
+      },
+
+      {
+        heading: "2. $group Stage",
+        content: "$group groups documents based on field values and performs calculations.",
+        points: [
+          "Used for totals, averages, counts"
+        ]
+      },
+
+      {
+        heading: "3. $project Stage",
+        content: "$project selects specific fields and reshapes documents."
+      },
+
+      {
+        heading: "4. $sort Stage",
+        content: "$sort arranges documents in ascending or descending order."
+      },
+
+      {
+        heading: "5. $limit Stage",
+        content: "$limit restricts number of returned documents."
+      },
+
+      {
+        heading: "6. $skip Stage",
+        content: "$skip ignores specified number of documents."
+      },
+
+      {
+        heading: "7. $unwind Stage",
+        content: "$unwind separates array elements into individual documents."
+      },
+
+      {
+        heading: "Aggregation Operators",
+        points: [
+          "$sum → Calculates total",
+          "$avg → Calculates average",
+          "$max → Finds maximum value",
+          "$min → Finds minimum value",
+          "$count → Counts documents"
+        ]
+      },
+
+      {
+        heading: "Advantages of Aggregation",
+        points: [
+          "Powerful data analysis",
+          "Efficient reporting",
+          "Handles complex calculations",
+          "Reduces application-side processing"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "An online shopping platform uses aggregation to calculate total sales, average ratings, and top-selling products."
+      }
+    ],
+
+    keyPoints: [
+      "Aggregation processes and analyzes documents",
+      "Uses pipeline stages",
+      "$group performs grouping operations",
+      "$match filters documents",
+      "Used for reporting and analytics"
+    ],
+
+    code: `// Create / Switch Database
+use CollegeDB
+
+//------------------------------------------------
+
+// Create Collection
+db.createCollection("students")
+
+//------------------------------------------------
+
+// Insert Documents
+db.students.insertMany([
+
+    {
+
+        studentId: 101,
+
+        name: "Student One",
+
+        course: "Java",
+
+        marks: 85
+    },
+
+    {
+
+        studentId: 102,
+
+        name: "Student Two",
+
+        course: "MongoDB",
+
+        marks: 90
+    },
+
+    {
+
+        studentId: 103,
+
+        name: "Student Three",
+
+        course: "Java",
+
+        marks: 75
+    }
+])
+
+//------------------------------------------------
+
+// $match Example
+db.students.aggregate([
+
+    {
+
+        $match: {
+
+            course: "Java"
+        }
+    }
+])
+
+//------------------------------------------------
+
+// $group Example
+db.students.aggregate([
+
+    {
+
+        $group: {
+
+            _id: "$course",
+
+            totalMarks: {
+
+                $sum: "$marks"
+            },
+
+            averageMarks: {
+
+                $avg: "$marks"
+            }
+        }
+    }
+])
+
+//------------------------------------------------
+
+// $sort Example
+db.students.aggregate([
+
+    {
+
+        $sort: {
+
+            marks: -1
+        }
+    }
+])
+
+//------------------------------------------------
+
+// $project Example
+db.students.aggregate([
+
+    {
+
+        $project: {
+
+            name: 1,
+
+            marks: 1,
+
+            _id: 0
+        }
+    }
+])
+
+//------------------------------------------------
+
+// $limit Example
+db.students.aggregate([
+
+    {
+
+        $limit: 2
+    }
+])`
+  },
+
+  "Indexing": {
+    description: "Indexing in MongoDB is a technique used to improve the speed and performance of data retrieval operations by creating special data structures on collection fields.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "An index in MongoDB is a special data structure that stores a small portion of collection data in an organized format to make searching faster."
+      },
+
+      {
+        heading: "Why Indexing?",
+        points: [
+          "Improves query performance",
+          "Speeds up data retrieval",
+          "Reduces collection scanning",
+          "Enhances sorting efficiency",
+          "Optimizes large database operations"
+        ]
+      },
+
+      {
+        heading: "How Indexing Works",
+        content: "MongoDB indexes work similarly to book indexes. Instead of scanning the entire collection, MongoDB directly locates matching documents using indexes."
+      },
+
+      {
+        heading: "Features of Indexing",
+        points: [
+          "Fast searching",
+          "Efficient sorting",
+          "Supports unique values",
+          "Improves query optimization",
+          "Works on single or multiple fields"
+        ]
+      },
+
+      {
+        heading: "Types of MongoDB Indexes",
+        points: [
+          "Single Field Index",
+          "Compound Index",
+          "Unique Index",
+          "Text Index",
+          "Multikey Index",
+          "Hashed Index"
+        ]
+      },
+
+      {
+        heading: "1. Single Field Index",
+        content: "An index created on a single field of a document."
+      },
+
+      {
+        heading: "2. Compound Index",
+        content: "An index created on multiple fields together."
+      },
+
+      {
+        heading: "3. Unique Index",
+        content: "Ensures that indexed field values are unique."
+      },
+
+      {
+        heading: "4. Text Index",
+        content: "Used for text searching operations."
+      },
+
+      {
+        heading: "5. Multikey Index",
+        content: "Automatically created for array fields."
+      },
+
+      {
+        heading: "6. Hashed Index",
+        content: "Indexes hashed values for efficient sharding."
+      },
+
+      {
+        heading: "Creating Indexes",
+        content: "Indexes are created using createIndex() method."
+      },
+
+      {
+        heading: "Viewing Indexes",
+        content: "MongoDB provides methods to display all indexes in a collection."
+      },
+
+      {
+        heading: "Dropping Indexes",
+        content: "Indexes can be removed when no longer required."
+      },
+
+      {
+        heading: "Advantages of Indexing",
+        points: [
+          "Faster query execution",
+          "Efficient sorting",
+          "Reduced server load",
+          "Improved scalability",
+          "Better application performance"
+        ]
+      },
+
+      {
+        heading: "Disadvantages of Indexing",
+        points: [
+          "Consumes additional storage",
+          "Slows insert and update operations",
+          "Requires maintenance"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "An e-commerce website creates indexes on product names and categories to provide faster product search results."
+      }
+    ],
+
+    keyPoints: [
+      "Indexes improve query performance",
+      "createIndex() creates indexes",
+      "Indexes reduce collection scanning",
+      "Supports single and multiple fields",
+      "Essential for large-scale applications"
+    ],
+
+    code: `// Create / Switch Database
+use CollegeDB
+
+//------------------------------------------------
+
+// Create Collection
+db.createCollection("students")
+
+//------------------------------------------------
+
+// Insert Documents
+db.students.insertMany([
+
+    {
+
+        studentId: 101,
+
+        name: "Student One",
+
+        course: "Java",
+
+        age: 21
+    },
+
+    {
+
+        studentId: 102,
+
+        name: "Student Two",
+
+        course: "MongoDB",
+
+        age: 22
+    }
+])
+
+//------------------------------------------------
+
+// Create Single Field Index
+db.students.createIndex(
+
+    { name: 1 }
+)
+
+//------------------------------------------------
+
+// Create Compound Index
+db.students.createIndex(
+
+    {
+
+        course: 1,
+
+        age: -1
+    }
+)
+
+//------------------------------------------------
+
+// Create Unique Index
+db.students.createIndex(
+
+    {
+
+        studentId: 1
+    },
+
+    {
+
+        unique: true
+    }
+)
+
+//------------------------------------------------
+
+// View Indexes
+db.students.getIndexes()
+
+//------------------------------------------------
+
+// Query Using Index
+db.students.find({
+
+    name: "Student One"
+})
+
+//------------------------------------------------
+
+// Drop Specific Index
+db.students.dropIndex(
+
+    { name: 1 }
+)
+
+//------------------------------------------------
+
+// Drop All Indexes
+db.students.dropIndexes()`
+  },
+  "Auto Configuration": {
+    description: "Auto Configuration is one of the most powerful features of Spring Boot that automatically configures Spring applications based on project dependencies, properties, and application setup.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Spring Boot Auto Configuration automatically configures beans, components, and application settings based on the libraries and dependencies available in the project."
+      },
+
+      {
+        heading: "Why Auto Configuration?",
+        points: [
+          "Reduces manual configuration",
+          "Simplifies Spring application setup",
+          "Speeds up development process",
+          "Provides production-ready defaults",
+          "Minimizes XML configuration"
+        ]
+      },
+
+      {
+        heading: "How Auto Configuration Works",
+        content: "Spring Boot checks the dependencies available in the classpath and automatically configures required beans and services."
+      },
+
+      {
+        heading: "Main Components of Auto Configuration",
+        points: [
+          "@SpringBootApplication",
+          "@EnableAutoConfiguration",
+          "Starter Dependencies",
+          "application.properties"
+        ]
+      },
+
+      {
+        heading: "@SpringBootApplication",
+        content: "The @SpringBootApplication annotation is the main annotation in Spring Boot applications.",
+        points: [
+          "Combines multiple annotations",
+          "Enables component scanning",
+          "Enables auto configuration"
+        ]
+      },
+
+      {
+        heading: "@EnableAutoConfiguration",
+        content: "This annotation enables Spring Boot's automatic configuration mechanism."
+      },
+
+      {
+        heading: "Starter Dependencies",
+        content: "Spring Boot starters automatically include required libraries and configurations.",
+        points: [
+          "spring-boot-starter-web",
+          "spring-boot-starter-data-jpa",
+          "spring-boot-starter-security"
+        ]
+      },
+
+      {
+        heading: "application.properties",
+        content: "The application.properties file customizes auto-configured settings."
+      },
+
+      {
+        heading: "Classpath Scanning",
+        content: "Spring Boot scans dependencies and automatically configures related beans."
+      },
+
+      {
+        heading: "Conditional Configuration",
+        content: "Auto configuration works using conditions such as:",
+        points: [
+          "@ConditionalOnClass",
+          "@ConditionalOnMissingBean",
+          "@ConditionalOnProperty"
+        ]
+      },
+
+      {
+        heading: "Example of Auto Configuration",
+        content: "If spring-boot-starter-web dependency is added, Spring Boot automatically configures Tomcat server, DispatcherServlet, and MVC setup."
+      },
+
+      {
+        heading: "Advantages of Auto Configuration",
+        points: [
+          "Less boilerplate code",
+          "Faster development",
+          "Easy project setup",
+          "Production-ready configuration",
+          "Improves developer productivity"
+        ]
+      },
+
+      {
+        heading: "Disadvantages of Auto Configuration",
+        points: [
+          "Hidden configurations may confuse beginners",
+          "May load unnecessary configurations",
+          "Customization can become complex"
+        ]
+      },
+
+      {
+        heading: "Disabling Auto Configuration",
+        content: "Specific auto configurations can be disabled when not required."
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "When MySQL dependency and datasource properties are added, Spring Boot automatically configures database connectivity without manual bean creation."
+      }
+    ],
+
+    keyPoints: [
+      "Auto Configuration automatically sets up Spring applications",
+      "@EnableAutoConfiguration enables this feature",
+      "Works based on project dependencies",
+      "Reduces manual configuration",
+      "Core feature of Spring Boot"
+    ],
+
+    code: `// Main Spring Boot Application
+
+package com.example.demo;
+
+import org.springframework.boot.SpringApplication;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+
+public class DemoApplication {
+
+    public static void main(String[] args) {
+
+        SpringApplication.run(
+
+            DemoApplication.class,
+
+            args
+        );
+    }
+}
+
+//------------------------------------------------
+
+// application.properties
+
+server.port=8081
+
+spring.datasource.url=jdbc:mysql://localhost:3306/studentdb
+
+spring.datasource.username=root
+
+spring.datasource.password=root
+
+//------------------------------------------------
+
+// pom.xml Dependency Example
+
+<dependency>
+
+    <groupId>org.springframework.boot</groupId>
+
+    <artifactId>
+        spring-boot-starter-web
+    </artifactId>
+
+</dependency>
+
+//------------------------------------------------
+
+// Spring Boot automatically configures:
+
+// Embedded Tomcat Server
+
+// DispatcherServlet
+
+// Spring MVC Configuration
+
+// JSON Conversion
+
+// Error Handling`
+  },
+
+  "Starters": {
+    description: "Spring Boot Starters are predefined dependency packages that simplify project setup by automatically including all required libraries and configurations for specific functionalities.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Spring Boot Starters are dependency descriptors that bundle commonly used libraries and configurations for building Spring applications quickly."
+      },
+
+      {
+        heading: "Why Starters?",
+        points: [
+          "Reduce dependency management complexity",
+          "Simplify project setup",
+          "Avoid version conflicts",
+          "Speed up development",
+          "Provide ready-to-use configurations"
+        ]
+      },
+
+      {
+        heading: "How Starters Work",
+        content: "When a starter dependency is added to the project, Spring Boot automatically downloads all required libraries and enables related auto configurations."
+      },
+
+      {
+        heading: "Features of Spring Boot Starters",
+        points: [
+          "Predefined dependency bundles",
+          "Automatic configuration support",
+          "Version compatibility management",
+          "Easy integration",
+          "Production-ready setup"
+        ]
+      },
+
+      {
+        heading: "Types of Spring Boot Starters",
+        points: [
+          "spring-boot-starter",
+          "spring-boot-starter-web",
+          "spring-boot-starter-data-jpa",
+          "spring-boot-starter-security",
+          "spring-boot-starter-test",
+          "spring-boot-starter-thymeleaf"
+        ]
+      },
+
+      {
+        heading: "1. spring-boot-starter",
+        content: "Basic starter containing core Spring Boot libraries and logging support."
+      },
+
+      {
+        heading: "2. spring-boot-starter-web",
+        content: "Used for developing web and RESTful applications.",
+        points: [
+          "Includes Spring MVC",
+          "Includes embedded Tomcat server",
+          "Supports JSON processing"
+        ]
+      },
+
+      {
+        heading: "3. spring-boot-starter-data-jpa",
+        content: "Used for database operations with Spring Data JPA and Hibernate."
+      },
+
+      {
+        heading: "4. spring-boot-starter-security",
+        content: "Provides authentication and authorization features."
+      },
+
+      {
+        heading: "5. spring-boot-starter-test",
+        content: "Provides libraries for unit and integration testing."
+      },
+
+      {
+        heading: "6. spring-boot-starter-thymeleaf",
+        content: "Used for server-side HTML template rendering."
+      },
+
+      {
+        heading: "Starter Dependency Management",
+        content: "Spring Boot manages compatible dependency versions automatically using Spring Boot BOM (Bill of Materials)."
+      },
+
+      {
+        heading: "Advantages of Spring Boot Starters",
+        points: [
+          "Simplifies dependency management",
+          "Reduces configuration effort",
+          "Avoids jar version conflicts",
+          "Improves productivity",
+          "Quick project initialization"
+        ]
+      },
+
+      {
+        heading: "Disadvantages of Starters",
+        points: [
+          "May include unused libraries",
+          "Larger project size",
+          "Less control over individual dependencies"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "A REST API project uses spring-boot-starter-web to automatically configure web server, Spring MVC, and JSON support."
+      }
+    ],
+
+    keyPoints: [
+      "Starters simplify Spring Boot setup",
+      "Provide predefined dependency bundles",
+      "Automatically manage compatible versions",
+      "Reduce manual configuration",
+      "Essential for rapid application development"
+    ],
+
+    code: `<!-- Spring Boot Starter Dependencies -->
+
+<!-- Web Starter -->
+<dependency>
+
+    <groupId>
+        org.springframework.boot
+    </groupId>
+
+    <artifactId>
+        spring-boot-starter-web
+    </artifactId>
+
+</dependency>
+
+------------------------------------------------
+
+<!-- JPA Starter -->
+<dependency>
+
+    <groupId>
+        org.springframework.boot
+    </groupId>
+
+    <artifactId>
+        spring-boot-starter-data-jpa
+    </artifactId>
+
+</dependency>
+
+------------------------------------------------
+
+<!-- MySQL Driver -->
+<dependency>
+
+    <groupId>
+        com.mysql
+    </groupId>
+
+    <artifactId>
+        mysql-connector-j
+    </artifactId>
+
+    <scope>
+        runtime
+    </scope>
+
+</dependency>
+
+------------------------------------------------
+
+<!-- Security Starter -->
+<dependency>
+
+    <groupId>
+        org.springframework.boot
+    </groupId>
+
+    <artifactId>
+        spring-boot-starter-security
+    </artifactId>
+
+</dependency>
+
+------------------------------------------------
+
+<!-- Test Starter -->
+<dependency>
+
+    <groupId>
+        org.springframework.boot
+    </groupId>
+
+    <artifactId>
+        spring-boot-starter-test
+    </artifactId>
+
+    <scope>
+        test
+    </scope>
+
+</dependency>`
+  },
+
+  "Actuator": {
+    description: "Spring Boot Actuator is a production-ready feature that provides monitoring, management, health checks, metrics, and application information for Spring Boot applications.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Spring Boot Actuator is a module that helps developers monitor and manage Spring Boot applications using built-in endpoints."
+      },
+
+      {
+        heading: "Why Actuator?",
+        points: [
+          "Monitors application health",
+          "Tracks application metrics",
+          "Provides production-ready management",
+          "Helps detect issues quickly",
+          "Improves application maintenance"
+        ]
+      },
+
+      {
+        heading: "Features of Spring Boot Actuator",
+        points: [
+          "Health monitoring",
+          "Metrics collection",
+          "Application information",
+          "Environment details",
+          "Thread and memory monitoring",
+          "HTTP request tracking"
+        ]
+      },
+
+      {
+        heading: "How Actuator Works",
+        content: "Actuator exposes management endpoints over HTTP or JMX to provide application insights and monitoring data."
+      },
+
+      {
+        heading: "Actuator Dependency",
+        content: "Actuator functionality is enabled using spring-boot-starter-actuator dependency."
+      },
+
+      {
+        heading: "Common Actuator Endpoints",
+        points: [
+          "/actuator/health",
+          "/actuator/info",
+          "/actuator/metrics",
+          "/actuator/env",
+          "/actuator/beans",
+          "/actuator/mappings",
+          "/actuator/loggers"
+        ]
+      },
+
+      {
+        heading: "1. /actuator/health",
+        content: "Displays application health status.",
+        points: [
+          "UP → Application running properly",
+          "DOWN → Application has issues"
+        ]
+      },
+
+      {
+        heading: "2. /actuator/info",
+        content: "Provides application-related information such as version and developer details."
+      },
+
+      {
+        heading: "3. /actuator/metrics",
+        content: "Displays performance metrics such as memory usage and HTTP request statistics."
+      },
+
+      {
+        heading: "4. /actuator/env",
+        content: "Displays environment properties and configuration values."
+      },
+
+      {
+        heading: "5. /actuator/beans",
+        content: "Displays all Spring beans loaded in the application context."
+      },
+
+      {
+        heading: "6. /actuator/mappings",
+        content: "Displays all request mappings available in the application."
+      },
+
+      {
+        heading: "Endpoint Security",
+        content: "Sensitive actuator endpoints can be secured using Spring Security."
+      },
+
+      {
+        heading: "Customizing Actuator Endpoints",
+        content: "Endpoints can be enabled or disabled using application.properties configuration."
+      },
+
+      {
+        heading: "Advantages of Spring Boot Actuator",
+        points: [
+          "Easy application monitoring",
+          "Production-ready diagnostics",
+          "Real-time health tracking",
+          "Improved maintenance",
+          "Supports DevOps practices"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "A banking application uses Actuator health endpoints to monitor server availability and detect downtime instantly."
+      }
+    ],
+
+    keyPoints: [
+      "Actuator provides monitoring and management features",
+      "Uses built-in HTTP endpoints",
+      "Tracks application health and metrics",
+      "Supports production-ready applications",
+      "Essential for monitoring Spring Boot systems"
+    ],
+
+    code: `<!-- Actuator Dependency -->
+
+<dependency>
+
+    <groupId>
+        org.springframework.boot
+    </groupId>
+
+    <artifactId>
+        spring-boot-starter-actuator
+    </artifactId>
+
+</dependency>
+
+------------------------------------------------
+
+// application.properties
+
+management.endpoints.web.exposure.include=*
+
+management.endpoint.health.show-details=always
+
+info.app.name=Student Management System
+
+info.app.version=1.0.0
+
+------------------------------------------------
+
+// Access Actuator Endpoints
+
+http://localhost:8080/actuator
+
+//------------------------------------------------
+
+// Health Endpoint
+
+http://localhost:8080/actuator/health
+
+//------------------------------------------------
+
+// Info Endpoint
+
+http://localhost:8080/actuator/info
+
+//------------------------------------------------
+
+// Metrics Endpoint
+
+http://localhost:8080/actuator/metrics
+
+//------------------------------------------------
+
+// Environment Endpoint
+
+http://localhost:8080/actuator/env`
+  },
+
+  "Data JPA": {
+    description: "Spring Data JPA is a Spring Framework module that simplifies database access and ORM (Object Relational Mapping) operations using JPA and Hibernate.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Spring Data JPA is a Spring module that reduces boilerplate code for database operations by providing repository-based data access using JPA."
+      },
+
+      {
+        heading: "What is JPA?",
+        content: "JPA (Java Persistence API) is a Java specification used for managing relational data in Java applications."
+      },
+
+      {
+        heading: "What is Hibernate?",
+        content: "Hibernate is the most popular implementation of JPA used for ORM functionality."
+      },
+
+      {
+        heading: "Why Spring Data JPA?",
+        points: [
+          "Reduces database boilerplate code",
+          "Simplifies CRUD operations",
+          "Supports automatic query generation",
+          "Integrates easily with Spring Boot",
+          "Improves productivity"
+        ]
+      },
+
+      {
+        heading: "Features of Spring Data JPA",
+        points: [
+          "Repository abstraction",
+          "Automatic query generation",
+          "Pagination and sorting",
+          "Custom query support",
+          "Transaction management",
+          "Integration with Hibernate"
+        ]
+      },
+
+      {
+        heading: "Core Components of Spring Data JPA",
+        points: [
+          "Entity Class",
+          "Repository Interface",
+          "JPA Repository",
+          "Service Layer",
+          "Database Configuration"
+        ]
+      },
+
+      {
+        heading: "1. Entity Class",
+        content: "An entity class represents a database table using Java objects.",
+        points: [
+          "Uses @Entity annotation",
+          "Uses @Table annotation",
+          "Fields map to table columns"
+        ]
+      },
+
+      {
+        heading: "2. Repository Interface",
+        content: "Repository interfaces provide database operation methods without writing SQL queries."
+      },
+
+      {
+        heading: "3. JpaRepository",
+        content: "JpaRepository provides built-in CRUD methods and pagination support."
+      },
+
+      {
+        heading: "Common Repository Methods",
+        points: [
+          "save()",
+          "findById()",
+          "findAll()",
+          "deleteById()",
+          "count()"
+        ]
+      },
+
+      {
+        heading: "Automatic Query Methods",
+        content: "Spring Data JPA automatically generates queries from method names.",
+        points: [
+          "findByName()",
+          "findByAgeGreaterThan()",
+          "findByCourse()"
+        ]
+      },
+
+      {
+        heading: "Custom Queries",
+        content: "Custom queries can be written using @Query annotation."
+      },
+
+      {
+        heading: "Pagination and Sorting",
+        content: "Spring Data JPA supports pagination and sorting for efficient data retrieval."
+      },
+
+      {
+        heading: "Advantages of Spring Data JPA",
+        points: [
+          "Less boilerplate code",
+          "Easy database integration",
+          "Fast development",
+          "Automatic query generation",
+          "Improved maintainability"
+        ]
+      },
+
+      {
+        heading: "Disadvantages of Spring Data JPA",
+        points: [
+          "Complex queries may reduce performance",
+          "Learning curve for beginners",
+          "Hidden SQL queries may confuse debugging"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "An online student management system uses Spring Data JPA repositories to store and retrieve student details from MySQL database."
+      }
+    ],
+
+    keyPoints: [
+      "Spring Data JPA simplifies database operations",
+      "Uses JPA and Hibernate for ORM",
+      "JpaRepository provides CRUD methods",
+      "Supports automatic query generation",
+      "Widely used in Spring Boot applications"
+    ],
+
+    code: `// Entity Class
+
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+
+@Entity
+
+@Table(name = "students")
+
+public class Student {
+
+    @Id
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    private Long id;
+
+    private String name;
+
+    private String course;
+
+    // Getters and Setters
+}
+
+------------------------------------------------
+
+// Repository Interface
+
+package com.example.demo.repository;
+
+import com.example.demo.entity.Student;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface StudentRepository
+extends JpaRepository<Student, Long> {
+
+    // Custom Query Method
+    List<Student> findByCourse(String course);
+}
+
+------------------------------------------------
+
+// Service Layer
+
+@Service
+
+public class StudentService {
+
+    @Autowired
+
+    private StudentRepository repository;
+
+    public List<Student> getAllStudents() {
+
+        return repository.findAll();
+    }
+}
+
+------------------------------------------------
+
+// application.properties
+
+spring.datasource.url=
+jdbc:mysql://localhost:3306/studentdb
+
+spring.datasource.username=root
+
+spring.datasource.password=root
+
+spring.jpa.hibernate.ddl-auto=update
+
+spring.jpa.show-sql=true`
+  },
+
+  "Security": {
+    description: "Spring Security is a powerful authentication and authorization framework used to secure Spring and Spring Boot applications from unauthorized access and security threats.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Spring Security is a security framework that provides authentication, authorization, password protection, session management, and protection against common security attacks."
+      },
+
+      {
+        heading: "Why Spring Security?",
+        points: [
+          "Protects applications from unauthorized access",
+          "Provides authentication and authorization",
+          "Secures REST APIs and web applications",
+          "Prevents security attacks",
+          "Supports enterprise-level security"
+        ]
+      },
+
+      {
+        heading: "Features of Spring Security",
+        points: [
+          "Authentication",
+          "Authorization",
+          "Password Encryption",
+          "Session Management",
+          "CSRF Protection",
+          "JWT Support",
+          "OAuth2 Integration"
+        ]
+      },
+
+      {
+        heading: "Authentication",
+        content: "Authentication is the process of verifying user identity using username and password."
+      },
+
+      {
+        heading: "Authorization",
+        content: "Authorization determines what resources or operations a user can access after authentication."
+      },
+
+      {
+        heading: "Password Encryption",
+        content: "Spring Security uses password encoders like BCrypt to securely store passwords."
+      },
+
+      {
+        heading: "Session Management",
+        content: "Session management controls user sessions and login activities."
+      },
+
+      {
+        heading: "CSRF Protection",
+        content: "CSRF (Cross Site Request Forgery) protection prevents unauthorized requests from malicious websites."
+      },
+
+      {
+        heading: "JWT Authentication",
+        content: "JWT (JSON Web Token) is used for secure token-based authentication in REST APIs."
+      },
+
+      {
+        heading: "OAuth2 Integration",
+        content: "Spring Security supports OAuth2 login with Google, GitHub, Facebook, and other providers."
+      },
+
+      {
+        heading: "Spring Security Architecture",
+        points: [
+          "Security Filter Chain",
+          "Authentication Manager",
+          "UserDetailsService",
+          "Password Encoder",
+          "Security Context"
+        ]
+      },
+
+      {
+        heading: "Security Filter Chain",
+        content: "The filter chain intercepts incoming requests and applies security checks."
+      },
+
+      {
+        heading: "UserDetailsService",
+        content: "UserDetailsService loads user information from database or memory."
+      },
+
+      {
+        heading: "PasswordEncoder",
+        content: "PasswordEncoder encrypts passwords before storing them."
+      },
+
+      {
+        heading: "Advantages of Spring Security",
+        points: [
+          "Highly secure framework",
+          "Supports modern authentication methods",
+          "Easy integration with Spring Boot",
+          "Flexible role-based access control",
+          "Protection against common attacks"
+        ]
+      },
+
+      {
+        heading: "Common Security Attacks Prevented",
+        points: [
+          "CSRF Attacks",
+          "Session Fixation",
+          "Clickjacking",
+          "Unauthorized Access"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "A banking application uses Spring Security to authenticate users, encrypt passwords, and restrict access based on user roles."
+      }
+    ],
+
+    keyPoints: [
+      "Spring Security secures Spring applications",
+      "Provides authentication and authorization",
+      "Supports JWT and OAuth2",
+      "Encrypts passwords using BCrypt",
+      "Widely used in enterprise applications"
+    ],
+
+    code: `<!-- Spring Security Dependency -->
+
+<dependency>
+
+    <groupId>
+        org.springframework.boot
+    </groupId>
+
+    <artifactId>
+        spring-boot-starter-security
+    </artifactId>
+
+</dependency>
+
+------------------------------------------------
+
+// Security Configuration
+
+package com.example.demo.config;
+
+import org.springframework.context.annotation.Bean;
+
+import org.springframework.context.annotation.Configuration;
+
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+
+public class SecurityConfig {
+
+    @Bean
+
+    public SecurityFilterChain securityFilterChain(
+
+        HttpSecurity http
+
+    ) throws Exception {
+
+        http
+
+            .authorizeHttpRequests(auth -> auth
+
+                .requestMatchers("/public/**")
+
+                .permitAll()
+
+                .anyRequest()
+
+                .authenticated()
+            )
+
+            .formLogin();
+
+        return http.build();
+    }
+}
+
+------------------------------------------------
+
+// application.properties
+
+spring.security.user.name=admin
+
+spring.security.user.password=admin123
+
+//------------------------------------------------
+
+// Password Encryption Example
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+public class PasswordExample {
+
+    public static void main(String[] args) {
+
+        BCryptPasswordEncoder encoder =
+            new BCryptPasswordEncoder();
+
+        String password = "admin123";
+
+        String encodedPassword =
+            encoder.encode(password);
+
+        System.out.println(encodedPassword);
+    }
+}`
+  },
+
+  "Microservices": {
+    description: "Microservices is a software architecture approach where an application is divided into small, independent, and loosely coupled services that work together to form a complete system.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Microservices architecture is a design pattern in which large applications are broken into smaller independent services, where each service performs a specific business function."
+      },
+
+      {
+        heading: "Why Microservices?",
+        points: [
+          "Improves scalability",
+          "Simplifies application maintenance",
+          "Allows independent deployment",
+          "Supports faster development",
+          "Improves fault isolation"
+        ]
+      },
+
+      {
+        heading: "Features of Microservices",
+        points: [
+          "Independent services",
+          "Loosely coupled architecture",
+          "Independent deployment",
+          "Technology flexibility",
+          "Scalable services",
+          "Distributed system architecture"
+        ]
+      },
+
+      {
+        heading: "Monolithic vs Microservices",
+        points: [
+          "Monolithic applications are built as a single unit",
+          "Microservices split applications into multiple services",
+          "Monolithic systems are harder to scale",
+          "Microservices allow independent scaling",
+          "Microservices improve flexibility and maintainability"
+        ]
+      },
+
+      {
+        heading: "Components of Microservices Architecture",
+        points: [
+          "API Gateway",
+          "Service Registry",
+          "Load Balancer",
+          "Configuration Server",
+          "Database",
+          "Messaging System"
+        ]
+      },
+
+      {
+        heading: "1. API Gateway",
+        content: "API Gateway acts as the entry point for all client requests and routes them to appropriate services."
+      },
+
+      {
+        heading: "2. Service Registry",
+        content: "Service registry stores information about all available microservices."
+      },
+
+      {
+        heading: "3. Load Balancer",
+        content: "Load balancer distributes traffic among multiple service instances."
+      },
+
+      {
+        heading: "4. Configuration Server",
+        content: "Configuration server manages centralized application configurations."
+      },
+
+      {
+        heading: "5. Database",
+        content: "Each microservice can have its own database for independent data management."
+      },
+
+      {
+        heading: "6. Messaging System",
+        content: "Messaging systems enable communication between services asynchronously."
+      },
+
+      {
+        heading: "Communication between Microservices",
+        points: [
+          "REST APIs",
+          "HTTP Protocol",
+          "Message Queues",
+          "Kafka",
+          "RabbitMQ"
+        ]
+      },
+
+      {
+        heading: "Advantages of Microservices",
+        points: [
+          "Easy scalability",
+          "Independent deployment",
+          "Improved fault isolation",
+          "Technology independence",
+          "Faster development cycles",
+          "Better maintainability"
+        ]
+      },
+
+      {
+        heading: "Disadvantages of Microservices",
+        points: [
+          "Complex deployment",
+          "Distributed system challenges",
+          "Difficult debugging",
+          "Network communication overhead",
+          "Requires DevOps support"
+        ]
+      },
+
+      {
+        heading: "Spring Boot and Microservices",
+        content: "Spring Boot and Spring Cloud are commonly used for developing microservices-based applications."
+      },
+
+      {
+        heading: "Popular Microservices Tools",
+        points: [
+          "Spring Cloud",
+          "Docker",
+          "Kubernetes",
+          "Eureka Server",
+          "Feign Client",
+          "API Gateway"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "An e-commerce application may use separate microservices for authentication, product management, payment processing, and order management."
+      }
+    ],
+
+    keyPoints: [
+      "Microservices divide applications into small services",
+      "Each service works independently",
+      "Supports scalability and flexibility",
+      "Spring Boot is widely used for microservices",
+      "Popular in modern cloud-based applications"
+    ],
+
+    code: `// Example of Simple Spring Boot Microservice
+
+package com.example.productservice.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+
+public class ProductController {
+
+    @GetMapping("/products")
+
+    public String getProducts() {
+
+        return "Product Service Running";
+    }
+}
+
+------------------------------------------------
+
+// application.properties
+
+server.port=8081
+
+spring.application.name=product-service
+
+//------------------------------------------------
+
+// pom.xml Dependency
+
+<dependency>
+
+    <groupId>
+        org.springframework.boot
+    </groupId>
+
+    <artifactId>
+        spring-boot-starter-web
+    </artifactId>
+
+</dependency>
+
+------------------------------------------------
+
+// Run Application
+
+// Access URL:
+
+http://localhost:8081/products`
   },
 };
