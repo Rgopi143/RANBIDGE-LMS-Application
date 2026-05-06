@@ -167,15 +167,15 @@ interface LMSDashboardProps {
 
 
 
-export default function LMSDashboard({ 
-  user, 
-  setCurrentView, 
-  onLogout, 
-  completedLessons = [], 
-  moduleStats = {}, 
+export default function LMSDashboard({
+  user,
+  setCurrentView,
+  onLogout,
+  completedLessons = [],
+  moduleStats = {},
   syllabus = [],
-  desiredTab, 
-  onTabSet 
+  desiredTab,
+  onTabSet
 }: LMSDashboardProps) {
 
   const [activeTab, setActiveTab] = useState<'overview' | 'courses' | 'catalog' | 'progress' | 'schedule' | 'assignments' | 'playground' | 'notes' | 'rating'>(() => {
@@ -387,8 +387,8 @@ export default function LMSDashboard({
         course.courseId === 'java-fullstack-master'
           ? 'https://www.pngmart.com/files/23/Java-PNG-Photos.png'
           : course.courseId === '2'
-          ? 'https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-1024.png'
-          : '',
+            ? 'https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-1024.png'
+            : '',
       chartStyle
     };
   });
@@ -623,7 +623,7 @@ export default function LMSDashboard({
 
 
 
-  
+
 
 
   // Mock data for demonstration
@@ -979,9 +979,9 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
   // Filter notes based on selected category
 
-  const filteredNotes = selectedCategory === 'All' 
+  const filteredNotes = selectedCategory === 'All'
 
-    ? notes 
+    ? notes
 
     : notes.filter(note => note.category === selectedCategory);
 
@@ -1031,7 +1031,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
       />
 
-      
+
 
       <div className={`relative h-48 flex items-center justify-center overflow-hidden ${course.thumbnail.startsWith('http') ? 'bg-white' : 'bg-gradient-to-br from-slate-400 to-teal-600'}`}>
 
@@ -1053,11 +1053,11 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
         </motion.div>
 
-        
+
 
         <motion.div
 
-          animate={{ 
+          animate={{
 
             rotate: hoveredCard === course.id && !course.thumbnail.startsWith('http') ? 360 : 0,
 
@@ -1077,7 +1077,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
         </motion.div>
 
-        
+
 
         {/* Floating particles */}
 
@@ -1101,9 +1101,9 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                 className="absolute w-2 h-2 bg-white/30 rounded-full"
 
-                initial={{ 
+                initial={{
 
-                  x: Math.random() * 100 + "%", 
+                  x: Math.random() * 100 + "%",
 
                   y: Math.random() * 100 + "%",
 
@@ -1111,9 +1111,9 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                 }}
 
-                animate={{ 
+                animate={{
 
-                  x: Math.random() * 100 + "%", 
+                  x: Math.random() * 100 + "%",
 
                   y: Math.random() * 100 + "%",
 
@@ -1121,7 +1121,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                 }}
 
-                transition={{ 
+                transition={{
 
                   duration: 2 + Math.random() * 2,
 
@@ -1141,7 +1141,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
       </div>
 
-      
+
 
       <div className="relative p-6">
 
@@ -1199,7 +1199,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
         </motion.div>
 
-        
+
 
         <motion.h3
 
@@ -1217,7 +1217,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
         </motion.h3>
 
-        
+
 
         <motion.p
 
@@ -1235,7 +1235,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
         </motion.p>
 
-        
+
 
         <motion.div
 
@@ -1267,7 +1267,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
         </motion.div>
 
-        
+
 
         {isEnrolled && course.progress !== undefined && (
 
@@ -1325,7 +1325,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
         )}
 
-        
+
 
         <motion.div
 
@@ -1393,15 +1393,13 @@ Enable JPA repositories with @EnableJpaRepositories`,
                 }
               }}
 
-              className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 ${
+              className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 ${isEnrolled
 
-                isEnrolled
+                ? 'bg-slate-600 text-white hover:bg-slate-700 shadow-lg hover:shadow-slate-600/50'
 
-                  ? 'bg-slate-600 text-white hover:bg-slate-700 shadow-lg hover:shadow-slate-600/50'
+                : 'bg-slate-900 text-white hover:bg-slate-800 shadow-lg hover:shadow-slate-900/50'
 
-                  : 'bg-slate-900 text-white hover:bg-slate-800 shadow-lg hover:shadow-slate-900/50'
-
-              }`}
+                }`}
 
             >
 
@@ -1577,7 +1575,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                     </div>
 
-                    
+
 
                     <div className="max-h-96 overflow-y-auto">
                       {notifications.length > 0 ? (
@@ -1590,78 +1588,73 @@ Enable JPA repositories with @EnableJpaRepositories`,
                             initial={{ opacity: 0, x: -20 }}
 
                             animate={{ opacity: 1, x: 0 }}
-                          initial={{ opacity: 0, x: -20 }}
 
-                          animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.1 }}
 
-                          transition={{ delay: index * 0.1 }}
+                            className={`p-4 border-b border-slate-100 hover:bg-slate-50 cursor-pointer transition-colors ${!notification.read ? 'bg-blue-50/50' : ''
 
-                          className={`p-4 border-b border-slate-100 hover:bg-slate-50 cursor-pointer transition-colors ${
+                              }`}
 
-                            !notification.read ? 'bg-blue-50/50' : ''
+                          >
 
-                          }`}
+                            <div className="flex items-start gap-3">
 
-                        >
+                              <motion.div
 
-                          <div className="flex items-start gap-3">
+                                className={`w-10 h-10 ${notification.color} rounded-xl flex items-center justify-center text-white flex-shrink-0`}
 
-                            <motion.div
+                                whileHover={{ scale: 1.1, rotate: 5 }}
 
-                              className={`w-10 h-10 ${notification.color} rounded-xl flex items-center justify-center text-white flex-shrink-0`}
+                                transition={{ type: "spring" }}
 
-                              whileHover={{ scale: 1.1, rotate: 5 }}
+                              >
 
-                              transition={{ type: "spring" }}
+                                <notification.icon size={18} />
 
-                            >
+                              </motion.div>
 
-                              <notification.icon size={18} />
+                              <div className="flex-1 min-w-0">
 
-                            </motion.div>
+                                <div className="flex items-center justify-between mb-1">
 
-                            <div className="flex-1 min-w-0">
+                                  <h4 className="font-medium text-slate-900 text-sm">{notification.title}</h4>
 
-                              <div className="flex items-center justify-between mb-1">
+                                  {!notification.read && (
 
-                                <h4 className="font-medium text-slate-900 text-sm">{notification.title}</h4>
+                                    <motion.div
 
-                                {!notification.read && (
+                                      className="w-2 h-2 bg-blue-500 rounded-full"
 
-                                  <motion.div
+                                      animate={{ scale: [1, 1.5, 1] }}
 
-                                    className="w-2 h-2 bg-blue-500 rounded-full"
+                                      transition={{ duration: 2, repeat: Infinity }}
 
-                                    animate={{ scale: [1, 1.5, 1] }}
+                                    />
 
-                                    transition={{ duration: 2, repeat: Infinity }}
+                                  )}
 
-                                  />
+                                </div>
 
-                                )}
+                                <p className="text-xs text-slate-600 mb-1">{notification.message}</p>
+
+                                <p className="text-xs text-slate-400">{notification.time}</p>
 
                               </div>
 
-                              <p className="text-xs text-slate-600 mb-1">{notification.message}</p>
-
-                              <p className="text-xs text-slate-400">{notification.time}</p>
-
                             </div>
 
+                          </motion.div>
+
+                        ))):
+                        (
+                          <div className="text-center py-12">
+                            <Bell size={32} className="text-slate-200 mx-auto mb-4" />
+                            <p className="text-sm text-slate-400 font-medium">No notifications yet</p>
                           </div>
-
-                        </motion.div>
-
-                      ))
-                      : (
-                        <div className="text-center py-12">
-                          <Bell size={32} className="text-slate-200 mx-auto mb-4" />
-                          <p className="text-sm text-slate-400 font-medium">No notifications yet</p>
-                        </div>
-                      )}
+                        )}
                     </div>
 
-                    
+
 
                     <div className="p-3 border-t border-slate-200">
 
@@ -1802,7 +1795,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                     </div>
 
-                    
+
 
                     <div className="p-2">
 
@@ -1868,7 +1861,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                     </div>
 
-                    
+
 
                     <div className="p-3 border-t border-slate-200">
 
@@ -2009,188 +2002,186 @@ Enable JPA repositories with @EnableJpaRepositories`,
       <main className="max-w-7xl mx-auto px-6 py-8">
 
 
-      {/* Notes Modal */}
-      {selectedNote && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedNote(null)}
-        >
+        {/* Notes Modal */}
+        {selectedNote && (
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            className={`bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden ${
-              isModalMaximized ? 'h-[90vh]' : 'h-auto'
-            }`}
-            onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedNote(null)}
           >
-            {/* Modal Header */}
-            <div className="bg-gradient-to-r from-slate-600 to-slate-700 text-white p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-bold mb-2">{selectedNote.title}</h2>
-                  <div className="flex items-center gap-4 text-sm opacity-90">
-                    <span className="bg-white/20 px-3 py-1 rounded-full">{selectedNote.category}</span>
-                    <span className="flex items-center gap-1">
-                      <Calendar size={14} />
-                      {selectedNote.date}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Clock size={14} />
-                      {selectedNote.time}
-                    </span>
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className={`bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden ${isModalMaximized ? 'h-[90vh]' : 'h-auto'
+                }`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="bg-gradient-to-r from-slate-600 to-slate-700 text-white p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-2xl font-bold mb-2">{selectedNote.title}</h2>
+                    <div className="flex items-center gap-4 text-sm opacity-90">
+                      <span className="bg-white/20 px-3 py-1 rounded-full">{selectedNote.category}</span>
+                      <span className="flex items-center gap-1">
+                        <Calendar size={14} />
+                        {selectedNote.date}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock size={14} />
+                        {selectedNote.time}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => setIsModalMaximized(!isModalMaximized)}
+                      className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+                      title={isModalMaximized ? "Minimize" : "Maximize"}
+                    >
+                      <Maximize size={20} className={isModalMaximized ? "rotate-180" : ""} />
+                    </button>
+                    <button
+                      onClick={() => setSelectedNote(null)}
+                      className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+                    >
+                      <X size={20} />
+                    </button>
                   </div>
                 </div>
-                
-                <div className="flex items-center gap-1">
-                  <button
-                    onClick={() => setIsModalMaximized(!isModalMaximized)}
-                    className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-                    title={isModalMaximized ? "Minimize" : "Maximize"}
-                  >
-                    <Maximize size={20} className={isModalMaximized ? "rotate-180" : ""} />
-                  </button>
-                  <button
-                    onClick={() => setSelectedNote(null)}
-                    className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-                  >
-                    <X size={20} />
-                  </button>
-                </div>
               </div>
-            </div>
 
-            {/* Modal Content */}
-            <div className={`p-6 overflow-y-auto ${
-              isModalMaximized ? 'max-h-[85vh]' : 'max-h-[60vh]'
-            }`}>
-              <div className="prose prose-slate max-w-none">
-                <h3 className="text-lg font-semibold text-slate-900 mb-4">Note Content</h3>
-                
-                <div className="bg-white rounded-xl p-6 mb-6 shadow-2xl border border-slate-200">
-                  {isEditing ? (
-                    <textarea
-                      value={editedContent}
-                      onChange={(e) => setEditedContent(e.target.value)}
-                      className="w-full h-64 p-4 border border-slate-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-700 leading-relaxed"
-                      placeholder="Edit your note content..."
-                    />
-                  ) : (
-                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-6 shadow-lg">
-                      <div className="bg-white/80 backdrop-blur rounded-lg p-4">
-                        <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">{selectedNote.content}</p>
+              {/* Modal Content */}
+              <div className={`p-6 overflow-y-auto ${isModalMaximized ? 'max-h-[85vh]' : 'max-h-[60vh]'
+                }`}>
+                <div className="prose prose-slate max-w-none">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-4">Note Content</h3>
+
+                  <div className="bg-white rounded-xl p-6 mb-6 shadow-2xl border border-slate-200">
+                    {isEditing ? (
+                      <textarea
+                        value={editedContent}
+                        onChange={(e) => setEditedContent(e.target.value)}
+                        className="w-full h-64 p-4 border border-slate-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-700 leading-relaxed"
+                        placeholder="Edit your note content..."
+                      />
+                    ) : (
+                      <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-6 shadow-lg">
+                        <div className="bg-white/80 backdrop-blur rounded-lg p-4">
+                          <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">{selectedNote.content}</p>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
+                    )}
+                  </div>
 
-                {/* Action Buttons */}
-                <div className="flex gap-3 mt-6 pt-4 border-t border-slate-200">
-                  {isEditing && (
-                    <>
+                  {/* Action Buttons */}
+                  <div className="flex gap-3 mt-6 pt-4 border-t border-slate-200">
+                    {isEditing && (
+                      <>
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          onClick={() => {
+                            if (selectedNote) {
+                              const noteIndex = notes.findIndex(note => note.id === selectedNote.id);
+                              if (noteIndex !== -1) {
+                                notes[noteIndex].content = editedContent;
+                                setSelectedNote({ ...selectedNote, content: editedContent });
+                              }
+                              setIsEditing(false);
+                            }
+                          }}
+                          className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
+                        >
+                          <CheckCircle size={16} />
+                          Save
+                        </motion.button>
+
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          onClick={() => {
+                            setIsEditing(false);
+                            setEditedContent(selectedNote?.content || '');
+                          }}
+                          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2"
+                        >
+                          <X size={16} />
+                          Cancel
+                        </motion.button>
+                      </>
+                    )}
+
+                    {!isEditing && (
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => {
                           if (selectedNote) {
-                            const noteIndex = notes.findIndex(note => note.id === selectedNote.id);
-                            if (noteIndex !== -1) {
-                              notes[noteIndex].content = editedContent;
-                              setSelectedNote({ ...selectedNote, content: editedContent });
-                            }
-                            setIsEditing(false);
+                            setIsEditing(true);
+                            setEditedContent(selectedNote.content);
                           }
                         }}
-                        className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
+                        className="px-4 py-2 bg-black text-white rounded-lg hover:bg-slate-800 transition-colors flex items-center gap-2"
                       >
-                        <CheckCircle size={16} />
-                        Save
+                        <Edit size={16} />
+                        Edit Note
                       </motion.button>
+                    )}
 
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => {
-                          setIsEditing(false);
-                          setEditedContent(selectedNote?.content || '');
-                        }}
-                        className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2"
-                      >
-                        <X size={16} />
-                        Cancel
-                      </motion.button>
-                    </>
-                  )}
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors flex items-center gap-2"
+                    >
+                      <Share2 size={16} />
+                      Share
+                    </motion.button>
 
-                  {!isEditing && (
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => {
                         if (selectedNote) {
-                          setIsEditing(true);
-                          setEditedContent(selectedNote.content);
-                        }
-                      }}
-                      className="px-4 py-2 bg-black text-white rounded-lg hover:bg-slate-800 transition-colors flex items-center gap-2"
-                    >
-                      <Edit size={16} />
-                      Edit Note
-                    </motion.button>
-                  )}
+                          const printWindow = window.open('', '_blank');
+                          if (printWindow) {
+                            const processedContent = selectedNote.content
+                              .replace(/^(🌱 What is Spring Boot\?)/gm, '<strong>$1</strong>')
+                              .replace(/^(⚙️ 1\. Prerequisites)/gm, '<strong>$1</strong>')
+                              .replace(/^(🚀 2\. Creating a Spring Boot Project)/gm, '<strong>$1</strong>')
+                              .replace(/^(📁 3\. Project Structure)/gm, '<strong>$1</strong>')
+                              .replace(/^(🧠 4\. Main Application Class)/gm, '<div style="page-break-before: always;"></div><strong>$1</strong>')
+                              .replace(/^(🔧 5\. Spring Boot Configuration)/gm, '<strong>$1</strong>')
+                              .replace(/^(🔁 6\. Auto Configuration Concept)/gm, '<strong>$1</strong>')
+                              .replace(/^(🌐 7\. Creating a Simple REST Controller)/gm, '<div style="page-break-before: always;"></div><strong>$1</strong>')
+                              .replace(/^(▶️ 8\. Running the Application)/gm, '<strong>$1</strong>')
+                              .replace(/^(🌍 9\. Output)/gm, '<strong>$1</strong>')
+                              .replace(/^(🧩 10\. Key Annotations Summary)/gm, '<strong>$1</strong>')
+                              .replace(/^(🏁 Final Flow)/gm, '<strong>$1</strong>')
+                              .replace(/^(Key Points)/gm, '<strong>$1</strong>')
+                              .replace(/^(Explanation:)/gm, '<strong>$1</strong>')
+                              .replace(/^(Method 1: Using Spring Initializr)/gm, '<strong>$1</strong>')
+                              .replace(/^(Steps:)/gm, '<strong>$1</strong>')
+                              .replace(/^(Important folders:)/gm, '<strong>$1</strong>')
+                              .replace(/^(Spring Boot automatically:)/gm, '<strong>$1</strong>')
+                              .replace(/^(👉 Based on:)/gm, '<strong>$1</strong>')
+                              .replace(/^(Using IDE:)/gm, '<strong>$1</strong>')
+                              .replace(/^(Open browser:)/gm, '<strong>$1</strong>')
+                              .replace(/^(Output:)/gm, '<strong>$1</strong>')
+                              .replace(/^(Annotation\tPurpose)/gm, '<strong>Annotation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Purpose</strong>')
+                              .replace(/^(Annotation\s+Purpose)/gm, '<strong>Annotation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Purpose</strong>')
+                              .replace(/^(@SpringBootApplication\s+Main config)/gm, '@SpringBootApplication&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;Main config')
+                              .replace(/^(@RestController\s+REST API)/gm, '@RestController&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REST API')
+                              .replace(/^(@GetMapping\s+HTTP GET)/gm, '@GetMapping&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HTTP GET')
+                              .replace(/^(@Autowired\s+Dependency injection)/gm, '@Autowired&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dependency injection')
+                              .replace(/^(Flow:)/gm, '<strong>$1</strong>')
+                              .replace(/\n/g, '<br>');
 
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors flex items-center gap-2"
-                  >
-                    <Share2 size={16} />
-                    Share
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => {
-                      if (selectedNote) {
-                        const printWindow = window.open('', '_blank');
-                        if (printWindow) {
-                          const processedContent = selectedNote.content
-                            .replace(/^(🌱 What is Spring Boot\?)/gm, '<strong>$1</strong>')
-                            .replace(/^(⚙️ 1\. Prerequisites)/gm, '<strong>$1</strong>')
-                            .replace(/^(🚀 2\. Creating a Spring Boot Project)/gm, '<strong>$1</strong>')
-                            .replace(/^(📁 3\. Project Structure)/gm, '<strong>$1</strong>')
-                            .replace(/^(🧠 4\. Main Application Class)/gm, '<div style="page-break-before: always;"></div><strong>$1</strong>')
-                            .replace(/^(🔧 5\. Spring Boot Configuration)/gm, '<strong>$1</strong>')
-                            .replace(/^(🔁 6\. Auto Configuration Concept)/gm, '<strong>$1</strong>')
-                            .replace(/^(🌐 7\. Creating a Simple REST Controller)/gm, '<div style="page-break-before: always;"></div><strong>$1</strong>')
-                            .replace(/^(▶️ 8\. Running the Application)/gm, '<strong>$1</strong>')
-                            .replace(/^(🌍 9\. Output)/gm, '<strong>$1</strong>')
-                            .replace(/^(🧩 10\. Key Annotations Summary)/gm, '<strong>$1</strong>')
-                            .replace(/^(🏁 Final Flow)/gm, '<strong>$1</strong>')
-                            .replace(/^(Key Points)/gm, '<strong>$1</strong>')
-                            .replace(/^(Explanation:)/gm, '<strong>$1</strong>')
-                            .replace(/^(Method 1: Using Spring Initializr)/gm, '<strong>$1</strong>')
-                            .replace(/^(Steps:)/gm, '<strong>$1</strong>')
-                            .replace(/^(Important folders:)/gm, '<strong>$1</strong>')
-                            .replace(/^(Spring Boot automatically:)/gm, '<strong>$1</strong>')
-                            .replace(/^(👉 Based on:)/gm, '<strong>$1</strong>')
-                            .replace(/^(Using IDE:)/gm, '<strong>$1</strong>')
-                            .replace(/^(Open browser:)/gm, '<strong>$1</strong>')
-                            .replace(/^(Output:)/gm, '<strong>$1</strong>')
-                            .replace(/^(Annotation\tPurpose)/gm, '<strong>Annotation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Purpose</strong>')
-                            .replace(/^(Annotation\s+Purpose)/gm, '<strong>Annotation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Purpose</strong>')
-                            .replace(/^(@SpringBootApplication\s+Main config)/gm, '@SpringBootApplication&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;Main config')
-                            .replace(/^(@RestController\s+REST API)/gm, '@RestController&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REST API')
-                            .replace(/^(@GetMapping\s+HTTP GET)/gm, '@GetMapping&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HTTP GET')
-                            .replace(/^(@Autowired\s+Dependency injection)/gm, '@Autowired&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dependency injection')
-                            .replace(/^(Flow:)/gm, '<strong>$1</strong>')
-                            .replace(/\n/g, '<br>');
-                        
-                        const noteContent = `
+                            const noteContent = `
                             <html>
                               <head>
                                 <title>${selectedNote.title}</title>
@@ -2236,78 +2227,78 @@ Enable JPA repositories with @EnableJpaRepositories`,
                               </body>
                             </html>
                           `;
-                        printWindow.document.write(noteContent);
-                        printWindow.document.close();
-                      }
-                    }
-                  }}
-                  className="px-4 py-2 border border-slate-300 text-slate-600 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-2"
-                >
-                  <Download size={16} />
-                  Export
-                </motion.button>
-              </div>
-            </div>
-          </div>
-          </motion.div>
-        </motion.div>
-      )}
-
-      {/* Share Modal */}
-      <AnimatePresence>
-        {showShareModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setShowShareModal(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-bold text-slate-900">Share Note</h3>
-                <button
-                  onClick={() => setShowShareModal(false)}
-                  className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-              
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  Shareable Link
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={shareLink}
-                    readOnly
-                    className="flex-1 px-3 py-2 border border-slate-300 rounded-lg bg-slate-50 text-slate-700 text-sm"
-                  />
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(shareLink);
-                    }}
-                    className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-                  >
-                    Copy
-                  </button>
+                            printWindow.document.write(noteContent);
+                            printWindow.document.close();
+                          }
+                        }
+                      }}
+                      className="px-4 py-2 border border-slate-300 text-slate-600 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-2"
+                    >
+                      <Download size={16} />
+                      Export
+                    </motion.button>
+                  </div>
                 </div>
-              </div>
-              
-              <div className="text-xs text-slate-500">
-                Anyone with this link can view this note. The link contains all note data and can be shared via email, messaging apps, or social media.
               </div>
             </motion.div>
           </motion.div>
         )}
+
+        {/* Share Modal */}
+        <AnimatePresence>
+          {showShareModal && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              onClick={() => setShowShareModal(false)}
+            >
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-slate-900">Share Note</h3>
+                  <button
+                    onClick={() => setShowShareModal(false)}
+                    className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Shareable Link
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={shareLink}
+                      readOnly
+                      className="flex-1 px-3 py-2 border border-slate-300 rounded-lg bg-slate-50 text-slate-700 text-sm"
+                    />
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(shareLink);
+                      }}
+                      className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                    >
+                      Copy
+                    </button>
+                  </div>
+                </div>
+
+                <div className="text-xs text-slate-500">
+                  Anyone with this link can view this note. The link contains all note data and can be shared via email, messaging apps, or social media.
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
         </AnimatePresence>
 
 
@@ -2329,7 +2320,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
             <h2 className="text-xl font-bold text-slate-900">Learning Schedule</h2>
 
-            
+
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
@@ -2381,7 +2372,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                 </div>
 
-                
+
 
                 {/* Compact Calendar */}
 
@@ -2407,7 +2398,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                     const hasEvent = [5, 8, 12, 15, 19, 22, 24, 26, 29].includes(dayNum);
 
-                    
+
 
                     return (
 
@@ -2417,19 +2408,17 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                         whileHover={{ scale: 1.1 }}
 
-                        className={`aspect-square flex flex-col items-center justify-center rounded cursor-pointer text-xs shadow-sm hover:shadow-md transition-shadow ${
+                        className={`aspect-square flex flex-col items-center justify-center rounded cursor-pointer text-xs shadow-sm hover:shadow-md transition-shadow ${isToday
 
-                          isToday 
+                          ? 'bg-slate-600 text-white font-bold shadow-slate-200'
 
-                            ? 'bg-slate-600 text-white font-bold shadow-slate-200' 
+                          : isCurrentMonth
 
-                            : isCurrentMonth 
+                            ? 'bg-slate-50 hover:bg-slate-100 text-slate-900 shadow-slate-200'
 
-                              ? 'bg-slate-50 hover:bg-slate-100 text-slate-900 shadow-slate-200' 
+                            : 'text-slate-300'
 
-                              : 'text-slate-300'
-
-                        }`}
+                          }`}
 
                       >
 
@@ -2489,7 +2478,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                   </div>
 
-                  
+
 
                   <div className="flex items-center justify-between">
 
@@ -2543,7 +2532,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
           >
 
-            <motion.h2 
+            <motion.h2
 
               className="text-xl font-bold text-slate-900"
 
@@ -2559,11 +2548,11 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
             </motion.h2>
 
-            
+
 
             {/* Stats Cards */}
 
-            <motion.div 
+            <motion.div
 
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
 
@@ -2589,9 +2578,9 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                   variants={cardVariants}
 
-                  whileHover={{ 
+                  whileHover={{
 
-                    scale: 1.05, 
+                    scale: 1.05,
 
                     y: -8,
 
@@ -2611,7 +2600,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                   />
 
-                  
+
 
                   <div className="relative p-6">
 
@@ -2619,9 +2608,9 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                       className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${stat.bgColor} mb-4`}
 
-                      whileHover={{ 
+                      whileHover={{
 
-                        scale: 1.1, 
+                        scale: 1.1,
 
                         rotate: 360,
 
@@ -2635,7 +2624,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                     </motion.div>
 
-                    
+
 
                     <motion.h3
 
@@ -2653,7 +2642,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                     </motion.h3>
 
-                    
+
 
                     <motion.p
 
@@ -2671,7 +2660,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                     </motion.p>
 
-                    
+
 
                     <motion.div
 
@@ -2701,7 +2690,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                     </motion.div>
 
-                    
+
 
                     {/* Floating particles */}
 
@@ -2723,9 +2712,9 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                           className={`absolute w-1 h-1 ${stat.textColor.replace('text', 'bg').replace('600', '400')} rounded-full opacity-30`}
 
-                          initial={{ 
+                          initial={{
 
-                            x: Math.random() * 100 + "%", 
+                            x: Math.random() * 100 + "%",
 
                             y: Math.random() * 100 + "%",
 
@@ -2733,9 +2722,9 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                           }}
 
-                          animate={{ 
+                          animate={{
 
-                            x: Math.random() * 100 + "%", 
+                            x: Math.random() * 100 + "%",
 
                             y: Math.random() * 100 + "%",
 
@@ -2743,7 +2732,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                           }}
 
-                          transition={{ 
+                          transition={{
 
                             duration: 3 + Math.random() * 2,
 
@@ -2849,9 +2838,9 @@ Enable JPA repositories with @EnableJpaRepositories`,
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <CourseCatalog 
-              setCurrentView={setCurrentView} 
-              onEnrollCourse={(id) => console.log(`Enrolling in course: ${id}`)} 
+            <CourseCatalog
+              setCurrentView={setCurrentView}
+              onEnrollCourse={(id) => console.log(`Enrolling in course: ${id}`)}
             />
           </motion.div>
         )}
@@ -2898,12 +2887,14 @@ Enable JPA repositories with @EnableJpaRepositories`,
               <div className="h-4 bg-slate-100 rounded-full overflow-hidden p-1">
                 <motion.div
                   initial={{ width: 0 }}
-                  animate={{ width: `${(() => {
-                    const allLessonIds = syllabus.flatMap(s => s.lessons.map((l: any) => l.id));
-                    const totalLessons = allLessonIds.length;
-                    const completedCount = completedLessons.filter(id => allLessonIds.includes(id)).length;
-                    return totalLessons > 0 ? (completedCount / totalLessons) * 100 : 0;
-                  })()}%` }}
+                  animate={{
+                    width: `${(() => {
+                      const allLessonIds = syllabus.flatMap(s => s.lessons.map((l: any) => l.id));
+                      const totalLessons = allLessonIds.length;
+                      const completedCount = completedLessons.filter(id => allLessonIds.includes(id)).length;
+                      return totalLessons > 0 ? (completedCount / totalLessons) * 100 : 0;
+                    })()}%`
+                  }}
                   className="h-full bg-gradient-to-r from-blue-500 to-teal-400 rounded-full shadow-lg shadow-blue-500/20"
                 />
               </div>
@@ -2973,7 +2964,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
             <h2 className="text-xl font-bold text-slate-900">Assignments</h2>
 
-            
+
 
             {/* Assignment Overview Cards */}
 
@@ -3115,7 +3106,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
               </div>
 
-              
+
 
               <div className="space-y-4">
 
@@ -3207,7 +3198,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                   </div>
 
-                  
+
 
                   <div className="flex items-center justify-between pt-4 border-t border-slate-200">
 
@@ -3335,7 +3326,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                   </div>
 
-                  
+
 
                   <div className="flex items-center justify-between pt-4 border-t border-slate-200">
 
@@ -3463,7 +3454,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                   </div>
 
-                  
+
 
                   <div className="flex items-center justify-between pt-4 border-t border-slate-200">
 
@@ -3525,9 +3516,9 @@ Enable JPA repositories with @EnableJpaRepositories`,
               </div>
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
-                  {[1,2,3].map(i => (
+                  {[1, 2, 3].map(i => (
                     <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-[10px] font-bold text-slate-600 shadow-sm">
-                      {['JS', 'JV', 'SQ'][i-1]}
+                      {['JS', 'JV', 'SQ'][i - 1]}
                     </div>
                   ))}
                 </div>
@@ -3596,11 +3587,10 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                   whileTap={{ scale: 0.95 }}
 
-                  className={`px-3 py-1 rounded-full text-sm transition-colors ${
-                    category === selectedCategory 
-                      ? 'bg-emerald-100 text-emerald-700' 
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                  }`}
+                  className={`px-3 py-1 rounded-full text-sm transition-colors ${category === selectedCategory
+                    ? 'bg-emerald-100 text-emerald-700'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    }`}
 
                 >
 
@@ -3642,19 +3632,17 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                     <div className="flex items-center gap-2">
 
-                      <div className={`w-2 h-2 rounded-full ${
-
-                        note.category === 'Java' ? 'bg-red-500' :
+                      <div className={`w-2 h-2 rounded-full ${note.category === 'Java' ? 'bg-red-500' :
 
                         note.category === 'React' ? 'bg-cyan-500' :
 
-                        note.category === 'Spring Boot' ? 'bg-green-500' :
+                          note.category === 'Spring Boot' ? 'bg-green-500' :
 
-                        note.category === 'MongoDB' ? 'bg-emerald-500' :
+                            note.category === 'MongoDB' ? 'bg-emerald-500' :
 
-                        'bg-slate-500'
+                              'bg-slate-500'
 
-                      }`}></div>
+                        }`}></div>
 
                       <span className="text-xs font-medium text-slate-600">{note.category}</span>
 
@@ -3678,15 +3666,15 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                   </div>
 
-                  
+
 
                   <h3 className="font-semibold text-slate-900 mb-2">{note.title}</h3>
 
-                  
+
 
                   <p className="text-sm text-slate-600 mb-3 line-clamp-3">{note.content}</p>
 
-                  
+
 
                   <div className="flex items-center justify-between text-xs text-slate-500">
 
@@ -3733,8 +3721,8 @@ Enable JPA repositories with @EnableJpaRepositories`,
                 </h3>
 
                 <p className="text-slate-500 mb-4">
-                  {selectedCategory === 'All' 
-                    ? 'Start taking notes for your courses' 
+                  {selectedCategory === 'All'
+                    ? 'Start taking notes for your courses'
                     : `Try creating notes for ${selectedCategory} or select a different category`
                   }
                 </p>
@@ -3791,11 +3779,10 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
               onClick={(e) => e.stopPropagation()}
 
-              className={`bg-white rounded-2xl shadow-2xl shadow-black/20 transition-all duration-300 ${
-                isModalMaximized 
-                  ? 'w-[95vw] h-[95vh] max-w-none max-h-none' 
-                  : 'max-w-2xl w-full max-h-[80vh]'
-              } overflow-hidden`}
+              className={`bg-white rounded-2xl shadow-2xl shadow-black/20 transition-all duration-300 ${isModalMaximized
+                ? 'w-[95vw] h-[95vh] max-w-none max-h-none'
+                : 'max-w-2xl w-full max-h-[80vh]'
+                } overflow-hidden`}
 
             >
 
@@ -3839,7 +3826,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                   </div>
 
-                  
+
 
                   <div className="flex items-center gap-1">
 
@@ -3879,15 +3866,14 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
               {/* Modal Content */}
 
-              <div className={`p-6 overflow-y-auto ${
-                isModalMaximized ? 'max-h-[85vh]' : 'max-h-[60vh]'
-              }`}>
+              <div className={`p-6 overflow-y-auto ${isModalMaximized ? 'max-h-[85vh]' : 'max-h-[60vh]'
+                }`}>
 
                 <div className="prose prose-slate max-w-none">
 
                   <h3 className="text-lg font-semibold text-slate-900 mb-4">Note Content</h3>
 
-                  
+
 
                   <div className="bg-white rounded-xl p-6 mb-6 shadow-2xl border border-slate-200">
 
@@ -4038,7 +4024,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
                       </motion.button>
                     )}
 
-                    
+
 
                     <motion.button
 
@@ -4074,7 +4060,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                     </motion.button>
 
-                    
+
 
                     <motion.button
 
@@ -4088,39 +4074,39 @@ Enable JPA repositories with @EnableJpaRepositories`,
                           const printWindow = window.open('', '_blank');
                           if (printWindow) {
                             // Process content to make headings bold
-                          const processedContent = selectedNote.content
-                            .replace(/^(🌱 What is Spring Boot\?)/gm, '<strong>$1</strong>')
-                            .replace(/^(⚙️ 1\. Prerequisites)/gm, '<strong>$1</strong>')
-                            .replace(/^(🚀 2\. Creating a Spring Boot Project)/gm, '<strong>$1</strong>')
-                            .replace(/^(📁 3\. Project Structure)/gm, '<strong>$1</strong>')
-                            .replace(/^(🧠 4\. Main Application Class)/gm, '<div style="page-break-before: always;"></div><strong>$1</strong>')
-                            .replace(/^(🔧 5\. Spring Boot Configuration)/gm, '<strong>$1</strong>')
-                            .replace(/^(🔁 6\. Auto Configuration Concept)/gm, '<strong>$1</strong>')
-                            .replace(/^(🌐 7\. Creating a Simple REST Controller)/gm, '<div style="page-break-before: always;"></div><strong>$1</strong>')
-                            .replace(/^(▶️ 8\. Running the Application)/gm, '<strong>$1</strong>')
-                            .replace(/^(🌍 9\. Output)/gm, '<strong>$1</strong>')
-                            .replace(/^(🧩 10\. Key Annotations Summary)/gm, '<strong>$1</strong>')
-                            .replace(/^(🏁 Final Flow)/gm, '<strong>$1</strong>')
-                            .replace(/^(Key Points)/gm, '<strong>$1</strong>')
-                            .replace(/^(Explanation:)/gm, '<strong>$1</strong>')
-                            .replace(/^(Method 1: Using Spring Initializr)/gm, '<strong>$1</strong>')
-                            .replace(/^(Steps:)/gm, '<strong>$1</strong>')
-                            .replace(/^(Important folders:)/gm, '<strong>$1</strong>')
-                            .replace(/^(Spring Boot automatically:)/gm, '<strong>$1</strong>')
-                            .replace(/^(👉 Based on:)/gm, '<strong>$1</strong>')
-                            .replace(/^(Using IDE:)/gm, '<strong>$1</strong>')
-                            .replace(/^(Open browser:)/gm, '<strong>$1</strong>')
-                            .replace(/^(Output:)/gm, '<strong>$1</strong>')
-                            .replace(/^(Annotation\tPurpose)/gm, '<strong>Annotation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Purpose</strong>')
-                            .replace(/^(Annotation\s+Purpose)/gm, '<strong>Annotation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Purpose</strong>')
-                            .replace(/^(@SpringBootApplication\s+Main config)/gm, '@SpringBootApplication&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Main config')
-                            .replace(/^(@RestController\s+REST API)/gm, '@RestController&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REST API')
-                            .replace(/^(@GetMapping\s+HTTP GET)/gm, '@GetMapping&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HTTP GET')
-                            .replace(/^(@Autowired\s+Dependency injection)/gm, '@Autowired&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dependency injection')
-                            .replace(/^(Flow:)/gm, '<strong>$1</strong>')
-                            .replace(/\n/g, '<br>');
-                          
-                          const noteContent = `
+                            const processedContent = selectedNote.content
+                              .replace(/^(🌱 What is Spring Boot\?)/gm, '<strong>$1</strong>')
+                              .replace(/^(⚙️ 1\. Prerequisites)/gm, '<strong>$1</strong>')
+                              .replace(/^(🚀 2\. Creating a Spring Boot Project)/gm, '<strong>$1</strong>')
+                              .replace(/^(📁 3\. Project Structure)/gm, '<strong>$1</strong>')
+                              .replace(/^(🧠 4\. Main Application Class)/gm, '<div style="page-break-before: always;"></div><strong>$1</strong>')
+                              .replace(/^(🔧 5\. Spring Boot Configuration)/gm, '<strong>$1</strong>')
+                              .replace(/^(🔁 6\. Auto Configuration Concept)/gm, '<strong>$1</strong>')
+                              .replace(/^(🌐 7\. Creating a Simple REST Controller)/gm, '<div style="page-break-before: always;"></div><strong>$1</strong>')
+                              .replace(/^(▶️ 8\. Running the Application)/gm, '<strong>$1</strong>')
+                              .replace(/^(🌍 9\. Output)/gm, '<strong>$1</strong>')
+                              .replace(/^(🧩 10\. Key Annotations Summary)/gm, '<strong>$1</strong>')
+                              .replace(/^(🏁 Final Flow)/gm, '<strong>$1</strong>')
+                              .replace(/^(Key Points)/gm, '<strong>$1</strong>')
+                              .replace(/^(Explanation:)/gm, '<strong>$1</strong>')
+                              .replace(/^(Method 1: Using Spring Initializr)/gm, '<strong>$1</strong>')
+                              .replace(/^(Steps:)/gm, '<strong>$1</strong>')
+                              .replace(/^(Important folders:)/gm, '<strong>$1</strong>')
+                              .replace(/^(Spring Boot automatically:)/gm, '<strong>$1</strong>')
+                              .replace(/^(👉 Based on:)/gm, '<strong>$1</strong>')
+                              .replace(/^(Using IDE:)/gm, '<strong>$1</strong>')
+                              .replace(/^(Open browser:)/gm, '<strong>$1</strong>')
+                              .replace(/^(Output:)/gm, '<strong>$1</strong>')
+                              .replace(/^(Annotation\tPurpose)/gm, '<strong>Annotation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Purpose</strong>')
+                              .replace(/^(Annotation\s+Purpose)/gm, '<strong>Annotation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Purpose</strong>')
+                              .replace(/^(@SpringBootApplication\s+Main config)/gm, '@SpringBootApplication&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Main config')
+                              .replace(/^(@RestController\s+REST API)/gm, '@RestController&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REST API')
+                              .replace(/^(@GetMapping\s+HTTP GET)/gm, '@GetMapping&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HTTP GET')
+                              .replace(/^(@Autowired\s+Dependency injection)/gm, '@Autowired&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dependency injection')
+                              .replace(/^(Flow:)/gm, '<strong>$1</strong>')
+                              .replace(/\n/g, '<br>');
+
+                            const noteContent = `
                               <html>
                                 <head>
                                   <title>${selectedNote.title}</title>
@@ -4224,45 +4210,45 @@ Enable JPA repositories with @EnableJpaRepositories`,
                 className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
               >
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-bold text-slate-900">Share Note</h3>
-                <button
-                  onClick={() => setShowShareModal(false)}
-                  className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-              
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  Shareable Link
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={shareLink}
-                    readOnly
-                    className="flex-1 px-3 py-2 border border-slate-300 rounded-lg bg-slate-50 text-slate-700 text-sm"
-                  />
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-slate-900">Share Note</h3>
                   <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(shareLink);
-                      // You could add a toast notification here
-                    }}
-                    className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                    onClick={() => setShowShareModal(false)}
+                    className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
                   >
-                    Copy
+                    <X size={20} />
                   </button>
                 </div>
-              </div>
-              
-              <div className="text-xs text-slate-500">
-                Anyone with this link can view this note. The link contains all note data and can be shared via email, messaging apps, or social media.
-              </div>
+
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Shareable Link
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={shareLink}
+                      readOnly
+                      className="flex-1 px-3 py-2 border border-slate-300 rounded-lg bg-slate-50 text-slate-700 text-sm"
+                    />
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(shareLink);
+                        // You could add a toast notification here
+                      }}
+                      className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                    >
+                      Copy
+                    </button>
+                  </div>
+                </div>
+
+                <div className="text-xs text-slate-500">
+                  Anyone with this link can view this note. The link contains all note data and can be shared via email, messaging apps, or social media.
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
+          )}
         </AnimatePresence>
 
 

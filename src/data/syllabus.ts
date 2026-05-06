@@ -179,25 +179,25 @@ export const syllabus: Section[] = [
         id: "web-dev-fundamentals",
         title: "Web Development Fundamentals",
         content: "1. Internet\n2. WWW\n3. Web Browsers\n4. Web Servers\n5. Client–Server\n6. Static vs Dynamic",
-        subTopics: ["Internet & WWW", "Web Browsers/Servers", "Client–Server Architecture", "Static vs Dynamic Websites"]
+        subTopics: ["Internet and WWW", "Web Browsers and Web Servers", "Client Server Architecture", "Static and Dynamic Websites"]
       },
       {
         id: "html-new",
         title: "HTML (HYPERTEXT MARKUP LANGUAGE)",
         content: "Module 1-8: Intro to Forms",
-        subTopics: ["Introduction", "Basic Tags", "Links", "Media", "Lists", "Tables", "Forms", "Semantic HTML"]
+        subTopics: ["Introduction to HTML", "Basic HTML Tags", "HTML Links", "HTML Media", "HTML Lists", "HTML Tables", "HTML Forms", "Semantic HTML"]
       },
       {
         id: "css-new",
         title: "CSS (CASCADING STYLE SHEETS)",
         content: "Module 1-11: Basics to Animations",
-        subTopics: ["Selectors", "Box Model", "Positioning", "Flexbox", "Grid", "Responsive", "Variables", "Animations"]
+        subTopics: ["CSS and Selectors", "CSS Box Model", "CSS Positioning", "CSS Flexbox", "CSS Grid", "Responsive Web Design", "CSS Variables", "CSS Animations"]
       },
       {
         id: "js-new",
         title: "JAVASCRIPT",
-        content: "Module 1-13: Variables to DOM",
-        subTopics: ["Variables", "Data Types", "Operators", "Control Flow", "Functions", "Scopes", "Arrays", "Objects", "DOM Manipulation", "Events", "Promises", "Async/Await"]
+        content: "Module 1-12: Basics to Async/Await",
+        subTopics: ["JS Variables", "JS Data Types", "JS Operators", "JS Control Flow", "JS Functions", "JS Scopes", "JS Arrays", "JS Objects", "JS DOM", "JS Events", "JS Promises", "JS Async Await"]
       }
     ]
   },

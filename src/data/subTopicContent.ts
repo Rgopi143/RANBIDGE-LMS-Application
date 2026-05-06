@@ -4965,27 +4965,5116 @@ export const subTopicData: Record<string, SubTopicContent> = {
     code: "import java.util.*;\nimport java.util.stream.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        List<String> names = Arrays.asList(\"Ram\",\"Ravi\",\"Sita\");\n\n        // Using toList()\n        List<String> resultList = names.stream()\n                     .collect(Collectors.toList());\n\n        // Using joining()\n        String resultString = names.stream()\n                     .collect(Collectors.joining(\", \"));\n\n        System.out.println(resultList);\n        System.out.println(\"Joined: \" + resultString);\n    }\n}"
   },
 
-  // HTML
-  "Introduction": {
-    description: "HTML stands for HyperText Markup Language. It is the standard markup language for creating Web pages.",
-    keyPoints: [
-      "Describes the structure of a Web page.",
-      "Consists of a series of elements.",
-      "Elements tell the browser how to display the content."
+  // Web Development Fundamentals
+  "Internet and WWW": {
+    description: "The Internet and World Wide Web (WWW) are the foundation of modern web development. The Internet is the global network infrastructure, while the WWW is a system of web pages and resources accessed through the Internet.",
+
+    sections: [
+      {
+        heading: "Definition of Internet",
+        content: "The Internet is a worldwide network of interconnected computers and devices that communicate using standard protocols such as TCP/IP."
+      },
+
+      {
+        heading: "Definition of WWW",
+        content: "WWW (World Wide Web) is a collection of web pages, websites, and online resources that are accessed through the Internet using web browsers."
+      },
+
+      {
+        heading: "Difference between Internet and WWW",
+        points: [
+          "Internet is the network infrastructure",
+          "WWW is a service that runs on the Internet",
+          "Internet connects devices globally",
+          "WWW provides access to websites and web pages",
+          "Internet existed before WWW"
+        ]
+      },
+
+      {
+        heading: "History of WWW",
+        points: [
+          "WWW was invented by Tim Berners-Lee in 1989",
+          "First website was created in 1991",
+          "Developed to share information easily over the Internet",
+          "Uses technologies like HTML, HTTP, and URLs"
+        ]
+      },
+
+      {
+        heading: "Components of Web",
+        points: [
+          "Web Browser – Used to access websites",
+          "Web Server – Stores and delivers web pages",
+          "Web Pages – Documents displayed in browser",
+          "URL – Address of a web resource",
+          "HTTP/HTTPS – Communication protocols"
+        ]
+      },
+
+      {
+        heading: "Web Browser",
+        content: "A web browser is software used to access and display web pages.",
+        points: [
+          "Examples: Chrome, Firefox, Edge, Safari",
+          "Interprets HTML, CSS, and JavaScript",
+          "Communicates with web servers"
+        ]
+      },
+
+      {
+        heading: "Web Server",
+        content: "A web server stores website files and responds to browser requests.",
+        points: [
+          "Handles HTTP requests",
+          "Sends web pages to clients",
+          "Examples: Apache, Nginx, Tomcat"
+        ]
+      },
+
+      {
+        heading: "URL (Uniform Resource Locator)",
+        content: "A URL is the address used to access a resource on the web.",
+        points: [
+          "Example: https://www.example.com",
+          "Contains protocol, domain name, and path"
+        ]
+      },
+
+      {
+        heading: "HTTP and HTTPS",
+        points: [
+          "HTTP – HyperText Transfer Protocol",
+          "HTTPS – Secure version of HTTP",
+          "Used for communication between browser and server",
+          "HTTPS uses SSL/TLS encryption for security"
+        ]
+      },
+
+      {
+        heading: "How the Web Works",
+        points: [
+          "User enters URL in browser",
+          "Browser sends request to web server",
+          "Server processes request",
+          "Server sends response",
+          "Browser displays web page"
+        ]
+      },
+
+      {
+        heading: "Importance in Web Development",
+        points: [
+          "Foundation for frontend and backend development",
+          "Helps developers understand client-server communication",
+          "Essential for building websites and web applications",
+          "Supports modern digital communication"
+        ]
+      }
     ],
-    code: "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n\n<h1>This is a Heading</h1>\n<p>This is a paragraph.</p>\n\n</body>\n</html>"
+
+    keyPoints: [
+      "Internet is a global network of connected devices",
+      "WWW is a collection of web resources",
+      "Browser and server communicate using HTTP/HTTPS",
+      "URLs identify web resources",
+      "Foundation of web development"
+    ],
+
+    code: `<!-- Example of a Simple Web Page -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My First Web Page</title>
+</head>
+<body>
+    <h1>Welcome to the World Wide Web</h1>
+    <p>This page is accessed through the Internet using a web browser.</p>
+</body>
+</html>`
+  },
+
+  "Web Browsers and Web Servers": {
+    description: "Web browsers and web servers are essential components of web development. Browsers are used to access and display websites, while servers store and deliver web content to users.",
+
+    sections: [
+      {
+        heading: "Definition of Web Browser",
+        content: "A web browser is a software application used to access, retrieve, and display web pages from the Internet."
+      },
+
+      {
+        heading: "Definition of Web Server",
+        content: "A web server is a system or software that stores website files and delivers web pages to browsers through HTTP or HTTPS protocols."
+      },
+
+      {
+        heading: "Examples of Web Browsers",
+        points: [
+          "Google Chrome",
+          "Mozilla Firefox",
+          "Microsoft Edge",
+          "Safari",
+          "Opera"
+        ]
+      },
+
+      {
+        heading: "Examples of Web Servers",
+        points: [
+          "Apache HTTP Server",
+          "Nginx",
+          "Microsoft IIS",
+          "Tomcat",
+          "LiteSpeed"
+        ]
+      },
+
+      {
+        heading: "Functions of Web Browser",
+        points: [
+          "Sends requests to web servers",
+          "Receives responses from servers",
+          "Interprets HTML, CSS, and JavaScript",
+          "Displays web pages to users",
+          "Stores cookies and cache data"
+        ]
+      },
+
+      {
+        heading: "Functions of Web Server",
+        points: [
+          "Stores website files and resources",
+          "Processes client requests",
+          "Sends responses to browsers",
+          "Handles HTTP/HTTPS communication",
+          "Supports hosting of websites and applications"
+        ]
+      },
+
+      {
+        heading: "How Browser and Server Communicate",
+        points: [
+          "User enters URL in browser",
+          "Browser sends HTTP request to server",
+          "Server processes request",
+          "Server returns HTML/CSS/JS files",
+          "Browser renders and displays web page"
+        ]
+      },
+
+      {
+        heading: "Client-Server Architecture",
+        content: "In web development, the browser acts as the client and the web server acts as the service provider."
+      },
+
+      {
+        heading: "Browser Rendering Process",
+        points: [
+          "Browser receives HTML document",
+          "Parses HTML structure",
+          "Applies CSS styles",
+          "Executes JavaScript",
+          "Displays final webpage"
+        ]
+      },
+
+      {
+        heading: "Static vs Dynamic Content",
+        points: [
+          "Static Content – Fixed content (HTML, CSS)",
+          "Dynamic Content – Generated dynamically using backend technologies"
+        ]
+      },
+
+      {
+        heading: "Importance in Web Development",
+        points: [
+          "Foundation for website communication",
+          "Essential for frontend and backend interaction",
+          "Helps understand request-response cycle",
+          "Important for designing scalable web applications"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Browser is used to access websites",
+      "Server stores and delivers website content",
+      "Communication happens through HTTP/HTTPS",
+      "Browser acts as client, server acts as provider",
+      "Core concept in web development"
+    ],
+
+    code: `<!-- Example: Browser requests webpage from server -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Browser and Server</title>
+</head>
+<body>
+    <h1>Client-Server Communication</h1>
+    <p>Browser sends request and server returns response.</p>
+</body>
+</html>`
+  },
+
+  "Client Server Architecture": {
+    description: "Client-Server Architecture is a computing model in which clients request services or resources, and servers provide responses over a network.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Client-Server Architecture is a network architecture where multiple clients communicate with a centralized server to request and access services, resources, or data."
+      },
+
+      {
+        heading: "What is a Client?",
+        content: "A client is a device or application that sends requests to a server.",
+        points: [
+          "Examples: Web browsers, mobile apps, desktop applications",
+          "Initiates communication with server",
+          "Requests data or services"
+        ]
+      },
+
+      {
+        heading: "What is a Server?",
+        content: "A server is a system or software that receives requests from clients and provides appropriate responses.",
+        points: [
+          "Stores and manages resources",
+          "Processes client requests",
+          "Sends responses back to clients"
+        ]
+      },
+
+      {
+        heading: "How Client-Server Architecture Works",
+        points: [
+          "Client sends request to server",
+          "Server receives and processes request",
+          "Server accesses required data/resources",
+          "Server sends response back to client",
+          "Client displays the result to user"
+        ]
+      },
+
+      {
+        heading: "Components of Client-Server Architecture",
+        points: [
+          "Client",
+          "Server",
+          "Network",
+          "Protocols (HTTP, HTTPS, TCP/IP)",
+          "Database"
+        ]
+      },
+
+      {
+        heading: "Types of Client-Server Architecture",
+        points: [
+          "Two-Tier Architecture",
+          "Three-Tier Architecture",
+          "N-Tier Architecture"
+        ]
+      },
+
+      {
+        heading: "1. Two-Tier Architecture",
+        content: "Client directly communicates with the database server.",
+        points: [
+          "Simple architecture",
+          "Suitable for small applications",
+          "Less secure for large systems"
+        ]
+      },
+
+      {
+        heading: "2. Three-Tier Architecture",
+        content: "Application is divided into Presentation Layer, Business Layer, and Database Layer.",
+        points: [
+          "Frontend (Client/UI)",
+          "Backend (Business Logic)",
+          "Database Server"
+        ]
+      },
+
+      {
+        heading: "3. N-Tier Architecture",
+        content: "Application is divided into multiple layers for better scalability and maintainability."
+      },
+
+      {
+        heading: "Advantages of Client-Server Architecture",
+        points: [
+          "Centralized resource management",
+          "Improved security",
+          "Easy maintenance",
+          "Supports multiple clients",
+          "Scalable and efficient"
+        ]
+      },
+
+      {
+        heading: "Disadvantages of Client-Server Architecture",
+        points: [
+          "Server failure affects clients",
+          "Requires network connectivity",
+          "High server load may reduce performance",
+          "Setup and maintenance cost"
+        ]
+      },
+
+      {
+        heading: "Real-Time Example",
+        content: "When a user opens a website in a browser, the browser (client) sends a request to the web server, and the server responds with the webpage data."
+      }
+    ],
+
+    keyPoints: [
+      "Client requests services from server",
+      "Server processes and returns response",
+      "Uses network communication protocols",
+      "Foundation of web applications",
+      "Supports scalable and centralized systems"
+    ],
+
+    code: `// Simple Client-Server Communication Example
+
+Client (Browser):
+Request → https://example.com
+
+Server:
+Processes request
+Returns HTML response
+
+Browser:
+Displays webpage to user`
+  },
+
+  "Static and Dynamic Websites": {
+    description: "Websites are broadly classified into static and dynamic websites based on how content is created and displayed to users.",
+
+    sections: [
+      {
+        heading: "Definition of Static Website",
+        content: "A static website displays fixed content to users. The content remains the same unless manually updated by the developer."
+      },
+
+      {
+        heading: "Definition of Dynamic Website",
+        content: "A dynamic website generates content dynamically based on user interaction, database data, or server-side processing."
+      },
+
+      {
+        heading: "Features of Static Websites",
+        points: [
+          "Fixed content",
+          "Built using HTML, CSS, and basic JavaScript",
+          "No database connection required",
+          "Faster loading speed",
+          "Simple and easy to host"
+        ]
+      },
+
+      {
+        heading: "Features of Dynamic Websites",
+        points: [
+          "Content changes dynamically",
+          "Uses backend technologies",
+          "Connected to databases",
+          "Supports user interaction",
+          "Can generate personalized content"
+        ]
+      },
+
+      {
+        heading: "Technologies Used",
+        points: [
+          "Static Websites – HTML, CSS, JavaScript",
+          "Dynamic Websites – Java, PHP, Python, Node.js, Spring Boot, Databases"
+        ]
+      },
+
+      {
+        heading: "Advantages of Static Websites",
+        points: [
+          "Simple to develop",
+          "Fast loading performance",
+          "More secure (less server-side processing)",
+          "Low hosting cost",
+          "Easy deployment"
+        ]
+      },
+
+      {
+        heading: "Advantages of Dynamic Websites",
+        points: [
+          "Interactive user experience",
+          "Supports login and registration",
+          "Easy content management",
+          "Personalized content",
+          "Suitable for large applications"
+        ]
+      },
+
+      {
+        heading: "Disadvantages of Static Websites",
+        points: [
+          "Content updates require manual editing",
+          "Limited interactivity",
+          "Not suitable for large-scale applications",
+          "No database integration"
+        ]
+      },
+
+      {
+        heading: "Disadvantages of Dynamic Websites",
+        points: [
+          "More complex development",
+          "Requires server-side technologies",
+          "Higher hosting cost",
+          "Can be slower compared to static websites"
+        ]
+      },
+
+      {
+        heading: "Examples of Static Websites",
+        points: [
+          "Portfolio websites",
+          "Company profile websites",
+          "Documentation pages",
+          "Landing pages"
+        ]
+      },
+
+      {
+        heading: "Examples of Dynamic Websites",
+        points: [
+          "Facebook",
+          "Instagram",
+          "Amazon",
+          "Banking applications",
+          "E-learning platforms"
+        ]
+      },
+
+      {
+        heading: "Static vs Dynamic Websites",
+        points: [
+          "Static → Fixed content | Dynamic → Changing content",
+          "Static → No database | Dynamic → Uses database",
+          "Static → Faster | Dynamic → More interactive",
+          "Static → Simple | Dynamic → Complex"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Static websites display fixed content",
+      "Dynamic websites generate content dynamically",
+      "Static websites are simple and fast",
+      "Dynamic websites support databases and user interaction",
+      "Both are important in web development"
+    ],
+
+    code: `<!-- Static Website Example -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Static Website</title>
+</head>
+<body>
+    <h1>Welcome to My Static Website</h1>
+</body>
+</html>
+
+// Dynamic Website Example (Concept)
+
+User Request → Server → Database → Dynamic Response → Browser`
+  },
+
+  // HTML
+  "Introduction to HTML": {
+    description: "HTML (HyperText Markup Language) is the standard markup language used to create and structure web pages on the Internet.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "HTML stands for HyperText Markup Language. It is used to design and structure the content of web pages using elements and tags."
+      },
+
+      {
+        heading: "What is HyperText?",
+        content: "HyperText refers to text that contains links to other web pages or resources."
+      },
+
+      {
+        heading: "What is Markup Language?",
+        content: "A markup language uses tags to define the structure and presentation of content in a document."
+      },
+
+      {
+        heading: "History of HTML",
+        points: [
+          "HTML was created by Tim Berners-Lee in 1991",
+          "Developed for sharing documents on the World Wide Web",
+          "HTML5 is the latest version",
+          "Maintained by W3C (World Wide Web Consortium)"
+        ]
+      },
+
+      {
+        heading: "Features of HTML",
+        points: [
+          "Simple and easy to learn",
+          "Platform independent",
+          "Used to create web pages",
+          "Supports multimedia elements",
+          "Works with CSS and JavaScript"
+        ]
+      },
+
+      {
+        heading: "Uses of HTML",
+        points: [
+          "Creating web pages",
+          "Designing website structure",
+          "Embedding images, videos, and audio",
+          "Creating forms and tables",
+          "Building frontend of web applications"
+        ]
+      },
+
+      {
+        heading: "HTML Document Structure",
+        points: [
+          "<!DOCTYPE html> → Declares HTML5 document",
+          "<html> → Root element",
+          "<head> → Contains metadata",
+          "<title> → Defines page title",
+          "<body> → Contains visible webpage content"
+        ]
+      },
+
+      {
+        heading: "HTML Tags",
+        content: "HTML uses tags to define elements on a webpage.",
+        points: [
+          "Most tags have opening and closing tags",
+          "Example: <p>Paragraph</p>",
+          "Tags are enclosed within angle brackets <>"
+        ]
+      },
+
+      {
+        heading: "HTML Elements",
+        content: "An HTML element consists of opening tag, content, and closing tag."
+      },
+
+      {
+        heading: "Attributes in HTML",
+        content: "Attributes provide additional information about HTML elements.",
+        points: [
+          "Written inside opening tag",
+          "Example: <img src='image.jpg'>",
+          "Common attributes: id, class, href, src"
+        ]
+      },
+
+      {
+        heading: "Advantages of HTML",
+        points: [
+          "Easy to learn and use",
+          "Supported by all browsers",
+          "Free and open standard",
+          "Integrates with CSS and JavaScript",
+          "Essential for web development"
+        ]
+      },
+
+      {
+        heading: "Limitations of HTML",
+        points: [
+          "Cannot create dynamic functionality alone",
+          "Needs CSS for styling",
+          "Needs JavaScript for interactivity",
+          "Limited logic handling"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "HTML is the standard language for web pages",
+      "Uses tags and elements to structure content",
+      "Works with CSS and JavaScript",
+      "HTML5 is the latest version",
+      "Foundation of frontend web development"
+    ],
+
+    code: `<!-- Basic HTML Example -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My First HTML Page</title>
+</head>
+<body>
+
+    <h1>Welcome to HTML</h1>
+    <p>This is my first webpage.</p>
+
+</body>
+</html>`
+  },
+
+  "Basic HTML Tags": {
+    description: "HTML tags are the building blocks of web pages. They define the structure and content displayed in a browser.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "HTML tags are predefined keywords enclosed within angle brackets (< >) used to create and structure webpage elements."
+      },
+
+      {
+        heading: "Types of HTML Tags",
+        points: [
+          "Container Tags – Have opening and closing tags",
+          "Empty Tags – Do not require closing tags"
+        ]
+      },
+
+      {
+        heading: "Container Tags",
+        content: "Container tags contain content between opening and closing tags.",
+        points: [
+          "Example: <p>Paragraph</p>",
+          "Used for headings, paragraphs, divisions, etc."
+        ]
+      },
+
+      {
+        heading: "Empty Tags",
+        content: "Empty tags do not contain content and usually do not need closing tags.",
+        points: [
+          "Example: <br>, <hr>, <img>",
+          "Used for line breaks, images, horizontal lines"
+        ]
+      },
+
+      {
+        heading: "Basic Structure Tags",
+        points: [
+          "<!DOCTYPE html> – Declares HTML5 document",
+          "<html> – Root element of webpage",
+          "<head> – Contains metadata",
+          "<title> – Defines page title",
+          "<body> – Contains visible webpage content"
+        ]
+      },
+
+      {
+        heading: "Heading Tags",
+        content: "Heading tags are used to define headings in different sizes.",
+        points: [
+          "<h1> – Largest heading",
+          "<h2> to <h6> – Smaller headings"
+        ]
+      },
+
+      {
+        heading: "Paragraph Tag",
+        content: "The <p> tag is used to define paragraphs of text on a webpage."
+      },
+
+      {
+        heading: "Line Break Tag",
+        content: "The <br> tag is used to insert a line break.",
+      },
+
+      {
+        heading: "Horizontal Rule Tag",
+        content: "The <hr> tag is used to create a horizontal line between content."
+      },
+
+      {
+        heading: "Formatting Tags",
+        points: [
+          "<b> – Bold text",
+          "<i> – Italic text",
+          "<u> – Underlined text",
+          "<strong> – Important bold text",
+          "<em> – Emphasized text"
+        ]
+      },
+
+      {
+        heading: "Link Tag",
+        content: "The <a> tag is used to create hyperlinks.",
+        points: [
+          "Uses href attribute",
+          "Connects webpages and resources"
+        ]
+      },
+
+      {
+        heading: "Image Tag",
+        content: "The <img> tag is used to display images on a webpage.",
+        points: [
+          "Uses src attribute for image path",
+          "Uses alt attribute for alternative text"
+        ]
+      },
+
+      {
+        heading: "List Tags",
+        points: [
+          "<ul> – Unordered list",
+          "<ol> – Ordered list",
+          "<li> – List item"
+        ]
+      },
+
+      {
+        heading: "Division and Span Tags",
+        points: [
+          "<div> – Defines block section",
+          "<span> – Defines inline section"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "HTML tags define webpage structure",
+      "Tags can be container or empty tags",
+      "Basic tags include html, head, body, h1, p, a, img",
+      "Formatting tags improve text appearance",
+      "Essential foundation for HTML development"
+    ],
+
+    code: `<!-- Example of Basic HTML Tags -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic HTML Tags</title>
+</head>
+<body>
+
+    <h1>Welcome to HTML</h1>
+
+    <p>This is a paragraph.</p>
+
+    <b>Bold Text</b><br>
+    <i>Italic Text</i><br>
+
+    <a href="https://example.com">Visit Website</a><br>
+
+    <img src="image.jpg" alt="Sample Image">
+
+    <hr>
+
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+    </ul>
+
+</body>
+</html>`
+  },
+
+  "HTML Links": {
+    description: "HTML links are used to connect one webpage to another webpage, document, section, or external resource using hyperlinks.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "A link in HTML is created using the anchor (<a>) tag. It allows users to navigate between web pages and resources."
+      },
+
+      {
+        heading: "Anchor Tag",
+        content: "The <a> (anchor) tag is used to create hyperlinks in HTML.",
+        points: [
+          "Requires href attribute",
+          "Can link internal or external pages",
+          "Clickable text or images can act as links"
+        ]
+      },
+
+      {
+        heading: "Syntax of Link",
+        content: "The basic syntax of a hyperlink uses the href attribute to specify the destination URL."
+      },
+
+      {
+        heading: "href Attribute",
+        content: "href stands for Hypertext Reference. It specifies the URL or destination of the link."
+      },
+
+      {
+        heading: "Types of Links",
+        points: [
+          "External Links",
+          "Internal Links",
+          "Bookmark Links",
+          "Email Links",
+          "Image Links"
+        ]
+      },
+
+      {
+        heading: "1. External Links",
+        content: "Links that navigate to another website.",
+        points: [
+          "Uses complete URL",
+          "Example: https://www.google.com"
+        ]
+      },
+
+      {
+        heading: "2. Internal Links",
+        content: "Links that connect pages within the same website."
+      },
+
+      {
+        heading: "3. Bookmark Links",
+        content: "Links that navigate to a specific section within the same webpage using id attribute."
+      },
+
+      {
+        heading: "4. Email Links",
+        content: "Used to open email applications directly.",
+        points: [
+          "Uses mailto: protocol"
+        ]
+      },
+
+      {
+        heading: "5. Image Links",
+        content: "Images can also be used as clickable links by placing <img> inside <a> tag."
+      },
+
+      {
+        heading: "target Attribute",
+        content: "Defines where the linked document should open.",
+        points: [
+          "_self – Opens in same tab",
+          "_blank – Opens in new tab",
+          "_parent – Opens in parent frame",
+          "_top – Opens in full browser window"
+        ]
+      },
+
+      {
+        heading: "Absolute and Relative URLs",
+        points: [
+          "Absolute URL – Full web address",
+          "Relative URL – Path within same website"
+        ]
+      },
+
+      {
+        heading: "Advantages of Links",
+        points: [
+          "Connects webpages and resources",
+          "Improves website navigation",
+          "Enhances user experience",
+          "Supports internal and external navigation"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Links are created using <a> tag",
+      "href attribute defines destination",
+      "Supports external, internal, email, and bookmark links",
+      "target attribute controls opening behavior",
+      "Essential for webpage navigation"
+    ],
+
+    code: `<!-- Example of HTML Links -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML Links</title>
+</head>
+<body>
+
+    <!-- External Link -->
+    <a href="https://www.google.com" target="_blank">
+        Visit Google
+    </a>
+
+    <br><br>
+
+    <!-- Internal Link -->
+    <a href="about.html">
+        About Page
+    </a>
+
+    <br><br>
+
+    <!-- Email Link -->
+    <a href="mailto:test@example.com">
+        Send Email
+    </a>
+
+    <br><br>
+
+    <!-- Bookmark Link -->
+    <a href="#section1">Go to Section 1</a>
+
+    <h2 id="section1">Section 1</h2>
+
+</body>
+</html>`
+  },
+
+  "HTML Media": {
+    description: "HTML Media refers to multimedia elements such as images, audio, videos, and animations that can be embedded into web pages to make them interactive and visually appealing.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Media in HTML includes different types of multimedia content like images, audio, video, and embedded external resources displayed on webpages."
+      },
+
+      {
+        heading: "Importance of Media",
+        points: [
+          "Improves user engagement",
+          "Enhances visual appearance",
+          "Makes content interactive",
+          "Helps explain information effectively",
+          "Provides better user experience"
+        ]
+      },
+
+      {
+        heading: "Types of HTML Media",
+        points: [
+          "Images",
+          "Audio",
+          "Video",
+          "Iframes",
+          "Animations"
+        ]
+      },
+
+      {
+        heading: "Image Tag",
+        content: "The <img> tag is used to display images on a webpage.",
+        points: [
+          "Uses src attribute for image path",
+          "Uses alt attribute for alternative text",
+          "Supports width and height attributes"
+        ]
+      },
+
+      {
+        heading: "Audio Tag",
+        content: "The <audio> tag is used to embed audio files in webpages.",
+        points: [
+          "Supports MP3, WAV, OGG formats",
+          "Uses controls attribute for play controls",
+          "Can autoplay audio"
+        ]
+      },
+
+      {
+        heading: "Video Tag",
+        content: "The <video> tag is used to display videos on webpages.",
+        points: [
+          "Supports MP4, WebM, OGG formats",
+          "Uses controls attribute",
+          "Supports autoplay, loop, and muted"
+        ]
+      },
+
+      {
+        heading: "Iframe Tag",
+        content: "The <iframe> tag is used to embed another webpage or external content inside a webpage.",
+        points: [
+          "Can embed YouTube videos",
+          "Can display maps and external websites"
+        ]
+      },
+
+      {
+        heading: "Common Media Attributes",
+        points: [
+          "src – Specifies file location",
+          "controls – Displays media controls",
+          "autoplay – Plays automatically",
+          "loop – Repeats media",
+          "muted – Mutes audio/video"
+        ]
+      },
+
+      {
+        heading: "Supported Media Formats",
+        points: [
+          "Images → JPG, PNG, GIF, SVG",
+          "Audio → MP3, WAV, OGG",
+          "Video → MP4, WebM, OGG"
+        ]
+      },
+
+      {
+        heading: "Advantages of HTML Media",
+        points: [
+          "Enhances website interactivity",
+          "Improves user experience",
+          "Supports multimedia learning",
+          "Works directly in browsers without plugins"
+        ]
+      },
+
+      {
+        heading: "Limitations of HTML Media",
+        points: [
+          "Large media files may slow webpage loading",
+          "Browser compatibility issues for some formats",
+          "Autoplay restrictions in modern browsers"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "HTML supports images, audio, video, and iframes",
+      "Media makes webpages interactive",
+      "Uses tags like img, audio, video, iframe",
+      "Supports multiple multimedia formats",
+      "Important for modern web development"
+    ],
+
+    code: `<!-- Example of HTML Media -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML Media</title>
+</head>
+<body>
+
+    <!-- Image -->
+    <img src="image.jpg" alt="Sample Image" width="300">
+
+    <br><br>
+
+    <!-- Audio -->
+    <audio controls>
+        <source src="audio.mp3" type="audio/mpeg">
+    </audio>
+
+    <br><br>
+
+    <!-- Video -->
+    <video width="400" controls>
+        <source src="video.mp4" type="video/mp4">
+    </video>
+
+    <br><br>
+
+    <!-- Iframe -->
+    <iframe 
+        width="400" 
+        height="250"
+        src="https://www.youtube.com">
+    </iframe>
+
+</body>
+</html>`
+  },
+
+  "HTML Lists": {
+    description: "HTML lists are used to organize and display related items in a structured format on web pages.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Lists in HTML are used to group related items together in ordered, unordered, or descriptive formats."
+      },
+
+      {
+        heading: "Types of HTML Lists",
+        points: [
+          "Ordered List (<ol>)",
+          "Unordered List (<ul>)",
+          "Description List (<dl>)"
+        ]
+      },
+
+      {
+        heading: "1. Ordered List",
+        content: "An ordered list displays items in a numbered sequence.",
+        points: [
+          "Uses <ol> tag",
+          "Each item is defined using <li>",
+          "Items are displayed with numbers or letters"
+        ]
+      },
+
+      {
+        heading: "Attributes of Ordered List",
+        points: [
+          "type='1' → Numbers",
+          "type='A' → Uppercase letters",
+          "type='a' → Lowercase letters",
+          "type='I' → Uppercase Roman numbers",
+          "type='i' → Lowercase Roman numbers",
+          "start → Defines starting number"
+        ]
+      },
+
+      {
+        heading: "2. Unordered List",
+        content: "An unordered list displays items using bullets.",
+        points: [
+          "Uses <ul> tag",
+          "Each item uses <li> tag",
+          "Bullets can be circle, square, or disc"
+        ]
+      },
+
+      {
+        heading: "Attributes of Unordered List",
+        points: [
+          "disc → Default bullet",
+          "circle → Hollow circle bullet",
+          "square → Square bullet"
+        ]
+      },
+
+      {
+        heading: "3. Description List",
+        content: "A description list is used to display terms and their descriptions.",
+        points: [
+          "<dl> → Description list",
+          "<dt> → Description term",
+          "<dd> → Description details"
+        ]
+      },
+
+      {
+        heading: "Nested Lists",
+        content: "Lists can be placed inside another list to create hierarchical structures."
+      },
+
+      {
+        heading: "Uses of Lists",
+        points: [
+          "Displaying menus",
+          "Showing steps or instructions",
+          "Organizing related content",
+          "Creating navigation bars"
+        ]
+      },
+
+      {
+        heading: "Advantages of HTML Lists",
+        points: [
+          "Improves content organization",
+          "Enhances readability",
+          "Easy to create and maintain",
+          "Useful for navigation and structured data"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "HTML supports ordered, unordered, and description lists",
+      "Lists use tags like ol, ul, li, dl, dt, dd",
+      "Ordered lists display numbers",
+      "Unordered lists display bullets",
+      "Lists help organize webpage content"
+    ],
+
+    code: `<!-- Example of HTML Lists -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML Lists</title>
+</head>
+<body>
+
+    <!-- Ordered List -->
+    <h2>Ordered List</h2>
+    <ol type="1">
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+    </ol>
+
+    <!-- Unordered List -->
+    <h2>Unordered List</h2>
+    <ul type="square">
+        <li>Apple</li>
+        <li>Mango</li>
+        <li>Orange</li>
+    </ul>
+
+    <!-- Description List -->
+    <h2>Description List</h2>
+    <dl>
+        <dt>HTML</dt>
+        <dd>HyperText Markup Language</dd>
+
+        <dt>CSS</dt>
+        <dd>Cascading Style Sheets</dd>
+    </dl>
+
+</body>
+</html>`
+  },
+
+  "HTML Tables": {
+    description: "HTML tables are used to organize and display data in rows and columns on a webpage.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "An HTML table is a structured format used to display data in tabular form using rows and columns."
+      },
+
+      {
+        heading: "Purpose of Tables",
+        points: [
+          "Display structured data",
+          "Organize information clearly",
+          "Present reports and schedules",
+          "Show comparison data",
+          "Display database records"
+        ]
+      },
+
+      {
+        heading: "Basic Table Tags",
+        points: [
+          "<table> – Defines a table",
+          "<tr> – Defines a table row",
+          "<th> – Defines table header",
+          "<td> – Defines table data cell"
+        ]
+      },
+
+      {
+        heading: "Table Structure",
+        content: "A table consists of rows (<tr>) and columns created using header (<th>) and data (<td>) cells."
+      },
+
+      {
+        heading: "Table Header",
+        content: "The <th> tag is used to create header cells in a table.",
+        points: [
+          "Text is bold and centered by default",
+          "Represents column headings"
+        ]
+      },
+
+      {
+        heading: "Table Data Cell",
+        content: "The <td> tag is used to store actual data inside the table."
+      },
+
+      {
+        heading: "Additional Table Tags",
+        points: [
+          "<caption> – Adds title to table",
+          "<thead> – Groups table header content",
+          "<tbody> – Groups main table content",
+          "<tfoot> – Groups footer content"
+        ]
+      },
+
+      {
+        heading: "Table Attributes",
+        points: [
+          "border – Adds border to table",
+          "cellpadding – Space inside cells",
+          "cellspacing – Space between cells",
+          "width – Defines table width",
+          "align – Aligns table content"
+        ]
+      },
+
+      {
+        heading: "Rowspan and Colspan",
+        points: [
+          "rowspan – Merges multiple rows",
+          "colspan – Merges multiple columns"
+        ]
+      },
+
+      {
+        heading: "Advantages of HTML Tables",
+        points: [
+          "Displays structured data effectively",
+          "Improves readability",
+          "Easy to organize rows and columns",
+          "Useful for reports and records"
+        ]
+      },
+
+      {
+        heading: "Limitations of Tables",
+        points: [
+          "Not suitable for webpage layout design",
+          "Complex tables can reduce readability",
+          "Responsive design may require extra styling"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Tables organize data into rows and columns",
+      "Uses tags like table, tr, th, td",
+      "Supports rowspan and colspan",
+      "Useful for structured data representation",
+      "Widely used in reports and dashboards"
+    ],
+
+    code: `<!-- Example of HTML Table -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML Tables</title>
+</head>
+<body>
+
+    <table border="1" cellpadding="10">
+
+        <caption>Student Details</caption>
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Course</th>
+        </tr>
+
+        <tr>
+            <td>101</td>
+            <td>Haritha</td>
+            <td>Java Full Stack</td>
+        </tr>
+
+        <tr>
+            <td>102</td>
+            <td>Rahul</td>
+            <td>Spring Boot</td>
+        </tr>
+
+    </table>
+
+</body>
+</html>`
+  },
+
+  "HTML Forms": {
+    description: "HTML forms are used to collect user input and send the data to a server for processing.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "An HTML form is a section of a webpage that contains input elements used to collect information from users."
+      },
+
+      {
+        heading: "Purpose of Forms",
+        points: [
+          "Collect user information",
+          "Enable user interaction",
+          "Send data to server",
+          "Support login and registration",
+          "Perform search and feedback operations"
+        ]
+      },
+
+      {
+        heading: "Form Tag",
+        content: "The <form> tag is used to create a form in HTML.",
+        points: [
+          "Contains input elements",
+          "Uses action and method attributes",
+          "Can send data using GET or POST"
+        ]
+      },
+
+      {
+        heading: "Form Attributes",
+        points: [
+          "action – Specifies where form data is sent",
+          "method – Defines HTTP method (GET or POST)",
+          "name – Name of form",
+          "target – Specifies where response is displayed",
+          "autocomplete – Enables/disables auto suggestions"
+        ]
+      },
+
+      {
+        heading: "Input Tag",
+        content: "The <input> tag is used to create different types of input fields."
+      },
+
+      {
+        heading: "Common Input Types",
+        points: [
+          "text – Single line text input",
+          "password – Hidden text input",
+          "email – Email input field",
+          "number – Numeric input",
+          "radio – Single selection option",
+          "checkbox – Multiple selection option",
+          "file – Upload files",
+          "submit – Submit form",
+          "reset – Reset form fields",
+          "date – Date selection"
+        ]
+      },
+
+      {
+        heading: "Label Tag",
+        content: "The <label> tag is used to define labels for form elements."
+      },
+
+      {
+        heading: "Textarea Tag",
+        content: "The <textarea> tag is used for multi-line text input."
+      },
+
+      {
+        heading: "Select Tag",
+        content: "The <select> tag creates dropdown lists.",
+        points: [
+          "<option> defines dropdown items",
+          "Allows single or multiple selection"
+        ]
+      },
+
+      {
+        heading: "Button Tag",
+        content: "The <button> tag is used to create clickable buttons."
+      },
+
+      {
+        heading: "GET vs POST Method",
+        points: [
+          "GET → Data sent in URL",
+          "POST → Data sent securely in request body",
+          "GET is less secure",
+          "POST is commonly used for sensitive data"
+        ]
+      },
+
+      {
+        heading: "Advantages of HTML Forms",
+        points: [
+          "Supports user interaction",
+          "Collects and submits data",
+          "Works with backend applications",
+          "Essential for dynamic websites"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Forms collect user input",
+      "Uses form and input tags",
+      "Supports various input types",
+      "Can send data using GET or POST",
+      "Essential for interactive websites"
+    ],
+
+    code: `<!-- Example of HTML Form -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML Forms</title>
+</head>
+<body>
+
+    <h2>Registration Form</h2>
+
+    <form action="/submit" method="POST">
+
+        <label>Name:</label>
+        <input type="text" name="name">
+
+        <br><br>
+
+        <label>Email:</label>
+        <input type="email" name="email">
+
+        <br><br>
+
+        <label>Password:</label>
+        <input type="password" name="password">
+
+        <br><br>
+
+        <label>Gender:</label>
+        <input type="radio" name="gender"> Male
+        <input type="radio" name="gender"> Female
+
+        <br><br>
+
+        <label>Skills:</label>
+        <input type="checkbox"> HTML
+        <input type="checkbox"> CSS
+
+        <br><br>
+
+        <label>Course:</label>
+        <select>
+            <option>Java</option>
+            <option>Python</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Submit</button>
+
+    </form>
+
+</body>
+</html>`
+  },
+
+  "Semantic HTML": {
+    description: "Semantic HTML uses meaningful tags that clearly describe the purpose and structure of web page content, improving readability, accessibility, and SEO.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Semantic HTML refers to the use of HTML tags that convey the meaning and purpose of the content they contain."
+      },
+
+      {
+        heading: "What are Semantic Tags?",
+        content: "Semantic tags clearly define the role of content in a webpage.",
+        points: [
+          "Improves code readability",
+          "Helps search engines understand content",
+          "Enhances accessibility"
+        ]
+      },
+
+      {
+        heading: "Why Semantic HTML?",
+        points: [
+          "Improves webpage structure",
+          "Enhances SEO (Search Engine Optimization)",
+          "Makes code easier to understand",
+          "Supports accessibility tools like screen readers",
+          "Improves maintainability"
+        ]
+      },
+
+      {
+        heading: "Non-Semantic Tags",
+        content: "Non-semantic tags do not describe the meaning of content.",
+        points: [
+          "<div>",
+          "<span>"
+        ]
+      },
+
+      {
+        heading: "Semantic Tags in HTML5",
+        points: [
+          "<header> – Defines header section",
+          "<nav> – Defines navigation links",
+          "<main> – Defines main content",
+          "<section> – Defines a section of content",
+          "<article> – Defines independent article content",
+          "<aside> – Defines sidebar content",
+          "<footer> – Defines footer section"
+        ]
+      },
+
+      {
+        heading: "Header Tag",
+        content: "The <header> tag represents introductory content or navigation links."
+      },
+
+      {
+        heading: "Navigation Tag",
+        content: "The <nav> tag is used to define navigation menus and links."
+      },
+
+      {
+        heading: "Section Tag",
+        content: "The <section> tag groups related content into sections."
+      },
+
+      {
+        heading: "Article Tag",
+        content: "The <article> tag represents independent self-contained content like blog posts or news articles."
+      },
+
+      {
+        heading: "Aside Tag",
+        content: "The <aside> tag is used for side content such as advertisements or sidebars."
+      },
+
+      {
+        heading: "Footer Tag",
+        content: "The <footer> tag represents footer information like copyright, contact details, or links."
+      },
+
+      {
+        heading: "Advantages of Semantic HTML",
+        points: [
+          "Better SEO ranking",
+          "Improved accessibility",
+          "Cleaner and readable code",
+          "Easy maintenance",
+          "Better browser understanding"
+        ]
+      },
+
+      {
+        heading: "Semantic vs Non-Semantic HTML",
+        points: [
+          "Semantic tags describe meaning",
+          "Non-semantic tags only group content",
+          "Semantic HTML improves SEO and accessibility"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Semantic HTML uses meaningful tags",
+      "Improves accessibility and SEO",
+      "HTML5 introduced semantic elements",
+      "Examples: header, nav, section, article, footer",
+      "Makes webpage structure clear"
+    ],
+
+    code: `<!-- Example of Semantic HTML -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Semantic HTML</title>
+</head>
+<body>
+
+    <header>
+        <h1>My Website</h1>
+    </header>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+    </nav>
+
+    <main>
+
+        <section>
+            <h2>Frontend Development</h2>
+            <p>Learning HTML, CSS, and JavaScript.</p>
+        </section>
+
+        <article>
+            <h2>Latest News</h2>
+            <p>Semantic HTML improves SEO.</p>
+        </article>
+
+        <aside>
+            <p>Advertisement Section</p>
+        </aside>
+
+    </main>
+
+    <footer>
+        <p>© 2026 My Website</p>
+    </footer>
+
+</body>
+</html>`
   },
 
   // CSS
-  "Selectors": {
-    description: "CSS selectors are used to 'find' (or select) the HTML elements you want to style.",
-    keyPoints: [
-      "Element Selector: Styles all elements of a type (e.g., p).",
-      "ID Selector: Styles a unique element (#id).",
-      "Class Selector: Styles elements with a specific class (.class).",
-      "Universal Selector: Styles all elements (*)."
+  "CSS and Selectors": {
+    description: "CSS (Cascading Style Sheets) is used to style and design HTML webpages. Selectors in CSS are used to target HTML elements and apply styles to them.",
+
+    sections: [
+      {
+        heading: "Definition of CSS",
+        content: "CSS stands for Cascading Style Sheets. It is a stylesheet language used to control the appearance, layout, colors, fonts, spacing, and responsiveness of web pages."
+      },
+
+      {
+        heading: "Why CSS?",
+        points: [
+          "Improves webpage appearance",
+          "Separates design from content",
+          "Reduces repetitive HTML styling",
+          "Supports responsive design",
+          "Makes websites attractive and user-friendly"
+        ]
+      },
+
+      {
+        heading: "Features of CSS",
+        points: [
+          "Easy styling of webpages",
+          "Reusable styles",
+          "Supports animations and transitions",
+          "Works with all modern browsers",
+          "Enables responsive web design"
+        ]
+      },
+
+      {
+        heading: "Types of CSS",
+        points: [
+          "Inline CSS",
+          "Internal CSS",
+          "External CSS"
+        ]
+      },
+
+      {
+        heading: "1. Inline CSS",
+        content: "Inline CSS is written directly inside HTML elements using the style attribute."
+      },
+
+      {
+        heading: "2. Internal CSS",
+        content: "Internal CSS is written inside the <style> tag within the <head> section."
+      },
+
+      {
+        heading: "3. External CSS",
+        content: "External CSS is written in a separate .css file and linked to HTML using the <link> tag."
+      },
+
+      {
+        heading: "What are CSS Selectors?",
+        content: "Selectors are patterns used to select and style HTML elements."
+      },
+
+      {
+        heading: "Types of CSS Selectors",
+        points: [
+          "Element Selector",
+          "Class Selector",
+          "ID Selector",
+          "Universal Selector",
+          "Group Selector",
+          "Attribute Selector",
+          "Pseudo-class Selector",
+          "Pseudo-element Selector"
+        ]
+      },
+
+      {
+        heading: "1. Element Selector",
+        content: "Selects HTML elements based on tag name.",
+        points: [
+          "Example: p, h1, div"
+        ]
+      },
+
+      {
+        heading: "2. Class Selector",
+        content: "Selects elements using class attribute.",
+        points: [
+          "Uses dot (.) symbol",
+          "Example: .container"
+        ]
+      },
+
+      {
+        heading: "3. ID Selector",
+        content: "Selects element using unique id attribute.",
+        points: [
+          "Uses hash (#) symbol",
+          "Example: #header"
+        ]
+      },
+
+      {
+        heading: "4. Universal Selector",
+        content: "Selects all elements in webpage.",
+        points: [
+          "Uses * symbol"
+        ]
+      },
+
+      {
+        heading: "5. Group Selector",
+        content: "Applies same style to multiple elements."
+      },
+
+      {
+        heading: "6. Attribute Selector",
+        content: "Selects elements based on attributes."
+      },
+
+      {
+        heading: "7. Pseudo-class Selector",
+        content: "Styles elements in a specific state.",
+        points: [
+          "Example: :hover, :focus"
+        ]
+      },
+
+      {
+        heading: "8. Pseudo-element Selector",
+        content: "Styles specific parts of elements.",
+        points: [
+          "Example: ::before, ::after"
+        ]
+      },
+
+      {
+        heading: "Advantages of CSS",
+        points: [
+          "Improves website design",
+          "Reduces code duplication",
+          "Easy maintenance",
+          "Supports responsive layouts",
+          "Enhances user experience"
+        ]
+      }
     ],
-    code: "p {\n  text-align: center;\n  color: red;\n}\n\n.my-class {\n  font-weight: bold;\n}\n\n#my-id {\n  background-color: blue;\n}"
+
+    keyPoints: [
+      "CSS styles HTML webpages",
+      "Selectors target HTML elements",
+      "Supports inline, internal, and external styling",
+      "Class and ID selectors are commonly used",
+      "Essential for frontend web development"
+    ],
+
+    code: `<!-- Example of CSS and Selectors -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Selectors</title>
+
+    <style>
+
+        /* Element Selector */
+        h1 {
+            color: blue;
+        }
+
+        /* Class Selector */
+        .text {
+            color: green;
+        }
+
+        /* ID Selector */
+        #heading {
+            background-color: yellow;
+        }
+
+        /* Universal Selector */
+        * {
+            font-family: Arial;
+        }
+
+        /* Pseudo-class */
+        a:hover {
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1 id="heading">Welcome to CSS</h1>
+
+    <p class="text">
+        CSS makes webpages attractive.
+    </p>
+
+    <a href="#">Hover Me</a>
+
+</body>
+</html>`
+  },
+
+  "CSS Box Model": {
+    description: "The CSS Box Model is a fundamental concept in web design that describes how HTML elements are structured and spaced using content, padding, border, and margin.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "The CSS Box Model represents every HTML element as a rectangular box consisting of content, padding, border, and margin."
+      },
+
+      {
+        heading: "Components of Box Model",
+        points: [
+          "Content",
+          "Padding",
+          "Border",
+          "Margin"
+        ]
+      },
+
+      {
+        heading: "1. Content",
+        content: "The content area contains text, images, or other data inside the element.",
+        points: [
+          "Width and height apply to content area by default",
+          "Main visible part of element"
+        ]
+      },
+
+      {
+        heading: "2. Padding",
+        content: "Padding is the space between content and border.",
+        points: [
+          "Creates inner spacing",
+          "Background color applies to padding area",
+          "Can be set individually (top, right, bottom, left)"
+        ]
+      },
+
+      {
+        heading: "3. Border",
+        content: "Border surrounds the padding and content area.",
+        points: [
+          "Can define width, style, and color",
+          "Styles include solid, dashed, dotted, double"
+        ]
+      },
+
+      {
+        heading: "4. Margin",
+        content: "Margin is the space outside the border used to separate elements.",
+        points: [
+          "Creates outer spacing",
+          "Transparent area",
+          "Can be set individually"
+        ]
+      },
+
+      {
+        heading: "Box Model Structure",
+        content: "The order of the box model from inside to outside is:",
+        points: [
+          "Content → Padding → Border → Margin"
+        ]
+      },
+
+      {
+        heading: "Width and Height Calculation",
+        content: "Total element size includes content, padding, border, and margin.",
+        points: [
+          "Total Width = Width + Padding + Border + Margin",
+          "Total Height = Height + Padding + Border + Margin"
+        ]
+      },
+
+      {
+        heading: "box-sizing Property",
+        content: "The box-sizing property controls how width and height are calculated.",
+        points: [
+          "content-box → Default behavior",
+          "border-box → Includes padding and border inside width/height"
+        ]
+      },
+
+      {
+        heading: "Importance of Box Model",
+        points: [
+          "Helps design webpage layouts",
+          "Controls spacing between elements",
+          "Improves responsive design",
+          "Essential for frontend development"
+        ]
+      },
+
+      {
+        heading: "Advantages of Box Model",
+        points: [
+          "Provides layout control",
+          "Improves UI design",
+          "Makes spacing predictable",
+          "Helps create responsive webpages"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Every HTML element is treated as a box",
+      "Box model includes content, padding, border, and margin",
+      "Padding creates inner spacing",
+      "Margin creates outer spacing",
+      "Important for webpage layouts"
+    ],
+
+    code: `<!-- Example of CSS Box Model -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Box Model</title>
+
+    <style>
+
+        .box {
+
+            width: 300px;
+            height: 150px;
+
+            padding: 20px;
+
+            border: 5px solid blue;
+
+            margin: 30px;
+
+            background-color: lightgray;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        This is a CSS Box Model Example
+    </div>
+
+</body>
+</html>`
+  },
+
+  "CSS Positioning": {
+    description: "CSS Positioning is used to control the placement and layout of HTML elements on a webpage.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "CSS positioning determines how an element is positioned in a webpage using properties like static, relative, absolute, fixed, and sticky."
+      },
+
+      {
+        heading: "Why Positioning?",
+        points: [
+          "Controls element placement",
+          "Creates complex layouts",
+          "Helps build responsive designs",
+          "Used for menus, popups, headers, and sidebars",
+          "Improves webpage structure"
+        ]
+      },
+
+      {
+        heading: "Position Property",
+        content: "The position property specifies the positioning method used for an element."
+      },
+
+      {
+        heading: "Types of Positioning",
+        points: [
+          "static",
+          "relative",
+          "absolute",
+          "fixed",
+          "sticky"
+        ]
+      },
+
+      {
+        heading: "1. Static Position",
+        content: "Static is the default positioning method. Elements appear in normal document flow.",
+        points: [
+          "Default value",
+          "top, left, right, bottom do not work",
+          "Element follows normal webpage layout"
+        ]
+      },
+
+      {
+        heading: "2. Relative Position",
+        content: "Relative positioning moves an element relative to its original position.",
+        points: [
+          "Space for original position is preserved",
+          "Uses top, left, right, bottom properties"
+        ]
+      },
+
+      {
+        heading: "3. Absolute Position",
+        content: "Absolute positioning places an element relative to its nearest positioned ancestor.",
+        points: [
+          "Removed from normal document flow",
+          "Can overlap other elements",
+          "Uses coordinates for placement"
+        ]
+      },
+
+      {
+        heading: "4. Fixed Position",
+        content: "Fixed positioning places an element relative to the browser window.",
+        points: [
+          "Stays fixed during scrolling",
+          "Commonly used for navigation bars"
+        ]
+      },
+
+      {
+        heading: "5. Sticky Position",
+        content: "Sticky positioning behaves like relative until a scroll threshold is reached, then becomes fixed.",
+        points: [
+          "Used for sticky headers",
+          "Works with scrolling"
+        ]
+      },
+
+      {
+        heading: "Positioning Properties",
+        points: [
+          "top – Distance from top",
+          "bottom – Distance from bottom",
+          "left – Distance from left",
+          "right – Distance from right",
+          "z-index – Controls stacking order"
+        ]
+      },
+
+      {
+        heading: "z-index Property",
+        content: "The z-index property controls which element appears in front when elements overlap."
+      },
+
+      {
+        heading: "Advantages of CSS Positioning",
+        points: [
+          "Provides precise layout control",
+          "Helps create modern UI designs",
+          "Useful for overlays and navigation bars",
+          "Supports responsive layouts"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "CSS positioning controls element placement",
+      "Five types: static, relative, absolute, fixed, sticky",
+      "Uses top, left, right, bottom properties",
+      "z-index controls overlapping elements",
+      "Important for webpage layout design"
+    ],
+
+    code: `<!-- Example of CSS Positioning -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Positioning</title>
+
+    <style>
+
+        .relative-box {
+            position: relative;
+            left: 30px;
+            top: 20px;
+            background-color: lightblue;
+            padding: 20px;
+        }
+
+        .absolute-box {
+            position: absolute;
+            top: 100px;
+            right: 50px;
+            background-color: lightgreen;
+            padding: 20px;
+        }
+
+        .fixed-box {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: orange;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="relative-box">
+        Relative Position
+    </div>
+
+    <div class="absolute-box">
+        Absolute Position
+    </div>
+
+    <div class="fixed-box">
+        Fixed Position
+    </div>
+
+</body>
+</html>`
+  },
+
+  "CSS Flexbox": {
+    description: "Flexbox (Flexible Box Layout) is a CSS layout model used to arrange, align, and distribute space among elements efficiently within a container.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Flexbox is a one-dimensional CSS layout system that helps align and distribute elements either in rows or columns."
+      },
+
+      {
+        heading: "Why Flexbox?",
+        points: [
+          "Creates flexible layouts",
+          "Aligns elements easily",
+          "Supports responsive design",
+          "Reduces complex CSS code",
+          "Provides better spacing control"
+        ]
+      },
+
+      {
+        heading: "Main Components of Flexbox",
+        points: [
+          "Flex Container",
+          "Flex Items"
+        ]
+      },
+
+      {
+        heading: "Flex Container",
+        content: "The parent element becomes a flex container when display: flex is applied."
+      },
+
+      {
+        heading: "Flex Items",
+        content: "The child elements inside the flex container are called flex items."
+      },
+
+      {
+        heading: "display: flex",
+        content: "The display: flex property activates Flexbox layout for a container."
+      },
+
+      {
+        heading: "Flex Direction",
+        content: "Defines the direction of flex items.",
+        points: [
+          "row → Horizontal direction (default)",
+          "row-reverse → Reverse horizontal order",
+          "column → Vertical direction",
+          "column-reverse → Reverse vertical order"
+        ]
+      },
+
+      {
+        heading: "Justify Content",
+        content: "Aligns items horizontally along the main axis.",
+        points: [
+          "flex-start",
+          "flex-end",
+          "center",
+          "space-between",
+          "space-around",
+          "space-evenly"
+        ]
+      },
+
+      {
+        heading: "Align Items",
+        content: "Aligns items vertically along the cross axis.",
+        points: [
+          "stretch",
+          "flex-start",
+          "flex-end",
+          "center",
+          "baseline"
+        ]
+      },
+
+      {
+        heading: "Flex Wrap",
+        content: "Controls whether flex items should wrap onto multiple lines.",
+        points: [
+          "nowrap → Default",
+          "wrap → Items move to next line",
+          "wrap-reverse → Reverse wrapping"
+        ]
+      },
+
+      {
+        heading: "Gap Property",
+        content: "Adds spacing between flex items without using margins."
+      },
+
+      {
+        heading: "Flex Item Properties",
+        points: [
+          "flex-grow → Expands item",
+          "flex-shrink → Shrinks item",
+          "flex-basis → Initial item size",
+          "align-self → Individual item alignment"
+        ]
+      },
+
+      {
+        heading: "Advantages of Flexbox",
+        points: [
+          "Easy alignment of elements",
+          "Responsive layouts",
+          "Less CSS code",
+          "Better spacing management",
+          "Simplifies complex layouts"
+        ]
+      },
+
+      {
+        heading: "Limitations of Flexbox",
+        points: [
+          "One-dimensional layout only",
+          "Complex grid layouts may require CSS Grid"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Flexbox creates flexible layouts",
+      "Uses flex container and flex items",
+      "Supports alignment and spacing",
+      "Important properties: justify-content, align-items, flex-direction",
+      "Widely used for responsive design"
+    ],
+
+    code: `<!-- Example of CSS Flexbox -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Flexbox</title>
+
+    <style>
+
+        .container {
+
+            display: flex;
+
+            flex-direction: row;
+
+            justify-content: space-around;
+
+            align-items: center;
+
+            height: 200px;
+
+            background-color: lightgray;
+        }
+
+        .box {
+
+            width: 100px;
+            height: 100px;
+
+            background-color: steelblue;
+
+            color: white;
+
+            text-align: center;
+
+            line-height: 100px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="box">1</div>
+
+        <div class="box">2</div>
+
+        <div class="box">3</div>
+
+    </div>
+
+</body>
+</html>`
+  },
+
+  "CSS Grid": {
+    description: "CSS Grid is a two-dimensional layout system used to design complex and responsive web page layouts using rows and columns.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "CSS Grid is a powerful layout model in CSS that allows developers to create webpage layouts using rows and columns."
+      },
+
+      {
+        heading: "Why CSS Grid?",
+        points: [
+          "Creates complex layouts easily",
+          "Supports responsive web design",
+          "Controls rows and columns together",
+          "Reduces dependency on float and positioning",
+          "Provides better layout management"
+        ]
+      },
+
+      {
+        heading: "Main Components of Grid",
+        points: [
+          "Grid Container",
+          "Grid Items"
+        ]
+      },
+
+      {
+        heading: "Grid Container",
+        content: "The parent element becomes a grid container when display: grid is applied."
+      },
+
+      {
+        heading: "Grid Items",
+        content: "Child elements inside the grid container are called grid items."
+      },
+
+      {
+        heading: "display: grid",
+        content: "The display: grid property activates grid layout for the container."
+      },
+
+      {
+        heading: "Grid Columns",
+        content: "grid-template-columns defines the number and size of columns.",
+        points: [
+          "Example: grid-template-columns: 1fr 1fr 1fr",
+          "fr represents fraction of available space"
+        ]
+      },
+
+      {
+        heading: "Grid Rows",
+        content: "grid-template-rows defines the number and size of rows."
+      },
+
+      {
+        heading: "Gap Property",
+        content: "The gap property adds spacing between rows and columns.",
+        points: [
+          "row-gap → Vertical spacing",
+          "column-gap → Horizontal spacing",
+          "gap → Both row and column spacing"
+        ]
+      },
+
+      {
+        heading: "Grid Item Positioning",
+        points: [
+          "grid-column → Defines column span",
+          "grid-row → Defines row span",
+          "grid-area → Assigns named grid area"
+        ]
+      },
+
+      {
+        heading: "Grid Alignment",
+        points: [
+          "justify-items → Horizontal alignment",
+          "align-items → Vertical alignment",
+          "justify-content → Aligns entire grid horizontally",
+          "align-content → Aligns entire grid vertically"
+        ]
+      },
+
+      {
+        heading: "Responsive Grid Layout",
+        content: "CSS Grid supports responsive layouts using media queries and auto-fit/auto-fill features."
+      },
+
+      {
+        heading: "Advantages of CSS Grid",
+        points: [
+          "Supports two-dimensional layouts",
+          "Easy responsive design",
+          "Cleaner and organized code",
+          "Precise control over layout",
+          "Reduces complex positioning"
+        ]
+      },
+
+      {
+        heading: "Flexbox vs Grid",
+        points: [
+          "Flexbox → One-dimensional layout",
+          "Grid → Two-dimensional layout",
+          "Flexbox → Best for alignment",
+          "Grid → Best for full page layouts"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "CSS Grid creates layouts using rows and columns",
+      "Uses grid container and grid items",
+      "Supports responsive web design",
+      "Important properties: grid-template-columns, gap, grid-row",
+      "Best for complex webpage layouts"
+    ],
+
+    code: `<!-- Example of CSS Grid -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Grid</title>
+
+    <style>
+
+        .container {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr 1fr;
+
+            gap: 20px;
+
+            background-color: lightgray;
+
+            padding: 20px;
+        }
+
+        .box {
+
+            background-color: steelblue;
+
+            color: white;
+
+            padding: 40px;
+
+            text-align: center;
+
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="box">1</div>
+
+        <div class="box">2</div>
+
+        <div class="box">3</div>
+
+        <div class="box">4</div>
+
+        <div class="box">5</div>
+
+        <div class="box">6</div>
+
+    </div>
+
+</body>
+</html>`
+  },
+
+  "Responsive Web Design": {
+    description: "Responsive Web Design (RWD) is a web design approach that makes webpages adapt automatically to different screen sizes and devices such as mobiles, tablets, and desktops.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Responsive Web Design is the technique of designing webpages so that they provide an optimal viewing experience across all devices and screen sizes."
+      },
+
+      {
+        heading: "Why Responsive Design?",
+        points: [
+          "Supports mobile and desktop devices",
+          "Improves user experience",
+          "Enhances website accessibility",
+          "Reduces need for separate mobile websites",
+          "Improves SEO rankings"
+        ]
+      },
+
+      {
+        heading: "Features of Responsive Design",
+        points: [
+          "Flexible layouts",
+          "Flexible images",
+          "Media queries",
+          "Responsive typography",
+          "Mobile-friendly navigation"
+        ]
+      },
+
+      {
+        heading: "Viewport Meta Tag",
+        content: "The viewport meta tag controls webpage scaling on mobile devices.",
+        points: [
+          "Ensures proper responsive behavior",
+          "Important for mobile optimization"
+        ]
+      },
+
+      {
+        heading: "Flexible Layouts",
+        content: "Responsive layouts use relative units instead of fixed sizes.",
+        points: [
+          "Uses percentages (%)",
+          "Uses viewport units (vw, vh)",
+          "Uses Flexbox and Grid"
+        ]
+      },
+
+      {
+        heading: "Media Queries",
+        content: "Media queries apply different CSS styles based on device size or screen resolution.",
+        points: [
+          "Used for mobile, tablet, desktop layouts",
+          "Improves adaptability"
+        ]
+      },
+
+      {
+        heading: "Syntax of Media Query",
+        content: "Media queries use @media rule to define conditions for styling."
+      },
+
+      {
+        heading: "Responsive Images",
+        content: "Images should scale properly within containers.",
+        points: [
+          "Uses max-width: 100%",
+          "Prevents overflow"
+        ]
+      },
+
+      {
+        heading: "Responsive Typography",
+        content: "Font sizes should adjust according to screen size for better readability."
+      },
+
+      {
+        heading: "Breakpoints",
+        content: "Breakpoints define screen widths where layout changes occur.",
+        points: [
+          "Mobile → Small screens",
+          "Tablet → Medium screens",
+          "Desktop → Large screens"
+        ]
+      },
+
+      {
+        heading: "Advantages of Responsive Design",
+        points: [
+          "Better user experience",
+          "Works across devices",
+          "Cost-effective maintenance",
+          "Improves accessibility",
+          "Enhances SEO performance"
+        ]
+      },
+
+      {
+        heading: "Challenges of Responsive Design",
+        points: [
+          "Requires careful planning",
+          "Complex layouts may need extra styling",
+          "Testing needed across multiple devices"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Responsive design adapts webpages to all devices",
+      "Uses media queries, flexible layouts, and responsive images",
+      "Improves user experience and SEO",
+      "Supports mobile-first development",
+      "Essential for modern web applications"
+    ],
+
+    code: `<!-- Example of Responsive Web Design -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Responsive Design</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        body {
+            font-family: Arial;
+        }
+
+        .container {
+
+            display: flex;
+
+            gap: 20px;
+        }
+
+        .box {
+
+            flex: 1;
+
+            background-color: steelblue;
+
+            color: white;
+
+            padding: 40px;
+
+            text-align: center;
+        }
+
+        /* Media Query */
+
+        @media (max-width: 768px) {
+
+            .container {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="box">Box 1</div>
+
+        <div class="box">Box 2</div>
+
+    </div>
+
+</body>
+</html>`
+  },
+
+  "CSS Variables": {
+    description: "CSS Variables, also called Custom Properties, are reusable values stored in variables that help manage and maintain consistent styles across a webpage.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "CSS Variables are custom properties defined by developers to store reusable values such as colors, fonts, spacing, and sizes."
+      },
+
+      {
+        heading: "Why CSS Variables?",
+        points: [
+          "Reduce repetitive CSS code",
+          "Improve maintainability",
+          "Provide reusable styling values",
+          "Make theme management easier",
+          "Simplify responsive design updates"
+        ]
+      },
+
+      {
+        heading: "Syntax of CSS Variables",
+        content: "CSS variables are declared using double hyphens (--).",
+        points: [
+          "Example: --main-color: blue;"
+        ]
+      },
+
+      {
+        heading: "Using Variables",
+        content: "CSS variables are accessed using the var() function.",
+        points: [
+          "Example: color: var(--main-color);"
+        ]
+      },
+
+      {
+        heading: "Declaring Variables",
+        points: [
+          "Can be declared globally",
+          "Can be declared locally inside elements",
+          "Usually declared inside :root selector"
+        ]
+      },
+
+      {
+        heading: ":root Selector",
+        content: "The :root selector represents the highest-level element in the document and is commonly used for global CSS variables."
+      },
+
+      {
+        heading: "Global Variables",
+        content: "Global variables are accessible throughout the entire webpage."
+      },
+
+      {
+        heading: "Local Variables",
+        content: "Local variables are available only inside a specific selector or block."
+      },
+
+      {
+        heading: "Advantages of CSS Variables",
+        points: [
+          "Easy theme customization",
+          "Centralized style management",
+          "Cleaner CSS code",
+          "Reusable values",
+          "Improves development efficiency"
+        ]
+      },
+
+      {
+        heading: "Dynamic Styling",
+        content: "CSS variables can be modified using JavaScript to create dynamic themes and animations."
+      },
+
+      {
+        heading: "Difference between CSS Variables and Preprocessor Variables",
+        points: [
+          "CSS variables work in browser runtime",
+          "SCSS/SASS variables are compiled before execution",
+          "CSS variables support dynamic updates"
+        ]
+      },
+
+      {
+        heading: "Best Practices",
+        points: [
+          "Use meaningful variable names",
+          "Store common colors and spacing values",
+          "Declare reusable variables globally",
+          "Avoid excessive local variables"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "CSS Variables store reusable style values",
+      "Declared using --variable-name",
+      "Accessed using var() function",
+      "Usually defined inside :root",
+      "Improves maintainability and theme management"
+    ],
+
+    code: `<!-- Example of CSS Variables -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Variables</title>
+
+    <style>
+
+        /* Global Variables */
+
+        :root {
+
+            --main-color: steelblue;
+
+            --text-color: white;
+
+            --padding-size: 20px;
+        }
+
+        .box {
+
+            background-color: var(--main-color);
+
+            color: var(--text-color);
+
+            padding: var(--padding-size);
+
+            width: 300px;
+
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        CSS Variables Example
+    </div>
+
+</body>
+</html>`
+  },
+
+  "CSS Animations": {
+    description: "CSS Animations are used to create smooth visual effects and movements on web pages without using JavaScript.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "CSS Animations allow HTML elements to gradually change from one style to another over a specified duration."
+      },
+
+      {
+        heading: "Why Animations?",
+        points: [
+          "Enhance user experience",
+          "Make webpages interactive",
+          "Improve visual appeal",
+          "Highlight important elements",
+          "Create smooth transitions and effects"
+        ]
+      },
+
+      {
+        heading: "Components of CSS Animation",
+        points: [
+          "@keyframes",
+          "animation-name",
+          "animation-duration",
+          "animation-delay",
+          "animation-iteration-count",
+          "animation-direction",
+          "animation-timing-function"
+        ]
+      },
+
+      {
+        heading: "@keyframes Rule",
+        content: "The @keyframes rule defines the stages and styles of an animation.",
+        points: [
+          "Specifies starting and ending styles",
+          "Can define multiple animation stages"
+        ]
+      },
+
+      {
+        heading: "animation-name",
+        content: "Specifies the name of the animation defined in @keyframes."
+      },
+
+      {
+        heading: "animation-duration",
+        content: "Defines how long the animation takes to complete.",
+        points: [
+          "Specified in seconds (s) or milliseconds (ms)"
+        ]
+      },
+
+      {
+        heading: "animation-delay",
+        content: "Specifies the delay before animation starts."
+      },
+
+      {
+        heading: "animation-iteration-count",
+        content: "Defines how many times the animation should run.",
+        points: [
+          "Can use numbers or infinite"
+        ]
+      },
+
+      {
+        heading: "animation-direction",
+        content: "Specifies whether animation should play forward, reverse, or alternate."
+      },
+
+      {
+        heading: "animation-timing-function",
+        content: "Controls the speed curve of animation.",
+        points: [
+          "ease",
+          "linear",
+          "ease-in",
+          "ease-out",
+          "ease-in-out"
+        ]
+      },
+
+      {
+        heading: "Transform Property",
+        content: "Animations often use transform functions for movement and scaling.",
+        points: [
+          "translate()",
+          "rotate()",
+          "scale()",
+          "skew()"
+        ]
+      },
+
+      {
+        heading: "Advantages of CSS Animations",
+        points: [
+          "No JavaScript required",
+          "Smooth visual effects",
+          "Better performance",
+          "Improves UI interaction",
+          "Easy to implement"
+        ]
+      },
+
+      {
+        heading: "Uses of CSS Animations",
+        points: [
+          "Loading effects",
+          "Button hover effects",
+          "Image sliders",
+          "Navigation animations",
+          "Interactive UI components"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "CSS Animations create visual effects",
+      "Uses @keyframes to define animation stages",
+      "Animation properties control timing and behavior",
+      "Improves user interaction and design",
+      "Widely used in modern frontend development"
+    ],
+
+    code: `<!-- Example of CSS Animation -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Animations</title>
+
+    <style>
+
+        .box {
+
+            width: 100px;
+
+            height: 100px;
+
+            background-color: steelblue;
+
+            position: relative;
+
+            animation-name: moveBox;
+
+            animation-duration: 3s;
+
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes moveBox {
+
+            from {
+                left: 0px;
+            }
+
+            to {
+                left: 300px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="box"></div>
+
+</body>
+</html>`
+  },
+
+  // JavaScript
+  "JS Variables": {
+    description: "JavaScript is a powerful scripting language used to create dynamic and interactive web pages. Variables in JavaScript are used to store and manage data values.",
+
+    sections: [
+      {
+        heading: "Introduction to JavaScript",
+        content: "JavaScript is a lightweight, interpreted programming language mainly used for adding interactivity and dynamic behavior to websites."
+      },
+
+      {
+        heading: "History of JavaScript",
+        points: [
+          "Developed by Brendan Eich in 1995",
+          "Originally called Mocha",
+          "Later renamed to LiveScript and then JavaScript",
+          "Standardized as ECMAScript"
+        ]
+      },
+
+      {
+        heading: "Features of JavaScript",
+        points: [
+          "Lightweight and fast",
+          "Interpreted language",
+          "Object-oriented",
+          "Event-driven",
+          "Platform independent",
+          "Supports dynamic typing"
+        ]
+      },
+
+      {
+        heading: "Uses of JavaScript",
+        points: [
+          "Form validation",
+          "Dynamic webpage updates",
+          "Animations and effects",
+          "Game development",
+          "Frontend and backend development",
+          "Building web applications"
+        ]
+      },
+
+      {
+        heading: "What are Variables?",
+        content: "Variables are named containers used to store data values in JavaScript."
+      },
+
+      {
+        heading: "Why Variables?",
+        points: [
+          "Store reusable data",
+          "Perform calculations",
+          "Handle user input",
+          "Manage application state",
+          "Improve code flexibility"
+        ]
+      },
+
+      {
+        heading: "Rules for Variable Naming",
+        points: [
+          "Names can contain letters, digits, _, and $",
+          "Cannot start with a number",
+          "Case-sensitive",
+          "Cannot use reserved keywords",
+          "Use meaningful variable names"
+        ]
+      },
+
+      {
+        heading: "Ways to Declare Variables",
+        points: [
+          "var",
+          "let",
+          "const"
+        ]
+      },
+
+      {
+        heading: "1. var Keyword",
+        content: "var is the traditional way to declare variables.",
+        points: [
+          "Function-scoped",
+          "Can be redeclared",
+          "Can be updated"
+        ]
+      },
+
+      {
+        heading: "2. let Keyword",
+        content: "let is used for block-scoped variables.",
+        points: [
+          "Block-scoped",
+          "Cannot be redeclared in same scope",
+          "Can be updated"
+        ]
+      },
+
+      {
+        heading: "3. const Keyword",
+        content: "const is used for constant values.",
+        points: [
+          "Block-scoped",
+          "Cannot be reassigned",
+          "Must be initialized during declaration"
+        ]
+      },
+
+      {
+        heading: "Data Types in Variables",
+        points: [
+          "String",
+          "Number",
+          "Boolean",
+          "Array",
+          "Object",
+          "Null",
+          "Undefined"
+        ]
+      },
+
+      {
+        heading: "Variable Scope",
+        points: [
+          "Global Scope",
+          "Function Scope",
+          "Block Scope"
+        ]
+      },
+
+      {
+        heading: "Advantages of Variables",
+        points: [
+          "Simplifies programming",
+          "Supports dynamic applications",
+          "Improves code readability",
+          "Allows reusable logic"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "JavaScript adds interactivity to webpages",
+      "Variables store data values",
+      "JavaScript uses var, let, and const",
+      "Supports multiple data types",
+      "Essential for dynamic web applications"
+    ],
+
+    code: `<!-- Example of JavaScript Variables -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Variables</title>
+</head>
+<body>
+
+    <script>
+
+        // var example
+        var name = "Haritha";
+
+        // let example
+        let age = 21;
+
+        // const example
+        const country = "India";
+
+        console.log(name);
+        console.log(age);
+        console.log(country);
+
+        // Updating variable
+        age = 22;
+
+        console.log(age);
+
+    </script>
+
+</body>
+</html>`
+  },
+
+  "JS Data Types": {
+    description: "Data types in JavaScript define the type of value that a variable can store and determine the operations that can be performed on that data.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "A data type specifies the kind of value stored in a variable, such as numbers, text, boolean values, objects, or arrays."
+      },
+
+      {
+        heading: "Why Data Types?",
+        points: [
+          "Helps manage data correctly",
+          "Determines valid operations on data",
+          "Improves program reliability",
+          "Supports efficient memory usage",
+          "Makes code easier to understand"
+        ]
+      },
+
+      {
+        heading: "Types of JavaScript Data Types",
+        points: [
+          "Primitive Data Types",
+          "Non-Primitive (Reference) Data Types"
+        ]
+      },
+
+      {
+        heading: "Primitive Data Types",
+        content: "Primitive data types store single simple values.",
+        points: [
+          "String",
+          "Number",
+          "Boolean",
+          "Undefined",
+          "Null",
+          "BigInt",
+          "Symbol"
+        ]
+      },
+
+      {
+        heading: "1. String",
+        content: "String represents textual data enclosed in single quotes, double quotes, or backticks.",
+        points: [
+          "Example: 'Hello', \"JavaScript\"",
+          "Used for names, messages, and text"
+        ]
+      },
+
+      {
+        heading: "2. Number",
+        content: "Number represents numeric values including integers and decimals.",
+        points: [
+          "Example: 10, 99.5",
+          "Used for calculations"
+        ]
+      },
+
+      {
+        heading: "3. Boolean",
+        content: "Boolean represents logical values true or false."
+      },
+
+      {
+        heading: "4. Undefined",
+        content: "Undefined means a variable has been declared but no value has been assigned."
+      },
+
+      {
+        heading: "5. Null",
+        content: "Null represents an intentional absence of value."
+      },
+
+      {
+        heading: "6. BigInt",
+        content: "BigInt is used to store very large integer values beyond the Number limit."
+      },
+
+      {
+        heading: "7. Symbol",
+        content: "Symbol represents unique and immutable identifiers."
+      },
+
+      {
+        heading: "Non-Primitive Data Types",
+        content: "Non-primitive data types store collections of values or complex entities.",
+        points: [
+          "Object",
+          "Array",
+          "Function"
+        ]
+      },
+
+      {
+        heading: "Object",
+        content: "Objects store data in key-value pairs."
+      },
+
+      {
+        heading: "Array",
+        content: "Arrays store multiple values in a single variable."
+      },
+
+      {
+        heading: "Dynamic Typing",
+        content: "JavaScript is dynamically typed, meaning variable types are determined automatically at runtime."
+      },
+
+      {
+        heading: "typeof Operator",
+        content: "The typeof operator is used to check the data type of a variable."
+      },
+
+      {
+        heading: "Advantages of Data Types",
+        points: [
+          "Supports efficient data handling",
+          "Improves code organization",
+          "Enables dynamic programming",
+          "Helps prevent errors"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "JavaScript has primitive and non-primitive data types",
+      "Primitive types store simple values",
+      "Objects and arrays are non-primitive types",
+      "JavaScript uses dynamic typing",
+      "typeof is used to identify data types"
+    ],
+
+    code: `<!-- Example of JavaScript Data Types -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Data Types</title>
+</head>
+<body>
+
+    <script>
+
+        // String
+        let name = "Haritha";
+
+        // Number
+        let age = 21;
+
+        // Boolean
+        let isStudent = true;
+
+        // Undefined
+        let city;
+
+        // Null
+        let data = null;
+
+        // Array
+        let skills = ["HTML", "CSS", "JavaScript"];
+
+        // Object
+        let user = {
+            name: "Haritha",
+            age: 21
+        };
+
+        console.log(typeof name);
+        console.log(typeof age);
+        console.log(typeof isStudent);
+
+    </script>
+
+</body>
+</html>`
+  },
+
+  "JS Operators": {
+    description: "Operators in JavaScript are symbols used to perform operations on variables and values.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Operators are special symbols that perform calculations, comparisons, logical operations, and assignments on operands."
+      },
+
+      {
+        heading: "Why Operators?",
+        points: [
+          "Perform mathematical calculations",
+          "Compare values",
+          "Assign values to variables",
+          "Implement logical conditions",
+          "Control program flow"
+        ]
+      },
+
+      {
+        heading: "Types of JavaScript Operators",
+        points: [
+          "Arithmetic Operators",
+          "Assignment Operators",
+          "Comparison Operators",
+          "Logical Operators",
+          "Increment and Decrement Operators",
+          "Conditional (Ternary) Operator",
+          "Type Operators"
+        ]
+      },
+
+      {
+        heading: "1. Arithmetic Operators",
+        content: "Arithmetic operators are used to perform mathematical operations.",
+        points: [
+          "+ → Addition",
+          "- → Subtraction",
+          "* → Multiplication",
+          "/ → Division",
+          "% → Modulus (Remainder)",
+          "** → Exponentiation"
+        ]
+      },
+
+      {
+        heading: "2. Assignment Operators",
+        content: "Assignment operators assign values to variables.",
+        points: [
+          "= → Assign value",
+          "+= → Add and assign",
+          "-= → Subtract and assign",
+          "*= → Multiply and assign",
+          "/= → Divide and assign"
+        ]
+      },
+
+      {
+        heading: "3. Comparison Operators",
+        content: "Comparison operators compare two values and return true or false.",
+        points: [
+          "== → Equal to",
+          "=== → Strict equal to",
+          "!= → Not equal to",
+          "!== → Strict not equal to",
+          "> → Greater than",
+          "< → Less than",
+          ">= → Greater than or equal to",
+          "<= → Less than or equal to"
+        ]
+      },
+
+      {
+        heading: "4. Logical Operators",
+        content: "Logical operators combine multiple conditions.",
+        points: [
+          "&& → Logical AND",
+          "|| → Logical OR",
+          "! → Logical NOT"
+        ]
+      },
+
+      {
+        heading: "5. Increment and Decrement Operators",
+        content: "Used to increase or decrease variable values by 1.",
+        points: [
+          "++ → Increment",
+          "-- → Decrement"
+        ]
+      },
+
+      {
+        heading: "6. Conditional (Ternary) Operator",
+        content: "A shorthand way to write if-else conditions.",
+        points: [
+          "condition ? trueValue : falseValue"
+        ]
+      },
+
+      {
+        heading: "7. Type Operators",
+        content: "Type operators check or identify data types.",
+        points: [
+          "typeof → Returns data type",
+          "instanceof → Checks object type"
+        ]
+      },
+
+      {
+        heading: "Operator Precedence",
+        content: "Operator precedence determines the order in which operations are performed."
+      },
+
+      {
+        heading: "Advantages of Operators",
+        points: [
+          "Simplifies calculations",
+          "Supports logical decision-making",
+          "Improves code efficiency",
+          "Essential for programming logic"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Operators perform operations on values and variables",
+      "JavaScript supports arithmetic, logical, comparison, and assignment operators",
+      "Logical operators are used in conditions",
+      "Ternary operator is shorthand for if-else",
+      "Essential for JavaScript programming"
+    ],
+
+    code: `<!-- Example of JavaScript Operators -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Operators</title>
+</head>
+<body>
+
+    <script>
+
+        let a = 10;
+        let b = 5;
+
+        // Arithmetic Operators
+        console.log(a + b);
+        console.log(a - b);
+        console.log(a * b);
+
+        // Comparison Operators
+        console.log(a > b);
+        console.log(a == b);
+
+        // Logical Operators
+        console.log(a > 5 && b < 10);
+
+        // Assignment Operator
+        a += 5;
+        console.log(a);
+
+        // Ternary Operator
+        let result = (a > b) ? "A is greater" : "B is greater";
+
+        console.log(result);
+
+    </script>
+
+</body>
+</html>`
+  },
+
+  "JS Control Flow": {
+    description: "Control flow in JavaScript determines the order in which statements and instructions are executed in a program.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Control flow refers to the sequence in which program statements are executed based on conditions, loops, and function calls."
+      },
+
+      {
+        heading: "Why Control Flow?",
+        points: [
+          "Controls program execution",
+          "Implements decision making",
+          "Repeats tasks efficiently",
+          "Handles different conditions",
+          "Improves program logic"
+        ]
+      },
+
+      {
+        heading: "Types of Control Flow Statements",
+        points: [
+          "Conditional Statements",
+          "Looping Statements",
+          "Jump Statements"
+        ]
+      },
+
+      {
+        heading: "1. Conditional Statements",
+        content: "Conditional statements execute code based on conditions."
+      },
+
+      {
+        heading: "if Statement",
+        content: "Executes a block of code if a condition is true."
+      },
+
+      {
+        heading: "if...else Statement",
+        content: "Executes one block if condition is true and another block if false."
+      },
+
+      {
+        heading: "else if Ladder",
+        content: "Checks multiple conditions sequentially."
+      },
+
+      {
+        heading: "switch Statement",
+        content: "Used to execute one block among many options based on expression value.",
+        points: [
+          "Improves readability compared to multiple else-if statements",
+          "Uses case and break keywords"
+        ]
+      },
+
+      {
+        heading: "2. Looping Statements",
+        content: "Loops are used to execute code repeatedly."
+      },
+
+      {
+        heading: "for Loop",
+        content: "Executes code a fixed number of times."
+      },
+
+      {
+        heading: "while Loop",
+        content: "Executes code while condition remains true."
+      },
+
+      {
+        heading: "do...while Loop",
+        content: "Executes code at least once before checking condition."
+      },
+
+      {
+        heading: "for...of Loop",
+        content: "Used to iterate through iterable objects like arrays."
+      },
+
+      {
+        heading: "for...in Loop",
+        content: "Used to iterate through object properties."
+      },
+
+      {
+        heading: "3. Jump Statements",
+        content: "Jump statements alter normal execution flow."
+      },
+
+      {
+        heading: "break Statement",
+        content: "Terminates loop or switch statement immediately."
+      },
+
+      {
+        heading: "continue Statement",
+        content: "Skips current iteration and moves to next iteration."
+      },
+
+      {
+        heading: "return Statement",
+        content: "Ends function execution and optionally returns a value."
+      },
+
+      {
+        heading: "Nested Control Flow",
+        content: "Control flow statements can be placed inside one another to create complex logic."
+      },
+
+      {
+        heading: "Advantages of Control Flow",
+        points: [
+          "Improves decision making",
+          "Reduces repetitive code",
+          "Enhances program efficiency",
+          "Supports dynamic programming logic"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Control flow determines execution order",
+      "Conditional statements handle decisions",
+      "Loops repeat code execution",
+      "Jump statements modify execution flow",
+      "Essential for JavaScript logic building"
+    ],
+
+    code: `<!-- Example of JavaScript Control Flow -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Control Flow</title>
+</head>
+<body>
+
+    <script>
+
+        let age = 20;
+
+        // if...else
+        if (age >= 18) {
+            console.log("Eligible to vote");
+        } else {
+            console.log("Not eligible");
+        }
+
+        // for loop
+        for (let i = 1; i <= 5; i++) {
+            console.log(i);
+        }
+
+        // while loop
+        let count = 1;
+
+        while (count <= 3) {
+            console.log(count);
+            count++;
+        }
+
+        // switch statement
+        let day = 2;
+
+        switch(day) {
+
+            case 1:
+                console.log("Monday");
+                break;
+
+            case 2:
+                console.log("Tuesday");
+                break;
+
+            default:
+                console.log("Invalid Day");
+        }
+
+    </script>
+
+</body>
+</html>`
+  },
+
+  "JS Functions": {
+    description: "Functions in JavaScript are reusable blocks of code designed to perform specific tasks and improve code organization.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "A function is a reusable block of code that executes when it is called or invoked."
+      },
+
+      {
+        heading: "Why Functions?",
+        points: [
+          "Reduce code repetition",
+          "Improve code reusability",
+          "Simplify complex programs",
+          "Enhance readability and maintenance",
+          "Organize program logic efficiently"
+        ]
+      },
+
+      {
+        heading: "Features of Functions",
+        points: [
+          "Reusable",
+          "Modular",
+          "Can accept input values",
+          "Can return output values",
+          "Supports dynamic programming"
+        ]
+      },
+
+      {
+        heading: "Function Syntax",
+        content: "A function is declared using the function keyword followed by function name and parameters."
+      },
+
+      {
+        heading: "Function Declaration",
+        content: "A named function created using the function keyword."
+      },
+
+      {
+        heading: "Function Parameters",
+        content: "Parameters are variables passed into functions during definition."
+      },
+
+      {
+        heading: "Function Arguments",
+        content: "Arguments are actual values passed to the function during function call."
+      },
+
+      {
+        heading: "Return Statement",
+        content: "The return statement sends a value back from the function."
+      },
+
+      {
+        heading: "Types of Functions",
+        points: [
+          "Function Declaration",
+          "Function Expression",
+          "Arrow Function",
+          "Anonymous Function",
+          "Callback Function"
+        ]
+      },
+
+      {
+        heading: "1. Function Expression",
+        content: "A function stored inside a variable."
+      },
+
+      {
+        heading: "2. Arrow Function",
+        content: "A shorter syntax introduced in ES6 for writing functions.",
+        points: [
+          "Uses => symbol",
+          "Simplifies function syntax"
+        ]
+      },
+
+      {
+        heading: "3. Anonymous Function",
+        content: "A function without a name."
+      },
+
+      {
+        heading: "4. Callback Function",
+        content: "A function passed as an argument to another function."
+      },
+
+      {
+        heading: "Scope in Functions",
+        points: [
+          "Local Scope → Variables inside function",
+          "Global Scope → Variables accessible everywhere"
+        ]
+      },
+
+      {
+        heading: "Advantages of Functions",
+        points: [
+          "Promotes code reuse",
+          "Improves maintainability",
+          "Makes debugging easier",
+          "Supports modular programming"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Functions are reusable blocks of code",
+      "Functions can accept parameters and return values",
+      "JavaScript supports multiple function types",
+      "Arrow functions provide shorter syntax",
+      "Functions improve code organization"
+    ],
+
+    code: `<!-- Example of JavaScript Functions -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Functions</title>
+</head>
+<body>
+
+    <script>
+
+        // Function Declaration
+        function greet(name) {
+            return "Hello " + name;
+        }
+
+        console.log(greet("Haritha"));
+
+        // Function Expression
+        const add = function(a, b) {
+            return a + b;
+        };
+
+        console.log(add(10, 20));
+
+        // Arrow Function
+        const multiply = (x, y) => x * y;
+
+        console.log(multiply(5, 4));
+
+        // Callback Function
+        function process(callback) {
+            callback();
+        }
+
+        process(() => {
+            console.log("Callback Executed");
+        });
+
+    </script>
+
+</body>
+</html>`
+  },
+
+  "JS Scopes": {
+    description: "Scope in JavaScript defines the accessibility and visibility of variables, functions, and objects in different parts of a program.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Scope determines where variables and functions can be accessed or used within a JavaScript program."
+      },
+
+      {
+        heading: "Why Scope?",
+        points: [
+          "Controls variable accessibility",
+          "Prevents variable conflicts",
+          "Improves code security",
+          "Supports modular programming",
+          "Helps manage memory efficiently"
+        ]
+      },
+
+      {
+        heading: "Types of Scope",
+        points: [
+          "Global Scope",
+          "Function Scope",
+          "Block Scope",
+          "Lexical Scope"
+        ]
+      },
+
+      {
+        heading: "1. Global Scope",
+        content: "Variables declared outside all functions and blocks belong to global scope.",
+        points: [
+          "Accessible anywhere in program",
+          "Exists throughout application lifetime"
+        ]
+      },
+
+      {
+        heading: "2. Function Scope",
+        content: "Variables declared inside a function are accessible only within that function.",
+        points: [
+          "Created when function executes",
+          "Destroyed after function execution"
+        ]
+      },
+
+      {
+        heading: "3. Block Scope",
+        content: "Variables declared using let and const inside a block are accessible only within that block.",
+        points: [
+          "Block defined using { }",
+          "Introduced in ES6"
+        ]
+      },
+
+      {
+        heading: "4. Lexical Scope",
+        content: "Lexical scope means inner functions can access variables of outer functions."
+      },
+
+      {
+        heading: "var vs let vs const Scope",
+        points: [
+          "var → Function scoped",
+          "let → Block scoped",
+          "const → Block scoped",
+          "var allows redeclaration",
+          "let and const prevent redeclaration in same scope"
+        ]
+      },
+
+      {
+        heading: "Scope Chain",
+        content: "JavaScript searches variables from local scope to global scope when accessing them."
+      },
+
+      {
+        heading: "Shadowing",
+        content: "Variable shadowing occurs when a local variable has the same name as a global variable."
+      },
+
+      {
+        heading: "Closures and Scope",
+        content: "Closures allow functions to remember variables from their outer scope even after outer function execution."
+      },
+
+      {
+        heading: "Advantages of Scope",
+        points: [
+          "Improves code organization",
+          "Reduces naming conflicts",
+          "Provides data protection",
+          "Enhances maintainability"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Scope controls variable accessibility",
+      "JavaScript supports global, function, and block scope",
+      "let and const are block-scoped",
+      "Lexical scope allows nested function access",
+      "Scope improves program structure and security"
+    ],
+
+    code: `<!-- Example of JavaScript Scope -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Scope</title>
+</head>
+<body>
+
+    <script>
+
+        // Global Scope
+        let globalVar = "I am Global";
+
+        function testFunction() {
+
+            // Function Scope
+            var functionVar = "I am Function Scoped";
+
+            console.log(globalVar);
+            console.log(functionVar);
+
+            if (true) {
+
+                // Block Scope
+                let blockVar = "I am Block Scoped";
+
+                console.log(blockVar);
+            }
+
+            // console.log(blockVar); // Error
+        }
+
+        testFunction();
+
+        console.log(globalVar);
+
+        // console.log(functionVar); // Error
+
+    </script>
+
+</body>
+</html>`
+  },
+
+  "JS Arrays": {
+    description: "Arrays in JavaScript are used to store multiple values in a single variable in an ordered collection.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "An array is a special JavaScript object used to store multiple values in a single variable."
+      },
+
+      {
+        heading: "Why Arrays?",
+        points: [
+          "Store multiple values together",
+          "Reduce number of variables",
+          "Easy data management",
+          "Efficient iteration and manipulation",
+          "Useful for collections of data"
+        ]
+      },
+
+      {
+        heading: "Features of Arrays",
+        points: [
+          "Ordered collection",
+          "Can store multiple data types",
+          "Dynamic size",
+          "Indexed elements",
+          "Supports built-in methods"
+        ]
+      },
+
+      {
+        heading: "Creating Arrays",
+        points: [
+          "Using square brackets []",
+          "Using Array constructor"
+        ]
+      },
+
+      {
+        heading: "Array Index",
+        content: "Array elements are accessed using index numbers starting from 0."
+      },
+
+      {
+        heading: "Accessing Array Elements",
+        content: "Elements are accessed using array name followed by index."
+      },
+
+      {
+        heading: "Modifying Array Elements",
+        content: "Array values can be updated using their index positions."
+      },
+
+      {
+        heading: "Common Array Methods",
+        points: [
+          "push() → Adds element at end",
+          "pop() → Removes last element",
+          "shift() → Removes first element",
+          "unshift() → Adds element at beginning",
+          "length → Returns array size",
+          "indexOf() → Finds element index",
+          "includes() → Checks element existence"
+        ]
+      },
+
+      {
+        heading: "Looping through Arrays",
+        points: [
+          "for loop",
+          "for...of loop",
+          "forEach() method",
+          "map() method"
+        ]
+      },
+
+      {
+        heading: "Multidimensional Arrays",
+        content: "Arrays can contain other arrays to represent rows and columns."
+      },
+
+      {
+        heading: "Array Methods for Transformation",
+        points: [
+          "map() → Creates new transformed array",
+          "filter() → Filters elements",
+          "reduce() → Reduces array to single value"
+        ]
+      },
+
+      {
+        heading: "Advantages of Arrays",
+        points: [
+          "Efficient data storage",
+          "Easy iteration",
+          "Supports dynamic operations",
+          "Improves code organization"
+        ]
+      },
+
+      {
+        heading: "Limitations of Arrays",
+        points: [
+          "Large arrays consume more memory",
+          "Index management can become complex"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Arrays store multiple values in one variable",
+      "Array indexing starts from 0",
+      "Supports dynamic size and built-in methods",
+      "Methods like push and pop manipulate arrays",
+      "Essential for JavaScript data handling"
+    ],
+
+    code: `<!-- Example of JavaScript Arrays -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Arrays</title>
+</head>
+<body>
+
+    <script>
+
+        // Creating Array
+        let fruits = ["Apple", "Mango", "Orange"];
+
+        // Accessing Elements
+        console.log(fruits[0]);
+
+        // Adding Element
+        fruits.push("Banana");
+
+        // Removing Element
+        fruits.pop();
+
+        // Array Length
+        console.log(fruits.length);
+
+        // Loop through Array
+        for (let fruit of fruits) {
+            console.log(fruit);
+        }
+
+        // map() Example
+        let numbers = [1, 2, 3];
+
+        let squares = numbers.map(num => num * num);
+
+        console.log(squares);
+
+    </script>
+
+</body>
+</html>`
+  },
+
+  "JS Objects": {
+    description: "Objects in JavaScript are collections of key-value pairs used to store and organize related data and functionality.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "An object is a non-primitive data type in JavaScript that stores data in the form of properties and methods."
+      },
+
+      {
+        heading: "Why Objects?",
+        points: [
+          "Store related data together",
+          "Represent real-world entities",
+          "Organize complex information",
+          "Support dynamic data structures",
+          "Enable object-oriented programming"
+        ]
+      },
+
+      {
+        heading: "Features of Objects",
+        points: [
+          "Stores key-value pairs",
+          "Can contain properties and methods",
+          "Dynamic and flexible",
+          "Supports nested objects",
+          "Can store multiple data types"
+        ]
+      },
+
+      {
+        heading: "Creating Objects",
+        points: [
+          "Using object literal {}",
+          "Using new Object() constructor",
+          "Using constructor functions",
+          "Using ES6 classes"
+        ]
+      },
+
+      {
+        heading: "Object Properties",
+        content: "Properties are variables associated with an object."
+      },
+
+      {
+        heading: "Object Methods",
+        content: "Methods are functions stored inside objects."
+      },
+
+      {
+        heading: "Accessing Object Properties",
+        points: [
+          "Dot notation → object.property",
+          "Bracket notation → object['property']"
+        ]
+      },
+
+      {
+        heading: "Adding and Updating Properties",
+        content: "Properties can be dynamically added or modified after object creation."
+      },
+
+      {
+        heading: "Deleting Properties",
+        content: "The delete keyword removes properties from objects."
+      },
+
+      {
+        heading: "Nested Objects",
+        content: "Objects can contain other objects as properties."
+      },
+
+      {
+        heading: "Looping through Objects",
+        points: [
+          "for...in loop",
+          "Object.keys()",
+          "Object.values()",
+          "Object.entries()"
+        ]
+      },
+
+      {
+        heading: "this Keyword",
+        content: "The this keyword refers to the current object."
+      },
+
+      {
+        heading: "Advantages of Objects",
+        points: [
+          "Efficient data organization",
+          "Supports reusable code",
+          "Represent real-world entities",
+          "Flexible and dynamic"
+        ]
+      },
+
+      {
+        heading: "Objects vs Arrays",
+        points: [
+          "Objects use key-value pairs",
+          "Arrays use indexed values",
+          "Objects represent entities",
+          "Arrays represent ordered collections"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Objects store data as key-value pairs",
+      "Can contain properties and methods",
+      "Supports dynamic data management",
+      "Accessed using dot or bracket notation",
+      "Core concept in JavaScript programming"
+    ],
+
+    code: `<!-- Example of JavaScript Objects -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Objects</title>
+</head>
+<body>
+
+    <script>
+
+        // Creating Object
+        let student = {
+
+            name: "Haritha",
+
+            age: 21,
+
+            course: "Java Full Stack",
+
+            // Method
+            greet: function() {
+                console.log("Welcome " + this.name);
+            }
+        };
+
+        // Accessing Properties
+        console.log(student.name);
+
+        // Updating Property
+        student.age = 22;
+
+        // Adding Property
+        student.city = "Vijayawada";
+
+        // Calling Method
+        student.greet();
+
+        // Looping through Object
+        for (let key in student) {
+            console.log(key + " : " + student[key]);
+        }
+
+    </script>
+
+</body>
+</html>`
+  },
+
+  "JS DOM": {
+    description: "DOM Manipulation in JavaScript refers to accessing, modifying, adding, or removing HTML elements dynamically using the Document Object Model (DOM).",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "DOM (Document Object Model) Manipulation is the process of using JavaScript to interact with and modify the structure, content, and style of HTML documents."
+      },
+
+      {
+        heading: "What is DOM?",
+        content: "The DOM is a tree-like representation of an HTML document where each element is treated as an object."
+      },
+
+      {
+        heading: "Why DOM Manipulation?",
+        points: [
+          "Creates interactive webpages",
+          "Updates content dynamically",
+          "Handles user interactions",
+          "Changes styles and layouts",
+          "Adds animations and effects"
+        ]
+      },
+
+      {
+        heading: "DOM Structure",
+        content: "HTML elements are represented as nodes in a hierarchical tree structure."
+      },
+
+      {
+        heading: "Selecting HTML Elements",
+        points: [
+          "getElementById()",
+          "getElementsByClassName()",
+          "getElementsByTagName()",
+          "querySelector()",
+          "querySelectorAll()"
+        ]
+      },
+
+      {
+        heading: "1. getElementById()",
+        content: "Selects an element using its unique id."
+      },
+
+      {
+        heading: "2. getElementsByClassName()",
+        content: "Selects elements using class name."
+      },
+
+      {
+        heading: "3. getElementsByTagName()",
+        content: "Selects elements using HTML tag names."
+      },
+
+      {
+        heading: "4. querySelector()",
+        content: "Selects the first matching CSS selector."
+      },
+
+      {
+        heading: "5. querySelectorAll()",
+        content: "Selects all matching CSS selector elements."
+      },
+
+      {
+        heading: "Changing Content",
+        points: [
+          "innerHTML → Changes HTML content",
+          "textContent → Changes text only",
+          "innerText → Changes visible text"
+        ]
+      },
+
+      {
+        heading: "Changing Styles",
+        content: "JavaScript can dynamically modify CSS styles using the style property."
+      },
+
+      {
+        heading: "Creating Elements",
+        points: [
+          "createElement() → Creates new element",
+          "appendChild() → Adds element",
+          "removeChild() → Removes element"
+        ]
+      },
+
+      {
+        heading: "Event Handling",
+        content: "DOM manipulation is commonly used with events like click, mouseover, and keypress."
+      },
+
+      {
+        heading: "Advantages of DOM Manipulation",
+        points: [
+          "Creates dynamic webpages",
+          "Improves user interaction",
+          "Updates content without page reload",
+          "Supports responsive UI behavior"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "DOM represents HTML as objects",
+      "JavaScript manipulates HTML dynamically",
+      "Elements can be selected using DOM methods",
+      "Supports changing content and styles",
+      "Essential for interactive web applications"
+    ],
+
+    code: `<!-- Example of DOM Manipulation -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Manipulation</title>
+</head>
+<body>
+
+    <h1 id="heading">Welcome</h1>
+
+    <button onclick="changeText()">
+        Click Me
+    </button>
+
+    <script>
+
+        function changeText() {
+
+            // Selecting Element
+            let element = document.getElementById("heading");
+
+            // Changing Content
+            element.innerHTML = "DOM Manipulated Successfully";
+
+            // Changing Style
+            element.style.color = "blue";
+
+            element.style.fontSize = "40px";
+        }
+
+    </script>
+
+</body>
+</html>`
+  },
+
+  "JS Events": {
+    description: "Events in JavaScript are actions or occurrences that happen in the browser, such as clicks, keyboard input, mouse movement, or page loading, which JavaScript can detect and respond to.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "An event is an action performed by the user or browser that can trigger JavaScript code execution."
+      },
+
+      {
+        heading: "Why Events?",
+        points: [
+          "Enable user interaction",
+          "Create dynamic webpages",
+          "Respond to user actions",
+          "Improve user experience",
+          "Support interactive applications"
+        ]
+      },
+
+      {
+        heading: "Event Handling",
+        content: "Event handling is the process of executing JavaScript code when an event occurs."
+      },
+
+      {
+        heading: "Common Types of Events",
+        points: [
+          "Mouse Events",
+          "Keyboard Events",
+          "Form Events",
+          "Window Events"
+        ]
+      },
+
+      {
+        heading: "1. Mouse Events",
+        points: [
+          "onclick → Triggered when element is clicked",
+          "ondblclick → Triggered on double click",
+          "onmouseover → Triggered when mouse enters element",
+          "onmouseout → Triggered when mouse leaves element"
+        ]
+      },
+
+      {
+        heading: "2. Keyboard Events",
+        points: [
+          "onkeydown → Triggered when key is pressed",
+          "onkeyup → Triggered when key is released",
+          "onkeypress → Triggered when key is typed"
+        ]
+      },
+
+      {
+        heading: "3. Form Events",
+        points: [
+          "onsubmit → Triggered on form submission",
+          "onfocus → Triggered when input gains focus",
+          "onblur → Triggered when input loses focus",
+          "onchange → Triggered when value changes"
+        ]
+      },
+
+      {
+        heading: "4. Window Events",
+        points: [
+          "onload → Triggered when page loads",
+          "onresize → Triggered when window resizes",
+          "onscroll → Triggered during scrolling"
+        ]
+      },
+
+      {
+        heading: "Ways to Add Events",
+        points: [
+          "Inline Event Handling",
+          "Using DOM Properties",
+          "Using addEventListener()"
+        ]
+      },
+
+      {
+        heading: "addEventListener()",
+        content: "The addEventListener() method attaches events to elements without overwriting existing events."
+      },
+
+      {
+        heading: "Event Object",
+        content: "The event object contains information about the event that occurred."
+      },
+
+      {
+        heading: "Event Bubbling and Capturing",
+        points: [
+          "Event Bubbling → Event moves from child to parent",
+          "Event Capturing → Event moves from parent to child"
+        ]
+      },
+
+      {
+        heading: "Advantages of Events",
+        points: [
+          "Improves webpage interactivity",
+          "Supports dynamic UI behavior",
+          "Handles user actions efficiently",
+          "Essential for frontend development"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Events respond to user and browser actions",
+      "JavaScript handles events dynamically",
+      "Common events include click, keydown, submit",
+      "addEventListener() is widely used",
+      "Essential for interactive web applications"
+    ],
+
+    code: `<!-- Example of JavaScript Events -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Events</title>
+</head>
+<body>
+
+    <h1 id="text">JavaScript Events</h1>
+
+    <button id="btn">
+        Click Me
+    </button>
+
+    <script>
+
+        // Selecting Button
+        let button = document.getElementById("btn");
+
+        // Adding Event Listener
+        button.addEventListener("click", function() {
+
+            document.getElementById("text").innerHTML =
+                "Button Clicked Successfully";
+
+        });
+
+    </script>
+
+</body>
+</html>`
+  },
+
+  "JS Promises": {
+    description: "Promises in JavaScript are objects used to handle asynchronous operations such as API calls, file loading, and timers more efficiently.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "A Promise is a JavaScript object that represents the eventual completion or failure of an asynchronous operation."
+      },
+
+      {
+        heading: "Why Promises?",
+        points: [
+          "Handle asynchronous operations",
+          "Avoid callback hell",
+          "Improve code readability",
+          "Manage success and failure cases",
+          "Simplify asynchronous programming"
+        ]
+      },
+
+      {
+        heading: "States of a Promise",
+        points: [
+          "Pending → Initial state",
+          "Fulfilled → Operation completed successfully",
+          "Rejected → Operation failed"
+        ]
+      },
+
+      {
+        heading: "Creating a Promise",
+        content: "A Promise is created using the Promise constructor."
+      },
+
+      {
+        heading: "resolve() Function",
+        content: "resolve() is called when the asynchronous operation succeeds."
+      },
+
+      {
+        heading: "reject() Function",
+        content: "reject() is called when the asynchronous operation fails."
+      },
+
+      {
+        heading: "then() Method",
+        content: "The then() method handles successful promise results."
+      },
+
+      {
+        heading: "catch() Method",
+        content: "The catch() method handles errors or rejected promises."
+      },
+
+      {
+        heading: "finally() Method",
+        content: "The finally() method executes code regardless of success or failure."
+      },
+
+      {
+        heading: "Promise Chaining",
+        content: "Promises can be chained using multiple then() methods for sequential asynchronous operations."
+      },
+
+      {
+        heading: "Async Operations Using Promises",
+        points: [
+          "API Calls",
+          "Database Operations",
+          "Timers",
+          "File Handling"
+        ]
+      },
+
+      {
+        heading: "Advantages of Promises",
+        points: [
+          "Cleaner asynchronous code",
+          "Better error handling",
+          "Avoids deeply nested callbacks",
+          "Improves maintainability"
+        ]
+      },
+
+      {
+        heading: "Promises vs Callbacks",
+        points: [
+          "Callbacks can create callback hell",
+          "Promises provide cleaner structure",
+          "Promises support chaining",
+          "Promises improve readability"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Promises handle asynchronous operations",
+      "A promise has Pending, Fulfilled, and Rejected states",
+      "then() handles success",
+      "catch() handles errors",
+      "Promises improve asynchronous programming"
+    ],
+
+    code: `<!-- Example of JavaScript Promises -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Promises</title>
+</head>
+<body>
+
+    <script>
+
+        // Creating Promise
+        let myPromise = new Promise(function(resolve, reject) {
+
+            let success = true;
+
+            if (success) {
+
+                resolve("Operation Successful");
+
+            } else {
+
+                reject("Operation Failed");
+            }
+        });
+
+        // Handling Promise
+        myPromise
+            .then(function(result) {
+
+                console.log(result);
+
+            })
+
+            .catch(function(error) {
+
+                console.log(error);
+
+            })
+
+            .finally(function() {
+
+                console.log("Promise Completed");
+
+            });
+
+    </script>
+
+</body>
+</html>`
+  },
+
+  "JS Async Await": {
+    description: "Async and Await are modern JavaScript features used to handle asynchronous operations in a cleaner and more readable way than promises and callbacks.",
+
+    sections: [
+      {
+        heading: "Definition",
+        content: "Async/Await is a syntax in JavaScript that simplifies working with promises and asynchronous operations."
+      },
+
+      {
+        heading: "Why Async/Await?",
+        points: [
+          "Makes asynchronous code easier to read",
+          "Reduces callback nesting",
+          "Improves error handling",
+          "Simplifies promise handling",
+          "Creates cleaner and maintainable code"
+        ]
+      },
+
+      {
+        heading: "What is async?",
+        content: "The async keyword is used before a function to make it asynchronous.",
+        points: [
+          "Always returns a Promise",
+          "Allows use of await keyword inside function"
+        ]
+      },
+
+      {
+        heading: "What is await?",
+        content: "The await keyword pauses execution until a Promise is resolved or rejected.",
+        points: [
+          "Can only be used inside async functions",
+          "Waits for asynchronous operation completion"
+        ]
+      },
+
+      {
+        heading: "How Async/Await Works",
+        points: [
+          "async function returns Promise",
+          "await waits for Promise result",
+          "Execution resumes after completion",
+          "Makes async code look synchronous"
+        ]
+      },
+
+      {
+        heading: "Error Handling with try...catch",
+        content: "Errors in async functions are handled using try...catch blocks."
+      },
+
+      {
+        heading: "Advantages of Async/Await",
+        points: [
+          "Cleaner syntax",
+          "Better readability",
+          "Easy debugging",
+          "Improved error handling",
+          "Avoids promise chaining complexity"
+        ]
+      },
+
+      {
+        heading: "Async/Await vs Promises",
+        points: [
+          "Promises use then() and catch()",
+          "Async/Await uses synchronous-like syntax",
+          "Async/Await improves readability",
+          "Both are built on Promises"
+        ]
+      },
+
+      {
+        heading: "Real-Time Uses",
+        points: [
+          "Fetching API data",
+          "Database requests",
+          "Authentication systems",
+          "File handling"
+        ]
+      },
+
+      {
+        heading: "Important Notes",
+        points: [
+          "await pauses only inside async function",
+          "async functions automatically return promises",
+          "Multiple awaits execute sequentially unless optimized"
+        ]
+      }
+    ],
+
+    keyPoints: [
+      "Async/Await simplifies asynchronous programming",
+      "async functions return promises",
+      "await pauses execution until promise completion",
+      "try...catch handles errors",
+      "Widely used in modern JavaScript applications"
+    ],
+
+    code: `<!-- Example of Async/Await -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Async Await</title>
+</head>
+<body>
+
+    <script>
+
+        // Function returning Promise
+        function fetchData() {
+
+            return new Promise((resolve, reject) => {
+
+                setTimeout(() => {
+
+                    resolve("Data Fetched Successfully");
+
+                }, 2000);
+            });
+        }
+
+        // Async Function
+        async function getData() {
+
+            try {
+
+                console.log("Fetching Data...");
+
+                let result = await fetchData();
+
+                console.log(result);
+
+            } catch(error) {
+
+                console.log(error);
+            }
+        }
+
+        // Calling Function
+        getData();
+
+    </script>
+
+</body>
+</html>`
   },
 
   // SQL
