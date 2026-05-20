@@ -304,19 +304,23 @@ export default function CourseCatalog({ setCurrentView, onEnrollCourse, setCurre
         ) : (
           <BookOpen className="text-white" size={48} />
         )}
-        <div className="absolute top-4 left-4">
-          <span className="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-semibold">
-            {course.level}
-          </span>
-        </div>
-        <div className="absolute top-4 right-4 flex gap-2">
-          <button className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
-            <Heart size={16} />
-          </button>
-          <button className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
-            <Share2 size={16} />
-          </button>
-        </div>
+        {course.id !== 'mern-fullstack-master' && (
+          <>
+            <div className="absolute top-4 left-4">
+              <span className="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-semibold">
+                {course.level}
+              </span>
+            </div>
+            <div className="absolute top-4 right-4 flex gap-2">
+              <button className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+                <Heart size={16} />
+              </button>
+              <button className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+                <Share2 size={16} />
+              </button>
+            </div>
+          </>
+        )}
       </div>
       
       <div className="p-6 flex flex-col flex-1">
