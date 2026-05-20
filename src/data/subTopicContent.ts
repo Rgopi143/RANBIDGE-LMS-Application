@@ -1,5 +1,7 @@
 
 
+import { mernSubTopicData } from './mernSubTopicContent';
+
 export interface SubTopicContent {
   description?: string;
   keyPoints?: string[];
@@ -11,7 +13,7 @@ export interface SubTopicContent {
   }[];
 }
 
-export const subTopicData: Record<string, SubTopicContent> = {
+const javaSubTopicData: Record<string, SubTopicContent> = {
   // Course Overview
   "Program Goals": {
     description: "The primary objective of this masterclass is to transform students into job-ready Java Full Stack Developers.",
@@ -19585,5 +19587,10 @@ spring.application.name=product-service
 // Access URL:
 
 http://localhost:8081/products`
-  },
+  }
+};
+
+export const subTopicData: Record<string, SubTopicContent> = {
+  ...javaSubTopicData,
+  ...mernSubTopicData
 };

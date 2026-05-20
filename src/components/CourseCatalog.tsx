@@ -42,9 +42,10 @@ interface Course {
 interface CourseCatalogProps {
   setCurrentView: (view: string) => void;
   onEnrollCourse: (courseId: string) => void;
+  setCurrentCourseId?: (id: string) => void;
 }
 
-export default function CourseCatalog({ setCurrentView, onEnrollCourse }: CourseCatalogProps) {
+export default function CourseCatalog({ setCurrentView, onEnrollCourse, setCurrentCourseId }: CourseCatalogProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedLevel, setSelectedLevel] = useState('all');
@@ -100,6 +101,33 @@ export default function CourseCatalog({ setCurrentView, onEnrollCourse }: Course
         'Spring Boot framework & microservices',
         'React frontend development',
         'MongoDB database design',
+        'REST API development & integration',
+        'Real-world project building',
+        'Industry best practices & patterns'
+      ]
+    },
+    {
+      id: 'mern-fullstack-master',
+      title: 'MERN Full Stack Development Masterclass',
+      instructor: 'D. Sirisha',
+      description: 'Master MERN stack development from basics to advanced React applications with Node.js, Express, and MongoDB integration.',
+      category: 'programming',
+      level: 'intermediate',
+      duration: '16 weeks',
+      enrolledCount: 950,
+      rating: 4.9,
+      thumbnail: 'data:image/jpeg;base64,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',
+      price: 'Free',
+      tags: ['React', 'Node.js', 'MongoDB', 'Express', 'MERN', 'Full Stack'],
+      language: 'English',
+      subtitles: ['English', 'Spanish', 'Hindi'],
+      certificate: true,
+      lastUpdated: '2024-12-15',
+      requirements: ['Basic programming knowledge', 'Computer with internet access', 'Dedication to learn'],
+      whatYouLearn: [
+        'Frontend development with React',
+        'Backend development with Node.js',
+        'Database design with MongoDB',
         'REST API development & integration',
         'Real-world project building',
         'Industry best practices & patterns'
@@ -266,10 +294,12 @@ export default function CourseCatalog({ setCurrentView, onEnrollCourse }: Course
   const CourseCard: React.FC<{ course: Course }> = ({ course }) => (
     <motion.div
       whileHover={{ y: -5 }}
-      className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
+      className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col h-full"
     >
-      <div className={`relative h-48 flex items-center justify-center overflow-hidden ${course.thumbnail.startsWith('http') ? 'bg-white' : 'bg-gradient-to-br from-slate-400 to-teal-600'}`}>
-        {course.thumbnail.startsWith('http') ? (
+      <div className={`relative h-48 flex items-center justify-center overflow-hidden ${course.thumbnail.startsWith('http') || course.thumbnail.startsWith('data:') ? 'bg-white' : 'bg-gradient-to-br from-slate-400 to-teal-600'}`}>
+        {course.thumbnail.startsWith('data:') ? (
+          <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover" />
+        ) : course.thumbnail.startsWith('http') ? (
           <img src={course.thumbnail} alt={course.title} className="w-24 h-24 object-contain drop-shadow-md" />
         ) : (
           <BookOpen className="text-white" size={48} />
@@ -289,7 +319,7 @@ export default function CourseCatalog({ setCurrentView, onEnrollCourse }: Course
         </div>
       </div>
       
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-1">
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs font-semibold text-slate-600 bg-slate-50 px-2 py-1 rounded-full">
             {course.category}
@@ -331,7 +361,7 @@ export default function CourseCatalog({ setCurrentView, onEnrollCourse }: Course
           )}
         </div>
 
-        <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+        <div className="flex items-center justify-between pt-4 border-t border-slate-100 mt-auto">
           <div>
             <div className="text-2xl font-bold text-slate-900">{course.price}</div>
             {course.certificate && (
@@ -342,7 +372,8 @@ export default function CourseCatalog({ setCurrentView, onEnrollCourse }: Course
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
-              if (course.id === 'java-fullstack-master') {
+              if (course.id === 'java-fullstack-master' || course.id === 'mern-fullstack-master') {
+                if (setCurrentCourseId) setCurrentCourseId(course.id);
                 setCurrentView('lesson');
               } else {
                 onEnrollCourse(course.id);
@@ -396,7 +427,8 @@ export default function CourseCatalog({ setCurrentView, onEnrollCourse }: Course
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                if (course.id === 'java-fullstack-master') {
+                if (course.id === 'java-fullstack-master' || course.id === 'mern-fullstack-master') {
+                  if (setCurrentCourseId) setCurrentCourseId(course.id);
                   setCurrentView('lesson');
                 } else {
                   onEnrollCourse(course.id);

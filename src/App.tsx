@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { syllabus } from './data/syllabus';
+import { syllabus as allSyllabusData } from './data/syllabus';
 import { 
   BookOpen, 
   ChevronRight, 
@@ -50,6 +50,16 @@ export default function App() {
   const [showAuth, setShowAuth] = useState(false);
   const [showAdminAuth, setShowAdminAuth] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  
+  const [currentCourseId, setCurrentCourseId] = useState<string>(() => {
+    const saved = localStorage.getItem('appCurrentCourseId');
+    return saved ? JSON.parse(saved) : 'java-fullstack-master';
+  });
+
+  const syllabus = currentCourseId === 'mern-fullstack-master'
+    ? allSyllabusData.filter(s => s.id.startsWith('mern-'))
+    : allSyllabusData.filter(s => !s.id.startsWith('mern-'));
+
   const [currentSectionIdx, setCurrentSectionIdx] = useState(() => {
     const saved = localStorage.getItem('appCurrentSectionIdx');
     return saved ? JSON.parse(saved) : 0;
@@ -85,7 +95,8 @@ export default function App() {
     localStorage.setItem('appCurrentView', JSON.stringify(currentView));
     localStorage.setItem('appCurrentSectionIdx', JSON.stringify(currentSectionIdx));
     localStorage.setItem('appCurrentLessonIdx', JSON.stringify(currentLessonIdx));
-  }, [currentView, currentSectionIdx, currentLessonIdx]);
+    localStorage.setItem('appCurrentCourseId', JSON.stringify(currentCourseId));
+  }, [currentView, currentSectionIdx, currentLessonIdx, currentCourseId]);
 
   useEffect(() => {
     if (mainContentRef.current) {
@@ -175,7 +186,11 @@ export default function App() {
     }, 0);
   }, 0);
 
-  const progressPercentage = totalItemsCount > 0 ? (completedLessons.length / totalItemsCount) * 100 : 0;
+  const currentCourseCompletedLessons = completedLessons.filter(id => 
+    currentCourseId === 'mern-fullstack-master' ? id.startsWith('mern-') : !id.startsWith('mern-')
+  );
+
+  const progressPercentage = totalItemsCount > 0 ? (currentCourseCompletedLessons.length / totalItemsCount) * 100 : 0;
 
   const toggleLessonCompletion = async (lessonId: string) => {
     if (!user) return;
@@ -619,8 +634,8 @@ export default function App() {
                     />
                   </div>
                    <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                    <span>{completedLessons.length} Topics Done</span>
-                    <span>{totalItemsCount - completedLessons.length} Left</span>
+                    <span>{currentCourseCompletedLessons.length} Topics Done</span>
+                    <span>{totalItemsCount - currentCourseCompletedLessons.length} Left</span>
                   </div>
                 </div>
 
@@ -1002,6 +1017,7 @@ export default function App() {
                 completedLessons={completedLessons}
                 moduleStats={moduleStats}
                 syllabus={syllabus}
+                setCurrentCourseId={setCurrentCourseId}
               />
             )}
           </main>
