@@ -1,6 +1,7 @@
 
 
 import { mernSubTopicData } from './mernSubTopicContent';
+import { backendSubTopicData } from './backendSubTopicContent';
 
 export interface SubTopicContent {
   description?: string;
@@ -19592,5 +19593,6 @@ http://localhost:8081/products`
 
 export const subTopicData: Record<string, SubTopicContent> = {
   ...javaSubTopicData,
-  ...mernSubTopicData
+  ...mernSubTopicData,
+  ...backendSubTopicData
 };

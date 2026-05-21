@@ -130,7 +130,35 @@ export default function CourseCatalog({ setCurrentView, onEnrollCourse, setCurre
         'Database design with MongoDB',
         'REST API development & integration',
         'Real-world project building',
+        'Real-world project building',
         'Industry best practices & patterns'
+      ]
+    },
+    {
+      id: 'backend-development-master',
+      title: 'Backend Development Masterclass',
+      instructor: 'D. Sirisha',
+      description: 'Master backend development using Node.js, Express, and MongoDB. Learn how to build secure REST APIs, real-time applications, and microservices.',
+      category: 'programming',
+      level: 'intermediate',
+      duration: '14 weeks',
+      enrolledCount: 650,
+      rating: 4.8,
+      thumbnail: 'https://img.icons8.com/3d-fluency/1200/backend-development.jpg',
+      price: 'Free',
+      tags: ['Node.js', 'Express', 'MongoDB', 'REST API', 'Backend'],
+      language: 'English',
+      subtitles: ['English', 'Spanish', 'Hindi'],
+      certificate: true,
+      lastUpdated: '2025-01-15',
+      requirements: ['Basic JavaScript knowledge', 'Computer with internet access'],
+      whatYouLearn: [
+        'Node.js fundamentals & architecture',
+        'Building scalable REST APIs with Express',
+        'MongoDB database design & Mongoose ODM',
+        'Authentication with JWT and secure practices',
+        'Real-time communication with Socket.io',
+        'Application deployment and hosting'
       ]
     },
     {
@@ -296,15 +324,17 @@ export default function CourseCatalog({ setCurrentView, onEnrollCourse, setCurre
       whileHover={{ y: -5 }}
       className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col h-full"
     >
-      <div className={`relative h-48 flex items-center justify-center overflow-hidden ${course.thumbnail.startsWith('http') || course.thumbnail.startsWith('data:') ? 'bg-white' : 'bg-gradient-to-br from-slate-400 to-teal-600'}`}>
+      <div className={`relative h-48 flex items-center justify-center overflow-hidden ${course.thumbnail.startsWith('http') || course.thumbnail.startsWith('data:') || course.thumbnail.startsWith('/@fs/') ? 'bg-white' : 'bg-gradient-to-br from-slate-400 to-teal-600'}`}>
         {course.thumbnail.startsWith('data:') ? (
           <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover" />
         ) : course.thumbnail.startsWith('http') ? (
           <img src={course.thumbnail} alt={course.title} className="w-24 h-24 object-contain drop-shadow-md" />
+        ) : course.thumbnail.startsWith('/@fs/') ? (
+          <img src={course.thumbnail} alt={course.title} className="w-28 h-28 object-contain drop-shadow-md" />
         ) : (
           <BookOpen className="text-white" size={48} />
         )}
-        {course.id !== 'mern-fullstack-master' && (
+        {course.id !== 'mern-fullstack-master' && course.id !== 'backend-development-master' && (
           <>
             <div className="absolute top-4 left-4">
               <span className="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-semibold">
@@ -376,7 +406,7 @@ export default function CourseCatalog({ setCurrentView, onEnrollCourse, setCurre
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
-              if (course.id === 'java-fullstack-master' || course.id === 'mern-fullstack-master') {
+              if (course.id === 'java-fullstack-master' || course.id === 'mern-fullstack-master' || course.id === 'backend-development-master') {
                 if (setCurrentCourseId) setCurrentCourseId(course.id);
                 setCurrentView('lesson');
               } else {

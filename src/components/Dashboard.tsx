@@ -34,6 +34,7 @@ interface DashboardProps {
   setCurrentView: (view: 'home' | 'lesson' | 'dashboard' | 'ide' | 'notes') => void;
   formatDuration: (start: string | null | undefined, end: string | null | undefined) => string;
   totalInterns: number;
+  currentCourseId?: string;
 }
 
 export default function Dashboard({
@@ -45,7 +46,8 @@ export default function Dashboard({
   moduleStats,
   setCurrentView,
   formatDuration,
-  totalInterns
+  totalInterns,
+  currentCourseId = 'java-fullstack-master'
 }: DashboardProps) {
   if (isProgressLoading) {
     return (

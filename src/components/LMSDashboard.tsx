@@ -181,7 +181,7 @@ export default function LMSDashboard({
   setCurrentCourseId
 }: LMSDashboardProps) {
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'courses' | 'catalog' | 'progress' | 'schedule' | 'assignments' | 'playground' | 'notes' | 'rating'>(() => {
+  const [activeTab, setActiveTab] = useState<'overview' | 'courses' | 'catalog' | 'progress' | 'schedule' | 'assignments' | 'playground' | 'notes' | 'rating' | 'Library'>(() => {
     const saved = localStorage.getItem('lmsActiveTab');
     return (saved ? JSON.parse(saved) : 'overview');
   });
@@ -378,7 +378,8 @@ export default function LMSDashboard({
     };
 
     return {
-      ...course,
+      courseId: course.courseId,
+courseTitle: course.courseTitle,
       total,
       p5,
       p4,
@@ -683,6 +684,24 @@ export default function LMSDashboard({
       totalLessons: 40,
       completedLessons: 0,
       tags: ['MongoDB', 'Express', 'React', 'Node.js'],
+      price: 'Free',
+      lastAccessed: 'Just now'
+    },
+    {
+      id: 'backend-development-master',
+      title: 'Backend Development Masterclass',
+      instructor: 'D. Sirisha',
+      description: 'Master backend development using Node.js, Express, and MongoDB. Learn how to build secure REST APIs, real-time applications, and microservices.',
+      category: 'Programming',
+      level: 'Intermediate',
+      duration: '14 weeks',
+      enrolledCount: 650,
+      rating: 4.8,
+      thumbnail: 'https://img.icons8.com/3d-fluency/1200/backend-development.jpg',
+      progress: 0,
+      totalLessons: 35,
+      completedLessons: 0,
+      tags: ['Node.js', 'Express', 'MongoDB', 'REST API', 'Backend'],
       price: 'Free',
       lastAccessed: 'Just now'
     }
@@ -1457,7 +1476,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
   return (
 
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 overflow-hidden">
 
       {/* Header */}
 
@@ -1943,7 +1962,8 @@ Enable JPA repositories with @EnableJpaRepositories`,
               { id: 'assignments', label: 'Assignments', icon: FileText },
               { id: 'playground', label: 'Playground', icon: Code2 },
               { id: 'notes', label: 'Notes', icon: FileText },
-              { id: 'rating', label: 'Rating', icon: StarIcon }
+              { id: 'rating', label: 'Rating', icon: StarIcon },
+              { id: 'library', label: 'Library', icon: BookOpen }
 
             ].map((tab, index) => (
 
@@ -4325,7 +4345,8 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
             )}
 
-            {perCoursePieData.length > 0 && (
+            {
+            perCoursePieData.length > 0 && (
               <div className="flex flex-wrap items-center justify-center gap-48 my-8">
                 {perCoursePieData.map((course) => (
                   <div key={course.courseId} className="relative w-[20rem] h-[20rem] min-w-[20rem] min-h-[20rem] max-w-[20rem] max-h-[20rem] rounded-full flex-shrink-0" style={course.chartStyle}>

@@ -58,7 +58,9 @@ export default function App() {
 
   const syllabus = currentCourseId === 'mern-fullstack-master'
     ? allSyllabusData.filter(s => s.id.startsWith('mern-'))
-    : allSyllabusData.filter(s => !s.id.startsWith('mern-'));
+    : currentCourseId === 'backend-development-master'
+    ? allSyllabusData.filter(s => s.id.startsWith('backend-'))
+    : allSyllabusData.filter(s => !s.id.startsWith('mern-') && !s.id.startsWith('backend-'));
 
   const [currentSectionIdx, setCurrentSectionIdx] = useState(() => {
     const saved = localStorage.getItem('appCurrentSectionIdx');
@@ -187,7 +189,9 @@ export default function App() {
   }, 0);
 
   const currentCourseCompletedLessons = completedLessons.filter(id => 
-    currentCourseId === 'mern-fullstack-master' ? id.startsWith('mern-') : !id.startsWith('mern-')
+    currentCourseId === 'mern-fullstack-master' ? id.startsWith('mern-') : 
+    currentCourseId === 'backend-development-master' ? id.startsWith('backend-') : 
+    (!id.startsWith('mern-') && !id.startsWith('backend-'))
   );
 
   const progressPercentage = totalItemsCount > 0 ? (currentCourseCompletedLessons.length / totalItemsCount) * 100 : 0;
@@ -582,7 +586,7 @@ export default function App() {
         <div className="flex h-screen overflow-hidden">
           {currentView === 'lesson' && (
             <aside 
-              className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} z-40 w-72 sm:w-80 lg:w-84 bg-white border-r border-slate-200 h-full overflow-y-auto transition-all duration-300 ease-in-out shrink-0`}
+              className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} z-40 w-72 sm:w-80 lg:w-84 bg-white border-r border-slate-200 h-full overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-300 ease-in-out shrink-0`}
             >
               <div className="p-6 border-b border-slate-100 bg-slate-50/50">
                 <div className="flex items-center justify-between mb-4">
@@ -625,18 +629,7 @@ export default function App() {
                 </div>
                 
                 <div className="space-y-3">
-                  <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
-                    <motion.div 
-                      key="progress-bar"
-                      initial={{ width: 0 }}
-                      animate={{ width: `${progressPercentage}%` }}
-                      className="h-full bg-emerald-500"
-                    />
-                  </div>
-                   <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                    <span>{currentCourseCompletedLessons.length} Topics Done</span>
-                    <span>{totalItemsCount - currentCourseCompletedLessons.length} Left</span>
-                  </div>
+                  {/* Progress bar removed as per user request */}
                 </div>
 
                 <div className="p-4 space-y-2">
@@ -664,6 +657,7 @@ export default function App() {
                         <motion.div
                           animate={{ rotate: expandedSections[section.id] ? 0 : -90 }}
                           transition={{ duration: 0.2 }}
+                          className="w-6 h-6 flex items-center justify-center shrink-0"
                         >
                           <ChevronDown size={16} className={expandedSections[section.id] ? 'text-slate-600' : 'text-slate-400'} />
                         </motion.div>
@@ -680,7 +674,7 @@ export default function App() {
                             {section.lessons.map((lesson, lIdx) => (
                               <div key={lesson.id} className="space-y-1">
                                 <div 
-                                  className={`flex items-center gap-2 p-2.5 rounded-lg transition-all text-sm group cursor-pointer ${
+                                  className={`flex items-center gap-2 p-2 rounded-lg transition-all text-sm group cursor-pointer ${
                                     currentSectionIdx === sIdx && currentLessonIdx === lIdx && !selectedSubTopic
                                       ? 'bg-slate-50 text-slate-700 font-medium border-l-4 border-slate-600'
                                       : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
@@ -698,7 +692,7 @@ export default function App() {
                                         e.stopPropagation();
                                         setExpandedLessons(prev => ({ ...prev, [lesson.id]: !prev[lesson.id] }));
                                       }}
-                                      className="p-1 hover:bg-slate-200/50 rounded-md transition-colors text-slate-600 hover:text-slate-900 shrink-0"
+                                      className="w-6 h-6 flex items-center justify-center hover:bg-slate-200/50 rounded-md transition-colors text-slate-600 hover:text-slate-900 shrink-0"
                                     >
                                       <motion.div
                                         animate={{ rotate: expandedLessons[lesson.id] ? 90 : 0 }}
@@ -722,7 +716,7 @@ export default function App() {
                                         <button 
                                           key={tIdx} 
                                           onClick={() => selectLesson(sIdx, lIdx, topic)}
-                                          className={`w-full flex items-center gap-2 text-[12px] p-1.5 rounded-md transition-colors ${
+                                          className={`w-full flex items-center gap-2 text-[12px] p-2 rounded-md transition-colors ${
                                             selectedSubTopic === topic 
                                               ? 'text-slate-900 bg-slate-100 font-bold' 
                                               : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'
