@@ -93,6 +93,17 @@ export default function App() {
   const [totalInterns, setTotalInterns] = useState<number>(0);
   const mainContentRef = useRef<HTMLElement>(null);
 
+  const prevCourseIdRef = useRef(currentCourseId);
+
+  useEffect(() => {
+    if (prevCourseIdRef.current !== currentCourseId) {
+      setCurrentSectionIdx(0);
+      setCurrentLessonIdx(0);
+      setSelectedSubTopic(null);
+      prevCourseIdRef.current = currentCourseId;
+    }
+  }, [currentCourseId]);
+
   useEffect(() => {
     localStorage.setItem('appCurrentView', JSON.stringify(currentView));
     localStorage.setItem('appCurrentSectionIdx', JSON.stringify(currentSectionIdx));

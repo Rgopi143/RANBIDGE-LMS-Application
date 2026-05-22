@@ -181,7 +181,7 @@ export default function LMSDashboard({
   setCurrentCourseId
 }: LMSDashboardProps) {
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'courses' | 'catalog' | 'progress' | 'schedule' | 'assignments' | 'playground' | 'notes' | 'rating' | 'Library'>(() => {
+  const [activeTab, setActiveTab] = useState<'overview' | 'courses' | 'catalog' | 'progress' | 'schedule' | 'assignments' | 'playground' | 'notes' | 'rating' | 'library'>(() => {
     const saved = localStorage.getItem('lmsActiveTab');
     return (saved ? JSON.parse(saved) : 'overview');
   });
@@ -699,7 +699,7 @@ courseTitle: course.courseTitle,
       rating: 4.8,
       thumbnail: 'https://img.icons8.com/3d-fluency/1200/backend-development.jpg',
       progress: 0,
-      totalLessons: 35,
+      totalLessons: 162,
       completedLessons: 0,
       tags: ['Node.js', 'Express', 'MongoDB', 'REST API', 'Backend'],
       price: 'Free',
@@ -985,7 +985,62 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
   ];
 
-
+  const libraryResources = [
+    {
+      id: 1,
+      title: 'Complete Node.js Guide.pdf',
+      category: 'PDFs',
+      size: '4.2 MB',
+      type: 'pdf',
+      downloadUrl: '#',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/pdf-2.png'
+    },
+    {
+      id: 2,
+      title: 'Mastering MongoDB.pdf',
+      category: 'Books',
+      size: '8.5 MB',
+      type: 'pdf',
+      downloadUrl: '#',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/pdf-2.png'
+    },
+    {
+      id: 3,
+      title: 'Express.js Best Practices.pdf',
+      category: 'Notes',
+      size: '2.1 MB',
+      type: 'pdf',
+      downloadUrl: '#',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/pdf-2.png'
+    },
+    {
+      id: 4,
+      title: 'React Advanced Patterns.pdf',
+      category: 'PDFs',
+      size: '5.7 MB',
+      type: 'pdf',
+      downloadUrl: '#',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/pdf-2.png'
+    },
+    {
+      id: 5,
+      title: 'System Design Interview.pdf',
+      category: 'Books',
+      size: '12.4 MB',
+      type: 'pdf',
+      downloadUrl: '#',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/pdf-2.png'
+    },
+    {
+      id: 6,
+      title: 'Full Stack Interview Questions.pdf',
+      category: 'Notes',
+      size: '1.5 MB',
+      type: 'pdf',
+      downloadUrl: '#',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/pdf-2.png'
+    }
+  ];
 
   const stats = {
 
@@ -1430,7 +1485,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
               whileTap={{ scale: 0.95 }}
 
               onClick={() => {
-                if (course.id === 'java-fullstack-master' || course.id === 'mern-fullstack-master') {
+                if (course.id === 'java-fullstack-master' || course.id === 'mern-fullstack-master' || course.id === 'backend-development-master') {
                   if (setCurrentCourseId) setCurrentCourseId(course.id);
                   setCurrentView('lesson');
                 }
@@ -1948,9 +2003,9 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
       <div className="bg-white border-b border-slate-200 shadow-sm">
 
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto no-scrollbar scroll-smooth">
 
             {[
 
@@ -1981,7 +2036,8 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                 <motion.button
                   onClick={() => setActiveTab(tab.id as any)}
-                  className="relative flex items-center gap-2 py-4 px-2 transition-all duration-300 text-black"
+                  className={`relative flex items-center gap-1.5 py-3 px-1.5 transition-all duration-300 whitespace-nowrap ${activeTab === tab.id ? 'text-slate-900 border-b-2 border-slate-900' : 'text-slate-500 hover:text-slate-700'
+                    }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -2000,32 +2056,11 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                   >
 
-                    <tab.icon size={18} />
+                    <tab.icon size={16} />
 
                   </motion.div>
 
-                  <span className="font-medium">{tab.label}</span>
-
-                  {activeTab === tab.id && (
-
-                    <motion.div
-                      className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-slate-900"
-                      layoutId="activeTab"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-
-                  )}
-
-                  {activeTab === tab.id && (
-
-                    <motion.div
-                      className="absolute inset-0 bg-slate-50 rounded-lg -z-10"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-
-                  )}
+                  <span className="font-bold text-[11px] sm:text-xs uppercase tracking-wider">{tab.label}</span>
 
                 </motion.button>
 
@@ -2038,8 +2073,6 @@ Enable JPA repositories with @EnableJpaRepositories`,
         </div>
 
       </div>
-
-
 
       {/* Main Content */}
 
@@ -2824,7 +2857,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
                   key={course.id}
                   whileHover={{ y: -4 }}
                   onClick={() => {
-                    if (course.id === 'java-fullstack-master' || course.id === 'mern-fullstack-master') {
+                    if (course.id === 'java-fullstack-master' || course.id === 'mern-fullstack-master' || course.id === 'backend-development-master') {
                       if (setCurrentCourseId) setCurrentCourseId(course.id);
                       setCurrentView('lesson');
                     }
@@ -4605,6 +4638,101 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
           </motion.div>
 
+        )}
+
+        {/* Library Tab */}
+        {activeTab === 'library' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-8"
+          >
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <h2 className="text-xl font-bold text-slate-900">Resource Library</h2>
+                <p className="text-slate-500">Access exclusive study materials and PDFs</p>
+              </div>
+              <div className="flex w-full sm:w-auto gap-2">
+                <div className="relative w-full sm:w-64">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                  <input
+                    type="text"
+                    placeholder="Search resources..."
+                    className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {libraryResources.map((resource) => (
+                <motion.div
+                  key={resource.id}
+                  whileHover={{ y: -5 }}
+                  className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-all flex flex-col"
+                >
+                  <div className="h-32 bg-slate-50 rounded-xl flex items-center justify-center mb-4 relative group overflow-hidden">
+                    <img
+                      src={resource.thumbnail}
+                      alt={resource.title}
+                      className="w-16 h-16 object-contain group-hover:scale-110 transition-transform"
+                    />
+                    <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="p-2 bg-white rounded-full text-slate-900 shadow-lg"
+                        title="View PDF"
+                      >
+                        <Eye size={18} />
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="p-2 bg-white rounded-full text-blue-600 shadow-lg"
+                        title="Download PDF"
+                        onClick={() => window.open(resource.downloadUrl, '_blank')}
+                      >
+                        <Download size={18} />
+                      </motion.button>
+                    </div>
+                  </div>
+
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${resource.category === 'Books' ? 'bg-purple-100 text-purple-700' :
+                        resource.category === 'PDFs' ? 'bg-blue-100 text-blue-700' :
+                          'bg-emerald-100 text-emerald-700'
+                        }`}>
+                        {resource.category}
+                      </span>
+                      <span className="text-[10px] text-slate-400 font-medium">{resource.size}</span>
+                    </div>
+                    <h3 className="font-bold text-slate-900 mb-2 truncate">{resource.title}</h3>
+                  </div>
+
+                  <div className="flex gap-2 mt-4">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="flex-1 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
+                    >
+                      <Eye size={14} />
+                      Read Now
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="px-3 py-2 border border-slate-200 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-50 transition-colors"
+                      onClick={() => window.open(resource.downloadUrl, '_blank')}
+                    >
+                      <Download size={14} />
+                    </motion.button>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         )}
 
       </main>

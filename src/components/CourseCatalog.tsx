@@ -138,7 +138,7 @@ export default function CourseCatalog({ setCurrentView, onEnrollCourse, setCurre
       id: 'backend-development-master',
       title: 'Backend Development Masterclass',
       instructor: 'D. Sirisha',
-      description: 'Master backend development using Node.js, Express, and MongoDB. Learn how to build secure REST APIs, real-time applications, and microservices.',
+      description: 'Master backend development with Node.js, Express, and MongoDB. Learn to build secure, scalable, and real-time APIs. Become job-ready for roles like Backend Developer, API Engineer, or Node.js Expert.',
       category: 'programming',
       level: 'intermediate',
       duration: '14 weeks',
@@ -153,12 +153,21 @@ export default function CourseCatalog({ setCurrentView, onEnrollCourse, setCurre
       lastUpdated: '2025-01-15',
       requirements: ['Basic JavaScript knowledge', 'Computer with internet access'],
       whatYouLearn: [
-        'Node.js fundamentals & architecture',
-        'Building scalable REST APIs with Express',
-        'MongoDB database design & Mongoose ODM',
-        'Authentication with JWT and secure practices',
-        'Real-time communication with Socket.io',
-        'Application deployment and hosting'
+        'Module 1: Introduction to Web & Backend Development',
+        'Module 2: JavaScript Fundamentals for Backend',
+        'Module 3: Advanced JavaScript (Async/Await, Promises)',
+        'Module 4: Node.js Core (File System, Streams, Events)',
+        'Module 5: Express.js Framework & Server Setup',
+        'Module 6: REST API Design & CRUD Operations',
+        'Module 7: MongoDB Database & Data Modeling',
+        'Module 8: Mongoose ODM & Database Relationships',
+        'Module 9: Authentication & Authorization (JWT, bcrypt)',
+        'Module 10: File Uploads & Email Services (Multer, Nodemailer)',
+        'Module 11: Real-Time Applications with Socket.io',
+        'Module 12: API Security, CORS & Best Practices',
+        'Module 13: Version Control with Git & GitHub',
+        'Module 14: Deployment & Hosting (Render, Vercel, PM2)',
+        'Module 15: Real-Time Industry Projects (E-commerce, Chat, LMS)'
       ]
     },
     {
@@ -461,7 +470,7 @@ export default function CourseCatalog({ setCurrentView, onEnrollCourse, setCurre
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                if (course.id === 'java-fullstack-master' || course.id === 'mern-fullstack-master') {
+                if (course.id === 'java-fullstack-master' || course.id === 'mern-fullstack-master' || course.id === 'backend-development-master') {
                   if (setCurrentCourseId) setCurrentCourseId(course.id);
                   setCurrentView('lesson');
                 } else {
