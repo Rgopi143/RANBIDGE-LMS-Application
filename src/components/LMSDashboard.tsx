@@ -98,7 +98,8 @@ import {
   Cpu,
   Coffee,
   Globe,
-  Monitor
+  Monitor,
+  ArrowLeft
 
 } from 'lucide-react';
 
@@ -5027,35 +5028,65 @@ Enable JPA repositories with @EnableJpaRepositories`,
               )}
             </AnimatePresence>
 
-            {/* PDF Fullscreen Native Reader — no custom container */}
+            {/* PDF Fullscreen Integrated Reader */}
             <AnimatePresence>
               {selectedResourceForView && selectedResourceForView.type !== 'image' && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="fixed inset-0 z-[60] bg-[#525659]"
+                  className="fixed inset-0 z-[60] bg-slate-900 flex flex-col"
                 >
-                  {/* Only a floating close button — no container, no header */}
-                  <motion.button
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => setSelectedResourceForView(null)}
-                    className="absolute top-3 right-3 z-[70] p-2 bg-white/10 backdrop-blur-sm text-white rounded-full shadow-xl hover:bg-red-500/80 hover:text-white transition-colors"
-                    title="Close"
-                  >
-                    <X size={18} />
-                  </motion.button>
+                  {/* Integrated Header Toolbar */}
+                  <div className="h-14 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-4 shrink-0 shadow-lg">
+                    <div className="flex items-center gap-4">
+                      <motion.button
+                        whileHover={{ x: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => setSelectedResourceForView(null)}
+                        className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors text-sm font-medium pr-4 border-r border-slate-700"
+                      >
+                        <ArrowLeft size={18} />
+                        <span>Back to Library</span>
+                      </motion.button>
+                      <div className="flex items-center gap-2 text-white">
+                        <FileText size={18} className="text-blue-400" />
+                        <span className="font-semibold truncate max-w-[200px] sm:max-w-md">
+                          {selectedResourceForView.title}
+                        </span>
+                      </div>
+                    </div>
 
-                  {/* Native browser PDF embed — Chrome will show its own PDF reader toolbar */}
-                  <embed
-                    src={selectedResourceForView.downloadUrl}
-                    type="application/pdf"
-                    className="w-full h-full border-none block"
-                  />
+                    <div className="flex items-center gap-2">
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleDownload(selectedResourceForView.downloadUrl, selectedResourceForView.title + '.pdf')}
+                        className="p-2 text-slate-300 hover:text-white hover:bg-slate-700 rounded-lg transition-all"
+                        title="Download PDF"
+                      >
+                        <Download size={20} />
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.05, rotate: 90 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => setSelectedResourceForView(null)}
+                        className="p-2 text-slate-300 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all"
+                        title="Close"
+                      >
+                        <X size={20} />
+                      </motion.button>
+                    </div>
+                  </div>
+
+                  {/* Native browser PDF embed area */}
+                  <div className="flex-1 bg-slate-700/50 relative">
+                    <embed
+                      src={`${selectedResourceForView.downloadUrl}#toolbar=1&navpanes=0`}
+                      type="application/pdf"
+                      className="w-full h-full border-none block"
+                    />
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
