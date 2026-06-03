@@ -4966,7 +4966,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
             {/* In-App Resource Viewer Modal */}
             <AnimatePresence>
-              {selectedResourceForView && (
+              {selectedResourceForView && selectedResourceForView.type === 'image' && (
                 <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 md:p-10">
                   <motion.div
                     initial={{ opacity: 0 }}
@@ -4977,26 +4977,20 @@ Enable JPA repositories with @EnableJpaRepositories`,
                   />
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                    animate={{ 
-                      opacity: 1, 
-                      scale: 1, 
-                      y: 0,
-                      width: isModalMaximized ? '100%' : '90%',
-                      height: isModalMaximized ? '100%' : '90%'
-                    }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.9, y: 20 }}
                     className="relative bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col z-[70] max-w-6xl w-full h-full"
                   >
-                    {/* Viewer Header */}
+                    {/* Image Viewer Header */}
                     <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-white">
                       <div className="flex items-center gap-3">
-                        <div className={`p-2 rounded-lg ${selectedResourceForView.type === 'image' ? 'bg-purple-100 text-purple-600' : 'bg-blue-100 text-blue-600'}`}>
-                          {selectedResourceForView.type === 'image' ? <Grid size={18} /> : <FileText size={18} />}
+                        <div className="p-2 rounded-lg bg-purple-100 text-purple-600">
+                          <Grid size={18} />
                         </div>
                         <div>
                           <h3 className="font-bold text-slate-900 leading-none mb-1">{selectedResourceForView.title}</h3>
                           <p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">
-                            {selectedResourceForView.category} • {selectedResourceForView.type.toUpperCase()}
+                            {selectedResourceForView.category} • IMAGE
                           </p>
                         </div>
                       </div>
@@ -5004,20 +4998,11 @@ Enable JPA repositories with @EnableJpaRepositories`,
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
-                          onClick={() => handleDownload(selectedResourceForView.downloadUrl, selectedResourceForView.title + (selectedResourceForView.type === 'image' ? '.png' : '.pdf'))}
+                          onClick={() => handleDownload(selectedResourceForView.downloadUrl, selectedResourceForView.title + '.png')}
                           className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                           title="Download"
                         >
                           <Download size={20} />
-                        </motion.button>
-                        <motion.button
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          onClick={() => setIsModalMaximized(!isModalMaximized)}
-                          className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-lg transition-colors"
-                          title={isModalMaximized ? "Minimize" : "Maximize"}
-                        >
-                          <Maximize size={20} />
                         </motion.button>
                         <motion.button
                           whileHover={{ scale: 1.1, rotate: 90 }}
@@ -5030,25 +5015,48 @@ Enable JPA repositories with @EnableJpaRepositories`,
                         </motion.button>
                       </div>
                     </div>
-
-                    {/* Viewer Content */}
                     <div className="flex-1 bg-slate-100 overflow-auto flex items-center justify-center p-4">
-                      {selectedResourceForView.type === 'image' ? (
-                        <img 
-                          src={selectedResourceForView.downloadUrl} 
-                          alt={selectedResourceForView.title}
-                          className="max-w-full max-h-full object-contain shadow-lg rounded-lg"
-                        />
-                      ) : (
-                        <iframe
-                          src={`${selectedResourceForView.downloadUrl}#toolbar=0`}
-                          title={selectedResourceForView.title}
-                          className="w-full h-full border-none bg-white shadow-lg rounded-lg"
-                        />
-                      )}
+                      <img
+                        src={selectedResourceForView.downloadUrl}
+                        alt={selectedResourceForView.title}
+                        className="max-w-full max-h-full object-contain shadow-lg rounded-lg"
+                      />
                     </div>
                   </motion.div>
                 </div>
+              )}
+            </AnimatePresence>
+
+            {/* PDF Fullscreen Native Reader — no custom container */}
+            <AnimatePresence>
+              {selectedResourceForView && selectedResourceForView.type !== 'image' && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 z-[60] bg-[#525659]"
+                >
+                  {/* Only a floating close button — no container, no header */}
+                  <motion.button
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setSelectedResourceForView(null)}
+                    className="absolute top-3 right-3 z-[70] p-2 bg-white/10 backdrop-blur-sm text-white rounded-full shadow-xl hover:bg-red-500/80 hover:text-white transition-colors"
+                    title="Close"
+                  >
+                    <X size={18} />
+                  </motion.button>
+
+                  {/* Native browser PDF embed — Chrome will show its own PDF reader toolbar */}
+                  <embed
+                    src={selectedResourceForView.downloadUrl}
+                    type="application/pdf"
+                    className="w-full h-full border-none block"
+                  />
+                </motion.div>
               )}
             </AnimatePresence>
           </motion.div>
