@@ -4966,71 +4966,9 @@ Enable JPA repositories with @EnableJpaRepositories`,
             </div>
 
             {/* In-App Resource Viewer Modal */}
+            {/* Fullscreen Integrated Resource Viewer (Images & PDFs) */}
             <AnimatePresence>
-              {selectedResourceForView && selectedResourceForView.type === 'image' && (
-                <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 md:p-10">
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    onClick={() => setSelectedResourceForView(null)}
-                    className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm"
-                  />
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                    className="relative bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col z-[70] max-w-6xl w-full h-full"
-                  >
-                    {/* Image Viewer Header */}
-                    <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-white">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-purple-100 text-purple-600">
-                          <Grid size={18} />
-                        </div>
-                        <div>
-                          <h3 className="font-bold text-slate-900 leading-none mb-1">{selectedResourceForView.title}</h3>
-                          <p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">
-                            {selectedResourceForView.category} • IMAGE
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <motion.button
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          onClick={() => handleDownload(selectedResourceForView.downloadUrl, selectedResourceForView.title + '.png')}
-                          className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                          title="Download"
-                        >
-                          <Download size={20} />
-                        </motion.button>
-                        <motion.button
-                          whileHover={{ scale: 1.1, rotate: 90 }}
-                          whileTap={{ scale: 0.9 }}
-                          onClick={() => setSelectedResourceForView(null)}
-                          className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                          title="Close"
-                        >
-                          <X size={20} />
-                        </motion.button>
-                      </div>
-                    </div>
-                    <div className="flex-1 bg-slate-100 overflow-auto flex items-center justify-center p-4">
-                      <img
-                        src={selectedResourceForView.downloadUrl}
-                        alt={selectedResourceForView.title}
-                        className="max-w-full max-h-full object-contain shadow-lg rounded-lg"
-                      />
-                    </div>
-                  </motion.div>
-                </div>
-              )}
-            </AnimatePresence>
-
-            {/* PDF Fullscreen Integrated Reader */}
-            <AnimatePresence>
-              {selectedResourceForView && selectedResourceForView.type !== 'image' && (
+              {selectedResourceForView && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -5038,54 +4976,78 @@ Enable JPA repositories with @EnableJpaRepositories`,
                   className="fixed inset-0 z-[60] bg-slate-900 flex flex-col"
                 >
                   {/* Integrated Header Toolbar */}
-                  <div className="h-14 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-4 shrink-0 shadow-lg">
+                  <div className="h-14 bg-slate-900 border-b border-slate-800 flex items-center justify-between px-4 shrink-0 shadow-xl z-50">
                     <div className="flex items-center gap-4">
                       <motion.button
-                        whileHover={{ x: -2 }}
+                        whileHover={{ x: -3 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => setSelectedResourceForView(null)}
-                        className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors text-sm font-medium pr-4 border-r border-slate-700"
+                        className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-medium pr-4 border-r border-slate-800"
                       >
-                        <ArrowLeft size={18} />
+                        < ArrowLeft size={18} />
                         <span>Back to Library</span>
                       </motion.button>
-                      <div className="flex items-center gap-2 text-white">
-                        <FileText size={18} className="text-blue-400" />
-                        <span className="font-semibold truncate max-w-[200px] sm:max-w-md">
-                          {selectedResourceForView.title}
-                        </span>
+                      <div className="flex items-center gap-3 text-white">
+                        <div className={`p-1.5 rounded-lg ${selectedResourceForView.type === 'image' ? 'bg-purple-500/10' : 'bg-blue-500/10'}`}>
+                          {selectedResourceForView.type === 'image' ? 
+                            <Grid size={18} className="text-purple-400" /> : 
+                            <FileText size={18} className="text-blue-400" />
+                          }
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="font-bold text-sm leading-none tracking-tight">
+                            {selectedResourceForView.title}
+                          </span>
+                          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">
+                            {selectedResourceForView.category} • {selectedResourceForView.type.toUpperCase()}
+                          </span>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5">
                       <motion.button
-                        whileHover={{ scale: 1.05 }}
+                        whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.05)' }}
                         whileTap={{ scale: 0.95 }}
-                        onClick={() => handleDownload(selectedResourceForView.downloadUrl, selectedResourceForView.title + '.pdf')}
-                        className="p-2 text-slate-300 hover:text-white hover:bg-slate-700 rounded-lg transition-all"
-                        title="Download PDF"
+                        onClick={() => handleDownload(selectedResourceForView.downloadUrl, selectedResourceForView.title + (selectedResourceForView.type === 'image' ? '.png' : '.pdf'))}
+                        className="flex items-center gap-2 px-3 py-1.5 text-slate-300 hover:text-white rounded-lg transition-all text-xs font-bold border border-transparent hover:border-slate-700"
+                        title={selectedResourceForView.type === 'image' ? "Download Image" : "Download PDF"}
                       >
-                        <Download size={20} />
+                        <Download size={16} />
+                        <span className="hidden sm:inline">Download</span>
                       </motion.button>
+                      <div className="w-px h-6 bg-slate-800 mx-1" />
                       <motion.button
-                        whileHover={{ scale: 1.05, rotate: 90 }}
+                        whileHover={{ scale: 1.1, backgroundColor: 'rgba(239,68,68,0.1)' }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => setSelectedResourceForView(null)}
-                        className="p-2 text-slate-300 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all"
-                        title="Close"
+                        className="p-2 text-slate-400 hover:text-red-400 rounded-lg transition-all"
+                        title="Close Viewer"
                       >
                         <X size={20} />
                       </motion.button>
                     </div>
                   </div>
 
-                  {/* Native browser PDF embed area */}
-                  <div className="flex-1 bg-slate-700/50 relative">
-                    <embed
-                      src={`${selectedResourceForView.downloadUrl}#toolbar=1&navpanes=0`}
-                      type="application/pdf"
-                      className="w-full h-full border-none block"
-                    />
+                  {/* Viewer Content Area */}
+                  <div className="flex-1 bg-slate-950 flex items-center justify-center relative overflow-hidden">
+                    {selectedResourceForView.type === 'image' ? (
+                      <div className="w-full h-full p-4 sm:p-8 flex items-center justify-center">
+                        <motion.img
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          src={selectedResourceForView.downloadUrl}
+                          alt={selectedResourceForView.title}
+                          className="max-w-full max-h-full object-contain shadow-2xl rounded-lg"
+                        />
+                      </div>
+                    ) : (
+                      <embed
+                        src={`${selectedResourceForView.downloadUrl}#toolbar=1&navpanes=0`}
+                        type="application/pdf"
+                        className="w-full h-full border-none block"
+                      />
+                    )}
                   </div>
                 </motion.div>
               )}
