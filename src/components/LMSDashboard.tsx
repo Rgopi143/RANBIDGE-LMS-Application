@@ -308,10 +308,14 @@ export default function LMSDashboard({
   const [selectedNote, setSelectedNote] = useState<typeof notes[0] | null>(null);
 
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedLibraryCategory, setSelectedLibraryCategory] = useState('All');
+  const [selectedLibrarySubTopic, setSelectedLibrarySubTopic] = useState('All');
+  const [selectedResourceForView, setSelectedResourceForView] = useState<any>(null);
 
   const [isModalMaximized, setIsModalMaximized] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
+  const [librarySearchQuery, setLibrarySearchQuery] = useState('');
 
   const [editedContent, setEditedContent] = useState('');
 
@@ -985,60 +989,125 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
   ];
 
+  const handleDownload = (url: string, filename: string) => {
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const libraryResources = [
     {
-      id: 1,
-      title: 'Complete Node.js Guide.pdf',
-      category: 'PDFs',
-      size: '4.2 MB',
+      id: 22,
+      title: 'Python Django',
+      category: 'Python',
+      subTopic: 'Web Development',
+      size: '12.8 MB',
       type: 'pdf',
-      downloadUrl: '#',
-      thumbnail: 'https://img.icons8.com/3d-fluency/188/pdf-2.png'
+      downloadUrl: '/pdfs/python/Python Django.pdf',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/python.png'
     },
     {
-      id: 2,
-      title: 'Mastering MongoDB.pdf',
-      category: 'Books',
-      size: '8.5 MB',
+      id: 23,
+      title: 'Python Libraries',
+      category: 'Python',
+      subTopic: 'Libraries',
+      size: '5.2 MB',
       type: 'pdf',
-      downloadUrl: '#',
-      thumbnail: 'https://img.icons8.com/3d-fluency/188/pdf-2.png'
+      downloadUrl: '/pdfs/python/python libraries.pdf',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/python.png'
     },
     {
-      id: 3,
-      title: 'Express.js Best Practices.pdf',
-      category: 'Notes',
-      size: '2.1 MB',
+      id: 24,
+      title: 'Python Projects',
+      category: 'Python',
+      subTopic: 'Basics',
+      size: '9.4 MB',
       type: 'pdf',
-      downloadUrl: '#',
-      thumbnail: 'https://img.icons8.com/3d-fluency/188/pdf-2.png'
+      downloadUrl: '/pdfs/python/Python Projects.pdf',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/python.png'
     },
     {
-      id: 4,
-      title: 'React Advanced Patterns.pdf',
-      category: 'PDFs',
-      size: '5.7 MB',
+      id: 25,
+      title: 'Cracking the Windows Kernel',
+      category: 'Cyber Security',
+      subTopic: 'Ethical Hacking',
+      size: '18.5 MB',
       type: 'pdf',
-      downloadUrl: '#',
-      thumbnail: 'https://img.icons8.com/3d-fluency/188/pdf-2.png'
+      downloadUrl: '/pdfs/cyber-security/Craking the Windows kernel.pdf',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/shield.png'
     },
     {
-      id: 5,
-      title: 'System Design Interview.pdf',
-      category: 'Books',
-      size: '12.4 MB',
+      id: 26,
+      title: 'Security Engineer',
+      category: 'Cyber Security',
+      subTopic: 'Basics',
+      size: '6.3 MB',
       type: 'pdf',
-      downloadUrl: '#',
-      thumbnail: 'https://img.icons8.com/3d-fluency/188/pdf-2.png'
+      downloadUrl: '/pdfs/cyber-security/Security Engineer.pdf',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/shield.png'
     },
     {
-      id: 6,
-      title: 'Full Stack Interview Questions.pdf',
-      category: 'Notes',
-      size: '1.5 MB',
-      type: 'pdf',
-      downloadUrl: '#',
-      thumbnail: 'https://img.icons8.com/3d-fluency/188/pdf-2.png'
+      id: 27,
+      title: 'Course Architecture',
+      category: 'Images',
+      subTopic: 'Roadmaps',
+      size: '450 KB',
+      type: 'image',
+      downloadUrl: '/images/architecture.png',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png'
+    },
+    {
+      id: 28,
+      title: 'Full Stack Java Roadmap',
+      category: 'Images',
+      subTopic: 'Roadmaps',
+      size: '384 KB',
+      type: 'image',
+      downloadUrl: '/Images/roadmaps/java-roadmap.jpg',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/java.png'
+    },
+    {
+      id: 29,
+      title: 'MERN Stack Roadmap',
+      category: 'Images',
+      subTopic: 'Roadmaps',
+      size: '360 KB',
+      type: 'image',
+      downloadUrl: '/Images/roadmaps/mern-roadmap.jpg',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/react-native.png'
+    },
+    {
+      id: 30,
+      title: 'Python for Everything',
+      category: 'Images',
+      subTopic: 'Roadmaps',
+      size: '426 KB',
+      type: 'image',
+      downloadUrl: '/Images/roadmaps/python-roadmap.png',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/python.png'
+    },
+    {
+      id: 31,
+      title: 'Types of Neural Networks',
+      category: 'Images',
+      subTopic: 'Roadmaps',
+      size: '321 KB',
+      type: 'image',
+      downloadUrl: '/Images/roadmaps/neural-networks.png',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/brain.png'
+    },
+    {
+      id: 32,
+      title: '.NET Full-Stack Reality',
+      category: 'Images',
+      subTopic: 'Roadmaps',
+      size: '501 KB',
+      type: 'image',
+      downloadUrl: '/Images/roadmaps/dotnet-humor.png',
+      thumbnail: 'https://img.icons8.com/3d-fluency/188/bug.png'
     }
   ];
 
@@ -4652,37 +4721,189 @@ Enable JPA repositories with @EnableJpaRepositories`,
                 <h2 className="text-xl font-bold text-slate-900">Resource Library</h2>
                 <p className="text-slate-500">Access exclusive study materials and PDFs</p>
               </div>
-              <div className="flex w-full sm:w-auto gap-2">
+              <div className="flex w-full sm:w-auto gap-3">
                 <div className="relative w-full sm:w-64">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
                   <input
                     type="text"
                     placeholder="Search resources..."
+                    value={librarySearchQuery}
+                    onChange={(e) => setLibrarySearchQuery(e.target.value)}
                     className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
                   />
                 </div>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2"
+                >
+                  <Plus size={18} />
+                  Add PDF
+                </motion.button>
               </div>
             </div>
 
+            {/* Library Categories */}
+            <div className="space-y-4">
+              <div className="flex gap-2 flex-wrap pb-2">
+                {['All', ...Array.from(new Set(libraryResources.map(r => r.category)))].map((category) => (
+                  <motion.button
+                    key={category}
+                    onClick={() => {
+                      setSelectedLibraryCategory(category);
+                      setSelectedLibrarySubTopic('All');
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${category === selectedLibraryCategory
+                      ? 'bg-slate-900 text-white border-slate-900 shadow-md'
+                      : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                      }`}
+                  >
+                    {category}
+                  </motion.button>
+                ))}
+              </div>
+
+              {/* Cyber Security Sub-topics Container */}
+              <AnimatePresence>
+                {selectedLibraryCategory === 'Cyber Security' && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="bg-slate-50 rounded-2xl p-4 border border-slate-200"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 bg-slate-900 text-white rounded-lg">
+                        <Lock size={16} />
+                      </div>
+                      <h3 className="text-sm font-bold text-slate-900">Cyber Security Tracks</h3>
+                    </div>
+                    <div className="flex gap-2 flex-wrap">
+                      {['All', ...Array.from(new Set(libraryResources.filter(r => r.category === 'Cyber Security').map(r => (r as any).subTopic).filter(Boolean)))].map((subTopic: any) => (
+                        <motion.button
+                          key={subTopic}
+                          onClick={() => setSelectedLibrarySubTopic(subTopic)}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className={`px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all border ${subTopic === selectedLibrarySubTopic
+                            ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                            : 'bg-white text-slate-600 border-slate-200 hover:bg-white hover:border-slate-300'
+                            }`}
+                        >
+                          {subTopic}
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Python Projects Container */}
+              <AnimatePresence>
+                {selectedLibraryCategory === 'Python' && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="bg-slate-50 rounded-2xl p-4 border border-slate-200"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 bg-blue-600 text-white rounded-lg">
+                        <Terminal size={16} />
+                      </div>
+                      <h3 className="text-sm font-bold text-slate-900">Python Project Categories</h3>
+                    </div>
+                    <div className="flex gap-2 flex-wrap">
+                      {['All', ...Array.from(new Set(libraryResources.filter(r => r.category === 'Python').map(r => (r as any).subTopic).filter(Boolean)))].map((subTopic: any) => (
+                        <motion.button
+                          key={subTopic}
+                          onClick={() => setSelectedLibrarySubTopic(subTopic)}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className={`px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all border ${subTopic === selectedLibrarySubTopic
+                            ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                            : 'bg-white text-slate-600 border-slate-200 hover:bg-white hover:border-slate-300'
+                            }`}
+                        >
+                          {subTopic}
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Images Container */}
+              <AnimatePresence>
+                {selectedLibraryCategory === 'Images' && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="bg-slate-50 rounded-2xl p-4 border border-slate-200"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 bg-purple-600 text-white rounded-lg">
+                        <Grid size={16} />
+                      </div>
+                      <h3 className="text-sm font-bold text-slate-900">Gallery Categories</h3>
+                    </div>
+                    <div className="flex gap-2 flex-wrap">
+                      {['All', ...Array.from(new Set(libraryResources.filter(r => r.category === 'Images').map(r => (r as any).subTopic).filter(Boolean)))].map((subTopic: any) => (
+                        <motion.button
+                          key={subTopic}
+                          onClick={() => setSelectedLibrarySubTopic(subTopic)}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className={`px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all border ${subTopic === selectedLibrarySubTopic
+                            ? 'bg-purple-600 text-white border-purple-600 shadow-sm'
+                            : 'bg-white text-slate-600 border-slate-200 hover:bg-white hover:border-slate-300'
+                            }`}
+                        >
+                          {subTopic}
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {libraryResources.map((resource) => (
+              {libraryResources
+                .filter(resource => {
+                  const matchesCategory = selectedLibraryCategory === 'All' || 
+                    resource.category === selectedLibraryCategory;
+                  
+                  const matchesSubTopic = selectedLibrarySubTopic === 'All' || 
+                    (resource as any).subTopic === selectedLibrarySubTopic;
+                  
+                  const matchesSearch = resource.title.toLowerCase().includes(librarySearchQuery.toLowerCase()) ||
+                    resource.category.toLowerCase().includes(librarySearchQuery.toLowerCase());
+                  
+                  return matchesCategory && matchesSubTopic && matchesSearch;
+                })
+                .map((resource) => (
                 <motion.div
                   key={resource.id}
                   whileHover={{ y: -5 }}
                   className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-all flex flex-col"
                 >
-                  <div className="h-32 bg-slate-50 rounded-xl flex items-center justify-center mb-4 relative group overflow-hidden">
+                  <div className="h-44 bg-slate-50 rounded-xl flex items-center justify-center mb-4 relative group overflow-hidden">
                     <img
-                      src={resource.thumbnail}
+                      src={resource.type === 'image' ? resource.downloadUrl : resource.thumbnail}
                       alt={resource.title}
-                      className="w-16 h-16 object-contain group-hover:scale-110 transition-transform"
+                      className={`${resource.type === 'image' ? 'w-full h-full object-cover' : 'w-16 h-16 object-contain'} group-hover:scale-110 transition-transform`}
                     />
                     <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                       <motion.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="p-2 bg-white rounded-full text-slate-900 shadow-lg"
-                        title="View PDF"
+                        title={resource.type === 'image' ? "View Image" : "View PDF"}
+                        onClick={() => setSelectedResourceForView(resource)}
                       >
                         <Eye size={18} />
                       </motion.button>
@@ -4690,8 +4911,8 @@ Enable JPA repositories with @EnableJpaRepositories`,
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="p-2 bg-white rounded-full text-blue-600 shadow-lg"
-                        title="Download PDF"
-                        onClick={() => window.open(resource.downloadUrl, '_blank')}
+                        title={resource.type === 'image' ? "Download Image" : "Download PDF"}
+                        onClick={() => handleDownload(resource.downloadUrl, resource.title + (resource.type === 'image' ? '.png' : '.pdf'))}
                       >
                         <Download size={18} />
                       </motion.button>
@@ -4702,11 +4923,20 @@ Enable JPA repositories with @EnableJpaRepositories`,
                     <div className="flex items-center gap-2 mb-2">
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${resource.category === 'Books' ? 'bg-purple-100 text-purple-700' :
                         resource.category === 'PDFs' ? 'bg-blue-100 text-blue-700' :
-                          'bg-emerald-100 text-emerald-700'
+                          resource.category === 'Python' ? 'bg-yellow-100 text-yellow-700' :
+                            resource.category === 'DSA' ? 'bg-indigo-100 text-indigo-700' :
+                              resource.category === 'Cyber Security' ? 'bg-red-100 text-red-700' :
+                                resource.category === 'Images' ? 'bg-purple-100 text-purple-700' :
+                                  'bg-emerald-100 text-emerald-700'
                         }`}>
                         {resource.category}
                       </span>
-                      <span className="text-[10px] text-slate-400 font-medium">{resource.size}</span>
+                      {(resource as any).subTopic && (
+                        <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold">
+                          {(resource as any).subTopic}
+                        </span>
+                      )}
+                      <span className="text-[10px] text-slate-400 font-medium ml-auto">{resource.size}</span>
                     </div>
                     <h3 className="font-bold text-slate-900 mb-2 truncate">{resource.title}</h3>
                   </div>
@@ -4715,16 +4945,17 @@ Enable JPA repositories with @EnableJpaRepositories`,
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
+                      onClick={() => setSelectedResourceForView(resource)}
                       className="flex-1 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
                     >
                       <Eye size={14} />
-                      Read Now
+                      {resource.type === 'image' ? 'View Image' : 'Read Now'}
                     </motion.button>
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       className="px-3 py-2 border border-slate-200 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-50 transition-colors"
-                      onClick={() => window.open(resource.downloadUrl, '_blank')}
+                      onClick={() => handleDownload(resource.downloadUrl, resource.title + (resource.type === 'image' ? '.png' : '.pdf'))}
                     >
                       <Download size={14} />
                     </motion.button>
@@ -4732,6 +4963,94 @@ Enable JPA repositories with @EnableJpaRepositories`,
                 </motion.div>
               ))}
             </div>
+
+            {/* In-App Resource Viewer Modal */}
+            <AnimatePresence>
+              {selectedResourceForView && (
+                <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 md:p-10">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={() => setSelectedResourceForView(null)}
+                    className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm"
+                  />
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                    animate={{ 
+                      opacity: 1, 
+                      scale: 1, 
+                      y: 0,
+                      width: isModalMaximized ? '100%' : '90%',
+                      height: isModalMaximized ? '100%' : '90%'
+                    }}
+                    exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                    className="relative bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col z-[70] max-w-6xl w-full h-full"
+                  >
+                    {/* Viewer Header */}
+                    <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-white">
+                      <div className="flex items-center gap-3">
+                        <div className={`p-2 rounded-lg ${selectedResourceForView.type === 'image' ? 'bg-purple-100 text-purple-600' : 'bg-blue-100 text-blue-600'}`}>
+                          {selectedResourceForView.type === 'image' ? <Grid size={18} /> : <FileText size={18} />}
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-slate-900 leading-none mb-1">{selectedResourceForView.title}</h3>
+                          <p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">
+                            {selectedResourceForView.category} • {selectedResourceForView.type.toUpperCase()}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => handleDownload(selectedResourceForView.downloadUrl, selectedResourceForView.title + (selectedResourceForView.type === 'image' ? '.png' : '.pdf'))}
+                          className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          title="Download"
+                        >
+                          <Download size={20} />
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => setIsModalMaximized(!isModalMaximized)}
+                          className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-lg transition-colors"
+                          title={isModalMaximized ? "Minimize" : "Maximize"}
+                        >
+                          <Maximize size={20} />
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.1, rotate: 90 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => setSelectedResourceForView(null)}
+                          className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                          title="Close"
+                        >
+                          <X size={20} />
+                        </motion.button>
+                      </div>
+                    </div>
+
+                    {/* Viewer Content */}
+                    <div className="flex-1 bg-slate-100 overflow-auto flex items-center justify-center p-4">
+                      {selectedResourceForView.type === 'image' ? (
+                        <img 
+                          src={selectedResourceForView.downloadUrl} 
+                          alt={selectedResourceForView.title}
+                          className="max-w-full max-h-full object-contain shadow-lg rounded-lg"
+                        />
+                      ) : (
+                        <iframe
+                          src={`${selectedResourceForView.downloadUrl}#toolbar=0`}
+                          title={selectedResourceForView.title}
+                          className="w-full h-full border-none bg-white shadow-lg rounded-lg"
+                        />
+                      )}
+                    </div>
+                  </motion.div>
+                </div>
+              )}
+            </AnimatePresence>
           </motion.div>
         )}
 

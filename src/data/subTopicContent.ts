@@ -7,10 +7,32 @@ export interface SubTopicContent {
   description?: string;
   keyPoints?: string[];
   code?: string;
+  codeExamples?: {
+    title: string;
+    code: string;
+  }[];
   sections?: {
     heading: string;
     content?: string;
     points?: string[];
+    features?: string[];
+    purpose?: string[];
+    commonElements?: string[];
+    importance?: string[];
+    semanticElements?: string[];
+    limitations?: string[];
+    improvements?: string[];
+    advantages?: string[];
+    commonUses?: string[];
+    format?: string | string[];
+    example?: string;
+    examples?: string[];
+    subSections?: {
+      title: string;
+      description?: string;
+      points?: string[];
+      examples?: string[];
+    }[];
   }[];
 }
 
