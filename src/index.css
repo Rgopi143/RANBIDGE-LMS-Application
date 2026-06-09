@@ -3,6 +3,11 @@
 html {
   zoom: 0.9;
 }
+
+body, #root {
+  background-color: #f3f4f6;
+  min-height: 112vh;
+}
 @layer utilities {
   .perspective-1000 {
     perspective: 1000px;

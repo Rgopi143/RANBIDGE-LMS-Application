@@ -323,9 +323,30 @@ export default function LMSDashboard({
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [hiddenResourceIds, setHiddenResourceIds] = useState<number[]>(() => {
+    const saved = localStorage.getItem('lmsHiddenResources');
+    return saved ? JSON.parse(saved) : [];
+  });
+
   useEffect(() => {
     localStorage.setItem('lmsUploadedResources', JSON.stringify(uploadedResources));
   }, [uploadedResources]);
+
+  useEffect(() => {
+    localStorage.setItem('lmsHiddenResources', JSON.stringify(hiddenResourceIds));
+  }, [hiddenResourceIds]);
+
+  const handleDeleteResource = (resourceId: number) => {
+    if (window.confirm('Are you sure you want to delete this resource?')) {
+      // If it's an uploaded resource, remove it from uploadedResources state
+      if (uploadedResources.some(r => r.id === resourceId)) {
+        setUploadedResources(prev => prev.filter(r => r.id !== resourceId));
+      } else {
+        // If it's a base resource, add to hiddenResourceIds
+        setHiddenResourceIds(prev => [...prev, resourceId]);
+      }
+    }
+  };
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [uploadTitle, setUploadTitle] = useState('');
   const [uploadCategory, setUploadCategory] = useState('General');
@@ -1189,7 +1210,68 @@ Enable JPA repositories with @EnableJpaRepositories`,
       type: 'image',
       downloadUrl: '/Images/roadmaps/dotnet-humor.png',
       thumbnail: 'https://img.icons8.com/3d-fluency/188/bug.png'
-    }
+    },
+    { id: 201, title: 'Internet Basics', category: 'Images', subTopic: 'Data Images', size: '145.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Internet-Basics.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 202, title: 'World Wide Web (WWW)', category: 'Images', subTopic: 'Data Images', size: '27.1 KB', type: 'image', downloadUrl: '/Images/DATA Images/World-Wide-Web-WWW.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 203, title: 'Web Browsers and Rendering', category: 'Images', subTopic: 'Data Images', size: '55.1 KB', type: 'image', downloadUrl: '/Images/DATA Images/Web-Browsers-and-Rendering.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 204, title: 'Client–Server Architecture', category: 'Images', subTopic: 'Data Images', size: '103.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/ClientServer-Architecture.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 205, title: 'Frontend vs Backend', category: 'Images', subTopic: 'Data Images', size: '93.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Frontend-vs-Backend.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 206, title: 'Full Stack Development', category: 'Images', subTopic: 'Data Images', size: '101.8 KB', type: 'image', downloadUrl: '/Images/DATA Images/Full-Stack-Development.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 207, title: 'Static vs Dynamic Websites', category: 'Images', subTopic: 'Data Images', size: '92.8 KB', type: 'image', downloadUrl: '/Images/DATA Images/Static-vs-Dynamic-Websites.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 208, title: 'Development Tools', category: 'Images', subTopic: 'Data Images', size: '91.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Development-Tools.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 209, title: 'VS Code Setup', category: 'Images', subTopic: 'Data Images', size: '91.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/VS-Code-Setup.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 210, title: 'Browser Developer Tools', category: 'Images', subTopic: 'Data Images', size: '89.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Browser-Developer-Tools.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 211, title: 'HTML Overview', category: 'Images', subTopic: 'Data Images', size: '90.1 KB', type: 'image', downloadUrl: '/Images/DATA Images/HTML-Overview.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 212, title: 'History of HTML', category: 'Images', subTopic: 'Data Images', size: '102 KB', type: 'image', downloadUrl: '/Images/DATA Images/History-of-HTML.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 213, title: 'Features of HTML', category: 'Images', subTopic: 'Data Images', size: '84.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Features-of-HTML.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 214, title: 'HTML Versions', category: 'Images', subTopic: 'Data Images', size: '75.8 KB', type: 'image', downloadUrl: '/Images/DATA Images/HTML-Versions.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 215, title: 'HTML Page Structure', category: 'Images', subTopic: 'Data Images', size: '99.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/HTML-Page-Structure.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 216, title: 'HTML Syntax', category: 'Images', subTopic: 'Data Images', size: '74.8 KB', type: 'image', downloadUrl: '/Images/DATA Images/HTML-Syntax.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 217, title: 'HTML Comments', category: 'Images', subTopic: 'Data Images', size: '97.4 KB', type: 'image', downloadUrl: '/Images/DATA Images/HTML-Comments.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 218, title: 'Heading Tags', category: 'Images', subTopic: 'Data Images', size: '97.5 KB', type: 'image', downloadUrl: '/Images/DATA Images/Heading-Tags.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 219, title: 'Paragraph Tag', category: 'Images', subTopic: 'Data Images', size: '95.5 KB', type: 'image', downloadUrl: '/Images/DATA Images/Paragraph-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 220, title: 'Line Break', category: 'Images', subTopic: 'Data Images', size: '89.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Line-Break.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 221, title: 'Horizontal Rule', category: 'Images', subTopic: 'Data Images', size: '89.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/Horizontal-Rule.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 222, title: 'Text Formatting Tags', category: 'Images', subTopic: 'Data Images', size: '81.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Text-Formatting-Tags.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 223, title: 'Anchor Tag', category: 'Images', subTopic: 'Data Images', size: '75 KB', type: 'image', downloadUrl: '/Images/DATA Images/Anchor-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 224, title: 'Internal Links', category: 'Images', subTopic: 'Data Images', size: '81.7 KB', type: 'image', downloadUrl: '/Images/DATA Images/Internal-Links.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 225, title: 'External Links', category: 'Images', subTopic: 'Data Images', size: '94.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/External-Links.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 226, title: 'Email Links', category: 'Images', subTopic: 'Data Images', size: '121.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Email-Links.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 227, title: 'Bookmark Links', category: 'Images', subTopic: 'Data Images', size: '82 KB', type: 'image', downloadUrl: '/Images/DATA Images/Bookmark-Links.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 228, title: 'Image Tag', category: 'Images', subTopic: 'Data Images', size: '93.5 KB', type: 'image', downloadUrl: '/Images/DATA Images/Image-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 229, title: 'Audio Tag', category: 'Images', subTopic: 'Data Images', size: '55.7 KB', type: 'image', downloadUrl: '/Images/DATA Images/Audio-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 230, title: 'Video Tag', category: 'Images', subTopic: 'Data Images', size: '131.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Video-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 231, title: 'Iframe', category: 'Images', subTopic: 'Data Images', size: '102.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/Iframe.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 232, title: 'Ordered Lists', category: 'Images', subTopic: 'Data Images', size: '55.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/Ordered-Lists.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 233, title: 'Unordered Lists', category: 'Images', subTopic: 'Data Images', size: '87.7 KB', type: 'image', downloadUrl: '/Images/DATA Images/Unordered-Lists.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 234, title: 'Description Lists', category: 'Images', subTopic: 'Data Images', size: '54.6 KB', type: 'image', downloadUrl: '/Images/DATA Images/Description-Lists.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 235, title: 'Nested Lists', category: 'Images', subTopic: 'Data Images', size: '89.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Nested-Lists.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 236, title: 'Table Structure', category: 'Images', subTopic: 'Data Images', size: '88 KB', type: 'image', downloadUrl: '/Images/DATA Images/Table-Structure.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 237, title: 'Table Headers', category: 'Images', subTopic: 'Data Images', size: '82.8 KB', type: 'image', downloadUrl: '/Images/DATA Images/Table-Headers.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 238, title: 'Rowspan and Colspan', category: 'Images', subTopic: 'Data Images', size: '83.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Rowspan-and-Colspan.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 239, title: 'Form Tag', category: 'Images', subTopic: 'Data Images', size: '119.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Form-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 240, title: 'Input Types', category: 'Images', subTopic: 'Data Images', size: '105.6 KB', type: 'image', downloadUrl: '/Images/DATA Images/Input-Types.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 241, title: 'Textarea', category: 'Images', subTopic: 'Data Images', size: '53.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/Textarea.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 242, title: 'Dropdown', category: 'Images', subTopic: 'Data Images', size: '78.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Dropdown.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 243, title: 'Buttons', category: 'Images', subTopic: 'Data Images', size: '100.7 KB', type: 'image', downloadUrl: '/Images/DATA Images/Buttons.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 244, title: 'Header', category: 'Images', subTopic: 'Data Images', size: '103.1 KB', type: 'image', downloadUrl: '/Images/DATA Images/Header.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 245, title: 'Footer', category: 'Images', subTopic: 'Data Images', size: '36.4 KB', type: 'image', downloadUrl: '/Images/DATA Images/Footer.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 246, title: 'Section', category: 'Images', subTopic: 'Data Images', size: '130 KB', type: 'image', downloadUrl: '/Images/DATA Images/Section.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 247, title: 'Article', category: 'Images', subTopic: 'Data Images', size: '72.5 KB', type: 'image', downloadUrl: '/Images/DATA Images/Article.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 248, title: 'Nav', category: 'Images', subTopic: 'Data Images', size: '19.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/Nav.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 249, title: 'Main', category: 'Images', subTopic: 'Data Images', size: '97.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Main.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 250, title: 'Figure', category: 'Images', subTopic: 'Data Images', size: '90.8 KB', type: 'image', downloadUrl: '/Images/DATA Images/Figure.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 251, title: 'Figcaption', category: 'Images', subTopic: 'Data Images', size: '89.5 KB', type: 'image', downloadUrl: '/Images/DATA Images/Figcaption.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 252, title: 'CSS Overview', category: 'Images', subTopic: 'Data Images', size: '97.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/CSS-Overview.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 253, title: 'CSS Syntax', category: 'Images', subTopic: 'Data Images', size: '98.6 KB', type: 'image', downloadUrl: '/Images/DATA Images/CSS-Syntax.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 254, title: 'Inline CSS', category: 'Images', subTopic: 'Data Images', size: '96.1 KB', type: 'image', downloadUrl: '/Images/DATA Images/Inline-CSS.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 255, title: 'Internal CSS', category: 'Images', subTopic: 'Data Images', size: '100.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Internal-CSS.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 256, title: 'External CSS', category: 'Images', subTopic: 'Data Images', size: '44.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/External-CSS.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 257, title: 'Element Selector', category: 'Images', subTopic: 'Data Images', size: '71.4 KB', type: 'image', downloadUrl: '/Images/DATA Images/Element-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 258, title: 'Class Selector', category: 'Images', subTopic: 'Data Images', size: '76.6 KB', type: 'image', downloadUrl: '/Images/DATA Images/Class-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 259, title: 'ID Selector', category: 'Images', subTopic: 'Data Images', size: '47.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/ID-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 260, title: 'Universal Selector', category: 'Images', subTopic: 'Data Images', size: '49.4 KB', type: 'image', downloadUrl: '/Images/DATA Images/Universal-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 261, title: 'Group Selector', category: 'Images', subTopic: 'Data Images', size: '37.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Group-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' }
   ];
 
   const libraryResources = [...baseLibraryResources, ...uploadedResources];
@@ -4954,8 +5036,17 @@ Enable JPA repositories with @EnableJpaRepositories`,
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {selectedLibrarySubTopic === 'Data Images' && (
+                <div className="col-span-full">
+                  <h3 className="text-lg font-bold text-slate-800 border-l-4 border-purple-600 pl-3">Data Images Collection</h3>
+                  <p className="text-sm text-slate-500 mt-1">A curated collection of visual learning resources</p>
+                </div>
+              )}
               {libraryResources
                 .filter(resource => {
+                  // Filter out hidden resources
+                  if (hiddenResourceIds.includes(resource.id)) return false;
+
                   const matchesCategory = selectedLibraryCategory === 'All' || 
                     resource.category === selectedLibraryCategory;
                   
@@ -4997,6 +5088,15 @@ Enable JPA repositories with @EnableJpaRepositories`,
                         onClick={() => handleDownload(resource.downloadUrl, resource.title + (resource.type === 'image' ? '.png' : '.pdf'))}
                       >
                         <Download size={18} />
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="p-2 bg-white rounded-full text-red-600 shadow-lg"
+                        title="Delete Resource"
+                        onClick={() => handleDeleteResource(resource.id)}
+                      >
+                        <Trash2 size={18} />
                       </motion.button>
                     </div>
                   </div>
@@ -5040,6 +5140,15 @@ Enable JPA repositories with @EnableJpaRepositories`,
                       onClick={() => handleDownload(resource.downloadUrl, resource.title + (resource.type === 'image' ? '.png' : '.pdf'))}
                     >
                       <Download size={14} />
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="px-3 py-2 border border-red-200 text-red-600 rounded-lg text-xs font-bold hover:bg-red-50 transition-colors"
+                      title="Delete"
+                      onClick={() => handleDeleteResource(resource.id)}
+                    >
+                      <Trash2 size={14} />
                     </motion.button>
                   </div>
                 </motion.div>
