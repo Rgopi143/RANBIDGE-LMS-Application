@@ -99,7 +99,8 @@ import {
   Coffee,
   Globe,
   Monitor,
-  ArrowLeft
+  ArrowLeft,
+  Loader2
 
 } from 'lucide-react';
 
@@ -317,6 +318,36 @@ export default function LMSDashboard({
 
   const [isEditing, setIsEditing] = useState(false);
   const [librarySearchQuery, setLibrarySearchQuery] = useState('');
+  const [uploadedResources, setUploadedResources] = useState<any[]>(() => {
+    const saved = localStorage.getItem('lmsUploadedResources');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('lmsUploadedResources', JSON.stringify(uploadedResources));
+  }, [uploadedResources]);
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [uploadTitle, setUploadTitle] = useState('');
+  const [uploadCategory, setUploadCategory] = useState('General');
+  const [uploadFile, setUploadFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+
+  // Esc key listener to close modals
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedResourceForView(null);
+        setShowRatingPrompt(false);
+        setShowExportMenu(false);
+        setShowProfile(false);
+        setShowSettings(false);
+        setShowShareModal(false);
+        setShowUploadModal(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const [editedContent, setEditedContent] = useState('');
 
@@ -999,7 +1030,56 @@ Enable JPA repositories with @EnableJpaRepositories`,
     document.body.removeChild(link);
   };
 
-  const libraryResources = [
+  const handleUploadSubmit = async () => {
+    if (!uploadFile || !uploadTitle) return;
+    setIsUploading(true);
+
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const base64Data = e.target?.result as string;
+      const category = uploadCategory;
+      const subTopic = undefined;
+
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fileName: uploadFile.name,
+            fileType: uploadFile.type,
+            fileData: base64Data,
+            category,
+            subTopic
+          })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          const newResource = {
+            id: Date.now(),
+            title: uploadTitle.trim(),
+            category,
+            subTopic,
+            size: (uploadFile.size / (1024 * 1024)).toFixed(1) + ' MB',
+            type: uploadFile.type.includes('image') ? 'image' : 'pdf',
+            downloadUrl: data.path,
+            thumbnail: uploadFile.type.includes('image') ? data.path : 'https://img.icons8.com/3d-fluency/188/pdf.png'
+          };
+          setUploadedResources(prev => [...prev, newResource]);
+          setShowUploadModal(false);
+          setUploadFile(null);
+          setUploadTitle('');
+        }
+      } catch (error) {
+        console.error('File upload failed:', error);
+      } finally {
+        setIsUploading(false);
+      }
+    };
+    reader.readAsDataURL(uploadFile);
+  };
+
+  const baseLibraryResources = [
     {
       id: 22,
       title: 'Python Django',
@@ -1111,6 +1191,8 @@ Enable JPA repositories with @EnableJpaRepositories`,
       thumbnail: 'https://img.icons8.com/3d-fluency/188/bug.png'
     }
   ];
+
+  const libraryResources = [...baseLibraryResources, ...uploadedResources];
 
   const stats = {
 
@@ -4733,14 +4815,13 @@ Enable JPA repositories with @EnableJpaRepositories`,
                     className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
                   />
                 </div>
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2"
+                <button
+                  onClick={() => setShowUploadModal(true)}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
                 >
                   <Plus size={18} />
-                  Add PDF
-                </motion.button>
+                  Add File
+                </button>
               </div>
             </div>
 
@@ -5056,6 +5137,124 @@ Enable JPA repositories with @EnableJpaRepositories`,
         )}
 
       </main>
+
+      {/* Upload File Modal */}
+      <AnimatePresence>
+        {showUploadModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm"
+            onClick={() => setShowUploadModal(false)}
+          >
+            <motion.div
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col"
+            >
+              <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center shadow-inner">
+                    <Plus size={20} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-800 text-lg">Upload Resource</h3>
+                    <p className="text-xs font-semibold text-slate-500">Add a new PDF or Image</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowUploadModal(false)}
+                  className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div className="p-6 space-y-5">
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-1.5">Resource Name</label>
+                  <input
+                    type="text"
+                    value={uploadTitle}
+                    onChange={(e) => setUploadTitle(e.target.value)}
+                    placeholder="Enter course or material title"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all text-slate-800 font-medium placeholder:text-slate-400/80"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-1.5">Category</label>
+                  <input
+                    type="text"
+                    value={uploadCategory}
+                    onChange={(e) => setUploadCategory(e.target.value)}
+                    placeholder="e.g. General, Python, Cyber Security"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all text-slate-800 font-medium placeholder:text-slate-400/80"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-1.5">File</label>
+                  <div className="relative group">
+                    <input
+                      type="file"
+                      id="file-upload"
+                      className="hidden"
+                      accept=".pdf,image/*"
+                      onChange={(e) => setUploadFile(e.target.files?.[0] || null)}
+                    />
+                    <label
+                      htmlFor="file-upload"
+                      className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-xl cursor-pointer transition-all ${
+                        uploadFile ? 'border-blue-500 bg-blue-50/50' : 'border-slate-300 hover:border-blue-400 hover:bg-slate-50'
+                      }`}
+                    >
+                      {uploadFile ? (
+                        <div className="flex flex-col items-center text-blue-600">
+                          <CheckCircle2 size={32} className="mb-2" />
+                          <span className="text-sm font-semibold text-center px-4 truncate w-full">{uploadFile.name}</span>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center text-slate-500 group-hover:text-blue-500">
+                          <Download size={32} className="mb-2" />
+                          <span className="text-sm font-medium">Click to select PDF or Image</span>
+                        </div>
+                      )}
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6 border-t border-slate-100 bg-slate-50/50 flex gap-3">
+                <button
+                  onClick={() => setShowUploadModal(false)}
+                  className="flex-1 px-4 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl text-sm font-bold hover:bg-slate-50 transition-colors shadow-sm"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleUploadSubmit}
+                  disabled={!uploadFile || !uploadTitle || isUploading}
+                  className="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 transition-colors shadow-md shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                >
+                  {isUploading ? (
+                    <>
+                      <Loader2 className="animate-spin" size={16} />
+                      Uploading...
+                    </>
+                  ) : (
+                    'Upload File'
+                  )}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
 

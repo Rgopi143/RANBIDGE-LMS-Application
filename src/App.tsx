@@ -23,7 +23,8 @@ import {
   Loader2,
   FileText,
   Copy,
-  Sparkles
+  Sparkles,
+  Award
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { User } from '@supabase/supabase-js';
@@ -289,6 +290,169 @@ export default function App() {
     } finally {
       setIsActionLoading(false);
     }
+  };
+
+  const handleDownloadCertificate = () => {
+    const userName = user?.user_metadata?.display_name || user?.email?.split('@')[0] || 'Student';
+    const courseTitle = currentCourseId === 'mern-fullstack-master' ? 'MERN Full Stack Development' 
+      : currentCourseId === 'backend-development-master' ? 'Backend Development Masterclass' 
+      : 'Java Full Stack Masterclass';
+
+    const certHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+          <title>Certificate of Completion</title>
+          <style>
+              @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Inter:wght@400;600&display=swap');
+              @page { size: landscape; margin: 0; }
+              body { 
+                  margin: 0; 
+                  padding: 20mm; 
+                  display: flex; 
+                  justify-content: center; 
+                  align-items: center; 
+                  min-height: 100vh;
+                  background-color: #f8fafc;
+                  font-family: 'Inter', sans-serif;
+              }
+              .certificate {
+                  background: white;
+                  width: 100%;
+                  max-width: 1000px;
+                  aspect-ratio: 1.414;
+                  padding: 40px;
+                  box-sizing: border-box;
+                  border: 15px solid #0f172a;
+                  position: relative;
+                  text-align: center;
+                  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+              }
+              .certificate::before {
+                  content: '';
+                  position: absolute;
+                  inset: 10px;
+                  border: 2px solid #e2e8f0;
+              }
+              .header {
+                  font-family: 'Playfair Display', serif;
+                  font-size: 48px;
+                  color: #0f172a;
+                  margin-top: 40px;
+                  margin-bottom: 20px;
+                  text-transform: uppercase;
+                  letter-spacing: 4px;
+              }
+              .subtitle {
+                  font-size: 18px;
+                  color: #64748b;
+                  text-transform: uppercase;
+                  letter-spacing: 2px;
+                  margin-bottom: 40px;
+              }
+              .name {
+                  font-family: 'Playfair Display', serif;
+                  font-size: 56px;
+                  color: #0f172a;
+                  margin-bottom: 30px;
+                  font-style: italic;
+                  border-bottom: 2px solid #cbd5e1;
+                  display: inline-block;
+                  padding: 0 40px 10px;
+              }
+              .course-text {
+                  font-size: 20px;
+                  color: #475569;
+                  margin-bottom: 20px;
+              }
+              .course-name {
+                  font-size: 32px;
+                  color: #0f172a;
+                  font-weight: 600;
+                  margin-bottom: 60px;
+              }
+              .footer {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: flex-end;
+                  padding: 0 60px;
+                  margin-top: 40px;
+              }
+              .signature {
+                  border-top: 2px solid #0f172a;
+                  width: 200px;
+                  padding-top: 10px;
+                  font-family: 'Playfair Display', serif;
+                  font-style: italic;
+                  font-size: 24px;
+              }
+              .date {
+                  border-top: 2px solid #0f172a;
+                  width: 200px;
+                  padding-top: 10px;
+                  font-size: 16px;
+                  color: #475569;
+              }
+              .badge {
+                  position: absolute;
+                  top: 40px;
+                  right: 40px;
+                  width: 100px;
+                  height: 100px;
+                  background: #f59e0b;
+                  border-radius: 50%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-family: 'Playfair Display', serif;
+                  font-size: 18px;
+                  font-weight: bold;
+                  text-align: center;
+                  line-height: 1.2;
+                  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+                  border: 4px solid white;
+                  outline: 2px solid #f59e0b;
+              }
+              @media print {
+                  body { background: none; padding: 0; }
+                  .certificate { border: 15px solid #0f172a !important; box-shadow: none; border-radius: 0; }
+                  @page { margin: 0; }
+              }
+          </style>
+      </head>
+      <body>
+          <div class="certificate">
+              <div class="badge">Certified<br>Developer</div>
+              <div class="header">Certificate of Completion</div>
+              <div class="subtitle">This proudly presented to</div>
+              
+              <div class="name">${userName}</div>
+              
+              <div class="course-text">For successfully completing the comprehensive program</div>
+              <div class="course-name">${courseTitle}</div>
+              
+              <div class="footer">
+                  <div>
+                      <div class="date">${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                      <div style="font-size: 14px; color: #64748b; margin-top: 5px;">Date Completed</div>
+                  </div>
+                  <div>
+                      <div class="signature">D. Sirisha</div>
+                      <div style="font-size: 14px; color: #64748b; margin-top: 5px;">Lead Instructor</div>
+                  </div>
+              </div>
+          </div>
+          <script>
+            setTimeout(() => window.print(), 500);
+          </script>
+      </body>
+      </html>
+    `;
+
+    const blob = new Blob([certHtml], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
   };
 
   const handlePlayground = () => {
@@ -808,28 +972,41 @@ export default function App() {
                       </h1>
                       
                       {!currentLesson.quizId && (
-                        <motion.button 
-                          whileTap={{ scale: 0.95 }}
-                          onClick={() => toggleLessonCompletion(selectedSubTopic ? `${currentLesson.id}:${selectedSubTopic}` : currentLesson.id)}
-                          className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 rounded-2xl font-bold transition-all shadow-lg w-full sm:w-auto ${
-                            completedLessons.includes(selectedSubTopic ? `${currentLesson.id}:${selectedSubTopic}` : currentLesson.id)
-                            ? 'bg-gradient-to-r from-emerald-100 to-emerald-50 text-emerald-800 shadow-emerald-200/50 border-2 border-emerald-200'
-                            : 'bg-gradient-to-r from-emerald-600 to-emerald-700 text-white shadow-emerald-600/40 hover:scale-105 active:scale-100 hover:from-emerald-700 hover:to-emerald-800'
-                          }`}
-                          disabled={isActionLoading}
-                        >
-                          {completedLessons.includes(selectedSubTopic ? `${currentLesson.id}:${selectedSubTopic}` : currentLesson.id) ? (
-                            <>
-                              <CheckCircle size={18} />
-                              Completed
-                            </>
-                          ) : (
-                            <>
-                              <CheckCircle2 size={18} />
-                              Mark as Completed
-                            </>
+                        <div className="flex flex-col sm:flex-row gap-4 items-center sm:justify-start w-full">
+                          <motion.button 
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => toggleLessonCompletion(selectedSubTopic ? `${currentLesson.id}:${selectedSubTopic}` : currentLesson.id)}
+                            className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 rounded-2xl font-bold transition-all shadow-lg w-full sm:w-auto ${
+                              completedLessons.includes(selectedSubTopic ? `${currentLesson.id}:${selectedSubTopic}` : currentLesson.id)
+                              ? 'bg-gradient-to-r from-emerald-100 to-emerald-50 text-emerald-800 shadow-emerald-200/50 border-2 border-emerald-200'
+                              : 'bg-gradient-to-r from-emerald-600 to-emerald-700 text-white shadow-emerald-600/40 hover:scale-105 active:scale-100 hover:from-emerald-700 hover:to-emerald-800'
+                            }`}
+                            disabled={isActionLoading}
+                          >
+                            {completedLessons.includes(selectedSubTopic ? `${currentLesson.id}:${selectedSubTopic}` : currentLesson.id) ? (
+                              <>
+                                <CheckCircle size={18} />
+                                Completed
+                              </>
+                            ) : (
+                              <>
+                                <CheckCircle2 size={18} />
+                                Mark as Completed
+                              </>
+                            )}
+                          </motion.button>
+                          
+                          {progressPercentage >= 100 && (
+                            <motion.button
+                              whileTap={{ scale: 0.95 }}
+                              onClick={handleDownloadCertificate}
+                              className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 rounded-2xl font-bold transition-all shadow-lg w-full sm:w-auto bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-amber-500/40 hover:scale-105 hover:from-amber-600 hover:to-amber-700"
+                            >
+                              <Award size={18} />
+                              Download Certificate
+                            </motion.button>
                           )}
-                        </motion.button>
+                        </div>
                       )}
                     </div>
 

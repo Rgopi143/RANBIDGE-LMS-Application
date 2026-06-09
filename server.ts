@@ -20,8 +20,8 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
-  app.use(express.json());
-
+  app.use(express.json({ limit: '50mb' }));
+  app.use(express.urlencoded({ limit: '50mb', extended: true }));
   // MongoDB Connection
   const mongoUri = process.env.MONGODB_URI;
   let db: any;
@@ -184,6 +184,35 @@ async function startServer() {
       }
       
       res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: String(error) });
+    }
+  });
+
+  app.post('/api/upload', async (req, res) => {
+    try {
+      const { fileName, fileType, fileData, category, subTopic } = req.body;
+      const publicDir = path.join(process.cwd(), 'public');
+      const pdfsDir = path.join(publicDir, 'pdfs');
+      let targetDir = pdfsDir;
+      
+      if (category) {
+          const catStr = category.toLowerCase().replace(/\s+/g, '-');
+          targetDir = path.join(pdfsDir, catStr);
+      }
+      
+      await fs.mkdir(targetDir, { recursive: true });
+      
+      const filePath = path.join(targetDir, fileName);
+      
+      // Split off the data URI prefix if present (e.g. "data:application/pdf;base64,...")
+      const base64Data = fileData.replace(/^data:([A-Za-z-+/]+);base64,/, '');
+      const buffer = Buffer.from(base64Data, 'base64');
+      await fs.writeFile(filePath, buffer);
+      
+      // Return public URL path
+      const publicPath = `/pdfs/${category ? category.toLowerCase().replace(/\s+/g, '-') + '/' : ''}${fileName}`;
+      res.json({ success: true, path: publicPath, fileName, category, subTopic });
     } catch (error) {
       res.status(500).json({ error: String(error) });
     }

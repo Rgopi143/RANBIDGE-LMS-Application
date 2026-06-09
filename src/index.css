@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+html {
+  zoom: 0.9;
+}
 @layer utilities {
   .perspective-1000 {
     perspective: 1000px;
