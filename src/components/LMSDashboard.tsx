@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, Variants } from 'motion/react';
 
 import {
 
@@ -66,6 +66,8 @@ import {
   Eye,
 
   Lock,
+
+  Shield,
 
   Unlock,
 
@@ -167,6 +169,8 @@ interface LMSDashboardProps {
 
   setCurrentCourseId?: (id: string) => void;
 
+  isAdmin?: boolean;
+
 }
 
 
@@ -180,7 +184,8 @@ export default function LMSDashboard({
   syllabus = [],
   desiredTab,
   onTabSet,
-  setCurrentCourseId
+  setCurrentCourseId,
+  isAdmin = false
 }: LMSDashboardProps) {
 
   const [activeTab, setActiveTab] = useState<'overview' | 'courses' | 'catalog' | 'progress' | 'schedule' | 'assignments' | 'playground' | 'notes' | 'rating' | 'library'>(() => {
@@ -317,6 +322,7 @@ export default function LMSDashboard({
   const [isModalMaximized, setIsModalMaximized] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
+  const [isAdminMode, setIsAdminMode] = useState(isAdmin);
   const [librarySearchQuery, setLibrarySearchQuery] = useState('');
   const [uploadedResources, setUploadedResources] = useState<any[]>(() => {
     const saved = localStorage.getItem('lmsUploadedResources');
@@ -457,59 +463,32 @@ courseTitle: course.courseTitle,
 
 
   // Animation variants
-
-  const containerVariants = {
-
+  const containerVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
-
     visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.1 } }
-
   };
 
-
-
-  const cardVariants = {
-
+  const cardVariants: Variants = {
     hidden: { opacity: 0, scale: 0.9, y: 20 },
-
-    visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 100 } },
-
-    hover: { scale: 1.05, y: -5, transition: { type: "spring", stiffness: 400, damping: 10 } }
-
+    visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring" as any, stiffness: 100 } },
+    hover: { scale: 1.05, y: -5, transition: { type: "spring" as any, stiffness: 400, damping: 10 } }
   };
 
-
-
-  const tabVariants = {
-
+  const tabVariants: Variants = {
     inactive: { scale: 1, backgroundColor: "transparent" },
-
-    active: { scale: 1.05, backgroundColor: "rgb(51 65 85)", transition: { type: "spring", stiffness: 300 } }
-
+    active: { scale: 1.05, backgroundColor: "rgb(51 65 85)", transition: { type: "spring" as any, stiffness: 300 } }
   };
 
-
-
-  const dropdownVariants = {
-
+  const dropdownVariants: Variants = {
     hidden: { opacity: 0, scale: 0.95, y: -10 },
-
-    visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 20 } },
-
+    visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring" as any, stiffness: 300, damping: 20 } },
     exit: { opacity: 0, scale: 0.95, y: -10, transition: { duration: 0.2 } }
-
   };
 
-
-
-  const modalVariants = {
-
+  const modalVariants: Variants = {
     hidden: { opacity: 0, scale: 0.9 },
-
-    visible: { opacity: 1, scale: 1, transition: { type: "spring", stiffness: 300, damping: 20 } },
-
+    visible: { opacity: 1, scale: 1, transition: { type: "spring" as any, stiffness: 300, damping: 20 } },
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } }
-
   };
 
 
@@ -1055,49 +1034,43 @@ Enable JPA repositories with @EnableJpaRepositories`,
     if (!uploadFile || !uploadTitle) return;
     setIsUploading(true);
 
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const base64Data = e.target?.result as string;
-      const category = uploadCategory;
-      const subTopic = undefined;
+    try {
+      const formData = new FormData();
+      // Append fields BEFORE file so multer can access them in 'destination'
+      formData.append('title', uploadTitle.trim());
+      formData.append('category', uploadCategory);
+      formData.append('file', uploadFile);
 
-      try {
-        const response = await fetch('/api/upload', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            fileName: uploadFile.name,
-            fileType: uploadFile.type,
-            fileData: base64Data,
-            category,
-            subTopic
-          })
-        });
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
 
-        const data = await response.json();
-        if (data.success) {
-          const newResource = {
-            id: Date.now(),
-            title: uploadTitle.trim(),
-            category,
-            subTopic,
-            size: (uploadFile.size / (1024 * 1024)).toFixed(1) + ' MB',
-            type: uploadFile.type.includes('image') ? 'image' : 'pdf',
-            downloadUrl: data.path,
-            thumbnail: uploadFile.type.includes('image') ? data.path : 'https://img.icons8.com/3d-fluency/188/pdf.png'
-          };
-          setUploadedResources(prev => [...prev, newResource]);
-          setShowUploadModal(false);
-          setUploadFile(null);
-          setUploadTitle('');
-        }
-      } catch (error) {
-        console.error('File upload failed:', error);
-      } finally {
-        setIsUploading(false);
+      const data = await response.json();
+      if (data.success) {
+        const newResource = {
+          id: Date.now(),
+          title: uploadTitle.trim(),
+          category: uploadCategory,
+          subTopic: undefined,
+          size: (uploadFile.size / (1024 * 1024)).toFixed(1) + ' MB',
+          type: uploadFile.type.includes('image') ? 'image' : 'pdf',
+          downloadUrl: data.path,
+          thumbnail: uploadFile.type.includes('image') ? data.path : 'https://img.icons8.com/3d-fluency/188/pdf.png'
+        };
+        setUploadedResources(prev => [...prev, newResource]);
+        setShowUploadModal(false);
+        setUploadFile(null);
+        setUploadTitle('');
+      } else {
+        alert('Upload failed: ' + (data.error || 'Unknown error'));
       }
-    };
-    reader.readAsDataURL(uploadFile);
+    } catch (error) {
+      console.error('File upload failed:', error);
+      alert('File upload failed. Please check your connection and try again.');
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   const baseLibraryResources = [
@@ -1719,10 +1692,8 @@ Enable JPA repositories with @EnableJpaRepositories`,
               whileTap={{ scale: 0.95 }}
 
               onClick={() => {
-                if (course.id === 'java-fullstack-master' || course.id === 'mern-fullstack-master' || course.id === 'backend-development-master') {
-                  if (setCurrentCourseId) setCurrentCourseId(course.id);
-                  setCurrentView('lesson');
-                }
+                if (setCurrentCourseId) setCurrentCourseId(course.id);
+                setCurrentView('lesson');
               }}
 
               className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 ${isEnrolled
@@ -2070,156 +2041,179 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                 {/* Profile Dropdown */}
 
-                {showProfile && (
-
-                  <motion.div
-
-                    variants={dropdownVariants}
-
-                    initial="hidden"
-
-                    animate="visible"
-
-                    exit="exit"
-
-                    className="absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 overflow-hidden"
-
-                  >
-
-                    <div className="p-6 border-b border-slate-200">
-
-                      <div className="flex items-center gap-4">
-
-                        <motion.div
-                          className="w-16 h-16 bg-slate-700 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg"
-
-                          whileHover={{ scale: 1.1, rotate: 10 }}
-
-                          transition={{ type: "spring" }}
-
-                        >
-
-                          {user?.email?.[0]?.toUpperCase() || 'U'}
-
-                        </motion.div>
-
-                        <div>
-
-                          <h3 className="font-semibold text-slate-900">
-
-                            {user?.user_metadata?.display_name || 'Student'}
-
-                          </h3>
-
-                          <p className="text-sm text-slate-500">{user?.email || 'student@example.com'}</p>
-
-                          <div className="flex items-center gap-1 mt-1">
-
-                            <div className="w-2 h-2 bg-slate-500 rounded-full"></div>
-
-                            <span className="text-xs text-slate-600 font-medium">Premium Member</span>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
-
-
-                    <div className="p-2">
-
-                      {[
-
-                        { icon: User, label: 'Edit Profile', value: '' },
-
-                        { icon: BookOpen, label: 'Courses', value: '3 Active' },
-
-                        { icon: Award, label: 'Achievements', value: '12 Earned' },
-
-                        { icon: Clock, label: 'Learning Time', value: '24h Total' },
-
-                        { icon: Settings, label: 'Account Settings', value: '' }
-
-                      ].map((item, index) => (
-
-                        <motion.button
-
-                          key={item.label}
-
-                          initial={{ opacity: 0, x: -20 }}
-
-                          animate={{ opacity: 1, x: 0 }}
-
-                          transition={{ delay: index * 0.1 }}
-
-                          whileHover={{ scale: 1.02, x: 5 }}
-
-                          whileTap={{ scale: 0.98 }}
-
-                          className="w-full flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition-colors"
-
-                        >
-
-                          <div className="flex items-center gap-3">
+                <AnimatePresence>
+                  {showProfile && (
+                    <>
+                      {/* Global Backdrop for outside click closure */}
+                      <div 
+                        className="fixed inset-0 z-40 bg-transparent" 
+                        onClick={() => setShowProfile(false)}
+                      />
+                      
+                      <motion.div
+                        variants={dropdownVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className="absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 overflow-hidden"
+                      >
+                        <div className="p-6 border-b border-slate-200 relative">
+                          <button 
+                            onClick={() => setShowProfile(false)}
+                            className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                            title="Close"
+                          >
+                            <X size={16} />
+                          </button>
+                          <div className="flex items-center gap-4">
 
                             <motion.div
+                              className="w-16 h-16 bg-slate-700 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg"
 
-                              whileHover={{ scale: 1.2, rotate: 10 }}
+                              whileHover={{ scale: 1.1, rotate: 10 }}
 
                               transition={{ type: "spring" }}
 
                             >
 
-                              <item.icon size={18} className="text-slate-600" />
+                              {user?.email?.[0]?.toUpperCase() || 'U'}
 
                             </motion.div>
 
-                            <span className="text-sm text-slate-700">{item.label}</span>
+                            <div>
+
+                              <h3 className="font-semibold text-slate-900">
+
+                                {user?.user_metadata?.display_name || 'Student'}
+
+                              </h3>
+
+                              <p className="text-sm text-slate-500">{user?.email || 'student@example.com'}</p>
+
+                              <div className="flex items-center gap-1 mt-1">
+
+                                <div className="w-2 h-2 bg-slate-500 rounded-full"></div>
+
+                                <span className="text-xs text-slate-600 font-medium">Premium Member</span>
+
+                              </div>
+
+                            </div>
 
                           </div>
 
-                          {item.value && (
+                        </div>
 
-                            <span className="text-xs text-white font-bold">{item.value}</span>
 
+
+                        <div className="p-2">
+                          {isAdmin && (
+                            <motion.button
+                              whileHover={{ scale: 1.02, x: 5, backgroundColor: 'rgba(51, 65, 85, 0.05)' }}
+                              whileTap={{ scale: 0.98 }}
+                              onClick={() => setCurrentView('admin')}
+                              className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 transition-all group mb-1 border border-slate-200 shadow-sm"
+                            >
+                              <div className="flex items-center gap-3">
+                                <div className="p-2 bg-slate-900 text-white rounded-lg flex items-center justify-center shadow-md">
+                                  <Shield size={16} />
+                                </div>
+                                <span className="text-sm font-bold text-slate-800">Admin Panel</span>
+                              </div>
+                              <ChevronRight size={14} className="text-slate-400 group-hover:text-slate-600 transition-colors" />
+                            </motion.button>
                           )}
 
-                        </motion.button>
+                          {[
 
-                      ))}
+                            { icon: User, label: 'Edit Profile', value: '' },
 
-                    </div>
+                            { icon: BookOpen, label: 'Courses', value: '3 Active' },
+
+                            { icon: Award, label: 'Achievements', value: '12 Earned' },
+
+                            { icon: Clock, label: 'Learning Time', value: '24h Total' },
+
+                            { icon: Settings, label: 'Account Settings', value: '' }
+
+                          ].map((item, index) => (
+
+                            <motion.button
+
+                              key={item.label}
+
+                              initial={{ opacity: 0, x: -20 }}
+
+                              animate={{ opacity: 1, x: 0 }}
+
+                              transition={{ delay: index * 0.1 }}
+
+                              whileHover={{ scale: 1.02, x: 5 }}
+
+                              whileTap={{ scale: 0.98 }}
+
+                              className="w-full flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition-colors"
+
+                            >
+
+                              <div className="flex items-center gap-3">
+
+                                <motion.div
+
+                                  whileHover={{ scale: 1.2, rotate: 10 }}
+
+                                  transition={{ type: "spring" }}
+
+                                >
+
+                                  <item.icon size={18} className="text-slate-600" />
+
+                                </motion.div>
+
+                                <span className="text-sm text-slate-700">{item.label}</span>
+
+                              </div>
+
+                              {item.value && (
+
+                                <span className="text-xs text-white font-bold">{item.value}</span>
+
+                              )}
+
+                            </motion.button>
+
+                          ))}
+
+                        </div>
 
 
 
-                    <div className="p-3 border-t border-slate-200">
+                        <div className="p-3 border-t border-slate-200">
 
-                      <motion.button
+                          <motion.button
 
-                        whileHover={{ scale: 1.02 }}
+                            whileHover={{ scale: 1.02 }}
 
-                        whileTap={{ scale: 0.98 }}
+                            whileTap={{ scale: 0.98 }}
 
-                        onClick={onLogout}
+                            onClick={onLogout}
 
-                        className="w-full flex items-center justify-center gap-2 p-3 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition-colors"
+                            className="w-full flex items-center justify-center gap-2 p-3 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition-colors"
 
-                      >
+                          >
 
-                        <LogOut size={18} />
+                            <LogOut size={18} />
 
-                        <span className="font-medium">Sign Out</span>
+                            <span className="font-medium">Sign Out</span>
 
-                      </motion.button>
+                          </motion.button>
 
-                    </div>
+                        </div>
 
-                  </motion.div>
-
-                )}
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
 
               </div>
 
@@ -2254,7 +2248,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
               { id: 'rating', label: 'Rating', icon: StarIcon },
               { id: 'library', label: 'Library', icon: BookOpen }
 
-            ].map((tab, index) => (
+            ].filter(tab => isAdmin || (tab.id !== 'catalog' && tab.id !== 'rating')).map((tab, index) => (
 
               <motion.div
 
@@ -3091,10 +3085,8 @@ Enable JPA repositories with @EnableJpaRepositories`,
                   key={course.id}
                   whileHover={{ y: -4 }}
                   onClick={() => {
-                    if (course.id === 'java-fullstack-master' || course.id === 'mern-fullstack-master' || course.id === 'backend-development-master') {
-                      if (setCurrentCourseId) setCurrentCourseId(course.id);
-                      setCurrentView('lesson');
-                    }
+                    if (setCurrentCourseId) setCurrentCourseId(course.id);
+                    setCurrentView('lesson');
                   }}
                   className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition-all cursor-pointer"
                 >
@@ -3132,7 +3124,11 @@ Enable JPA repositories with @EnableJpaRepositories`,
                         <motion.button
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          onClick={() => setCurrentView('lesson')}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (setCurrentCourseId) setCurrentCourseId(course.id);
+                            setCurrentView('lesson');
+                          }}
                           className="text-xs font-bold text-slate-600 hover:text-slate-900"
                         >
                           Continue
@@ -4883,10 +4879,12 @@ Enable JPA repositories with @EnableJpaRepositories`,
           >
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
-                <h2 className="text-xl font-bold text-slate-900">Resource Library</h2>
+                <div className="flex items-center gap-3">
+                  <h2 className="text-xl font-bold text-slate-900">Resource Library</h2>
+                </div>
                 <p className="text-slate-500">Access exclusive study materials and PDFs</p>
               </div>
-              <div className="flex w-full sm:w-auto gap-3">
+              <div className="flex w-full sm:w-auto gap-3 flex-wrap">
                 <div className="relative w-full sm:w-64">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
                   <input
@@ -4897,15 +4895,20 @@ Enable JPA repositories with @EnableJpaRepositories`,
                     className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
                   />
                 </div>
-                <button
-                  onClick={() => setShowUploadModal(true)}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
-                >
-                  <Plus size={18} />
-                  Add File
-                </button>
+
+                {isAdmin && (
+                  <button
+                    onClick={() => setShowUploadModal(true)}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                  >
+                    <Plus size={18} />
+                    Add File
+                  </button>
+                )}
               </div>
             </div>
+
+
 
             {/* Library Categories */}
             <div className="space-y-4">
@@ -5070,6 +5073,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
                       alt={resource.title}
                       className={`${resource.type === 'image' ? 'w-full h-full object-cover' : 'w-16 h-16 object-contain'} group-hover:scale-110 transition-transform`}
                     />
+
                     <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                       <motion.button
                         whileHover={{ scale: 1.1 }}
@@ -5089,15 +5093,17 @@ Enable JPA repositories with @EnableJpaRepositories`,
                       >
                         <Download size={18} />
                       </motion.button>
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="p-2 bg-white rounded-full text-red-600 shadow-lg"
-                        title="Delete Resource"
-                        onClick={() => handleDeleteResource(resource.id)}
-                      >
-                        <Trash2 size={18} />
-                      </motion.button>
+                      {isAdmin && (
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="p-2 bg-white rounded-full text-red-600 shadow-lg"
+                          title="Delete Resource"
+                          onClick={() => handleDeleteResource(resource.id)}
+                        >
+                          <Trash2 size={18} />
+                        </motion.button>
+                      )}
                     </div>
                   </div>
 
@@ -5141,15 +5147,17 @@ Enable JPA repositories with @EnableJpaRepositories`,
                     >
                       <Download size={14} />
                     </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="px-3 py-2 border border-red-200 text-red-600 rounded-lg text-xs font-bold hover:bg-red-50 transition-colors"
-                      title="Delete"
-                      onClick={() => handleDeleteResource(resource.id)}
-                    >
-                      <Trash2 size={14} />
-                    </motion.button>
+                    {isAdmin && (
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="px-3 py-2 border border-red-200 text-red-600 rounded-lg text-xs font-bold hover:bg-red-50 transition-colors"
+                        title="Delete"
+                        onClick={() => handleDeleteResource(resource.id)}
+                      >
+                        <Trash2 size={14} />
+                      </motion.button>
+                    )}
                   </div>
                 </motion.div>
               ))}

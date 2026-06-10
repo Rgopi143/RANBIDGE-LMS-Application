@@ -23,7 +23,7 @@ type AuthMode = 'login' | 'register' | 'reset' | 'success';
 
 interface AuthProps {
   initialMode?: AuthMode;
-  onAdminLogin?: () => void;
+  onAdminLogin?: (adminData: any) => void;
 }
 
 export default function Auth({ initialMode = 'login', onAdminLogin }: AuthProps) {
@@ -103,6 +103,19 @@ export default function Auth({ initialMode = 'login', onAdminLogin }: AuthProps)
 
     try {
       if (mode === 'login') {
+        // Check for Admin Credentials
+        if (email === 'lmsportaladminlogin@gmail.com' && password === 'LMS') {
+          if (onAdminLogin) {
+            onAdminLogin({ 
+              email: 'lmsportaladminlogin@gmail.com', 
+              user_metadata: { display_name: 'LMS Admin' } 
+            });
+            setIsSuccess(true);
+            setMode('success');
+            return;
+          }
+        }
+
         const { error: signInError } = await supabase.auth.signInWithPassword({
           email,
           password,
@@ -508,16 +521,6 @@ export default function Auth({ initialMode = 'login', onAdminLogin }: AuthProps)
                   Sign Up
                 </button>
               </p>
-              {/* Admin Login Link */}
-              <div className="pt-2 border-t border-slate-100">
-                <button 
-                  onClick={onAdminLogin}
-                  className="text-xs text-slate-500 hover:text-slate-700 transition-colors flex items-center gap-1 mx-auto"
-                >
-                  <Shield size={12} />
-                  Admin Access
-                </button>
-              </div>
             </>
           ) : mode === 'register' ? (
             <p className="text-sm text-slate-600">

@@ -450,13 +450,13 @@ class AdminService {
       return profile;
     } catch (error: any) {
       // Fallback to demo mode if database isn't set up
-      if (email === 'ranbidgesolutonspvtltd@amail.com' && password === 'rsplacadamy') {
+      if (email === 'lmsportaladminlogin@gmail.com' && password === 'LMS') {
         console.warn('Using demo admin mode - please set up Supabase database for production');
         
         const demoAdmin: UserProfile = {
           id: 'demo-admin-001',
-          email: 'ranbidgesolutonspvtltd@amail.com',
-          name: 'Ranbridge Solutions Administrator',
+          email: 'lmsportaladminlogin@gmail.com',
+          name: 'LMS Portal Administrator',
           role: 'admin',
           status: 'active',
           created_at: new Date().toISOString(),

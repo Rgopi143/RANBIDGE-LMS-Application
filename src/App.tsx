@@ -38,13 +38,15 @@ import Dashboard from './components/Dashboard';
 import LMSDashboard from './components/LMSDashboard';
 import CourseCatalog from './components/CourseCatalog';
 import AdminAuth from './components/AdminAuth';
-import AdminDashboard from './components/AdminDashboard';
 import { subTopicData } from './data/subTopicContent';
 import InstallGuide from './components/InstallGuide';
 
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
-  const [admin, setAdmin] = useState<any>(null);
+  const [admin, setAdmin] = useState<any>(() => {
+    const saved = localStorage.getItem('appAdminSession');
+    return saved ? JSON.parse(saved) : null;
+  });
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [isProgressLoading, setIsProgressLoading] = useState(false);
   const [isActionLoading, setIsActionLoading] = useState(false);
@@ -111,6 +113,14 @@ export default function App() {
     localStorage.setItem('appCurrentLessonIdx', JSON.stringify(currentLessonIdx));
     localStorage.setItem('appCurrentCourseId', JSON.stringify(currentCourseId));
   }, [currentView, currentSectionIdx, currentLessonIdx, currentCourseId]);
+
+  useEffect(() => {
+    if (admin) {
+      localStorage.setItem('appAdminSession', JSON.stringify(admin));
+    } else {
+      localStorage.removeItem('appAdminSession');
+    }
+  }, [admin]);
 
   useEffect(() => {
     if (mainContentRef.current) {
@@ -492,7 +502,7 @@ export default function App() {
   const handleAdminLogin = (adminData: any) => {
     setAdmin(adminData);
     setShowAdminAuth(false);
-    setCurrentView('admin');
+    setCurrentView('lms');
   };
 
   const handleAdminLogout = () => {
@@ -694,27 +704,7 @@ export default function App() {
     );
   }
 
-  if (showAdminAuth) {
-    return (
-      <div className="relative">
-        <button 
-          onClick={() => setShowAdminAuth(false)}
-          className="fixed top-6 left-6 z-[60] flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg border border-slate-100 font-bold text-slate-600 hover:text-slate-900 transition-all group"
-        >
-          <ArrowLeft className="group-hover:-translate-x-1 transition-transform" size={18} />
-          Back to Login
-        </button>
-        <AdminAuth 
-          onAdminLogin={handleAdminLogin}
-          onBack={() => setShowAdminAuth(false)}
-        />
-      </div>
-    );
-  }
 
-  if (admin) {
-    return <AdminDashboard admin={admin} onLogout={handleAdminLogout} />;
-  }
 
   if (!user && !admin) {
     if (showAuth) {
@@ -725,34 +715,15 @@ export default function App() {
             className="fixed top-6 left-6 z-[60] flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg border border-slate-100 font-bold text-slate-600 hover:text-slate-900 transition-all group"
           >
             <ArrowLeft className="group-hover:-translate-x-1 transition-transform" size={18} />
-            Back to Dashboard
+            Back to Home
           </button>
           <Auth 
             initialMode={authMode as any} 
+            onAdminLogin={handleAdminLogin}
           />
         </div>
       );
     }
-    
-    if (showAdminAuth) {
-      return (
-        <div className="relative">
-          <button 
-            onClick={() => setShowAdminAuth(false)}
-            className="fixed top-6 left-6 z-[60] flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg border border-slate-100 font-bold text-slate-600 hover:text-slate-900 transition-all group"
-          >
-            <ArrowLeft className="group-hover:-translate-x-1 transition-transform" size={18} />
-            Back to Dashboard
-          </button>
-          <AdminAuth 
-             onAdminLogin={handleAdminLogin}
-             onBack={() => setShowAdminAuth(false)}
-          />
-        </div>
-      );
-    }
-
-    // Allow fall-through to the main layout so that currentView states (like 'lesson') work properly for guests
   }
 
   return (
@@ -1191,15 +1162,27 @@ export default function App() {
                   </motion.div>
                 </div>
               </>
-            ) : (
+            ) : (user || admin) ? (
               <LMSDashboard 
-                user={user || { email: 'guest@student.com', user_metadata: { display_name: 'Guest Learner' } }}
+                user={user || admin}
                 setCurrentView={setCurrentView}
-                onLogout={user ? handleLogout : () => setShowAuth(true)}
+                onLogout={handleLogout}
                 completedLessons={completedLessons}
                 moduleStats={moduleStats}
                 syllabus={syllabus}
                 setCurrentCourseId={setCurrentCourseId}
+                isAdmin={!!admin}
+              />
+            ) : (
+              <LandingPage 
+                onRegister={() => {
+                  setAuthMode('register');
+                  setShowAuth(true);
+                }}
+                onLogin={() => {
+                  setAuthMode('login');
+                  setShowAuth(true);
+                }}
               />
             )}
           </main>

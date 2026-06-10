@@ -5,6 +5,7 @@ import fs from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
+import multer from 'multer';
 
 dotenv.config();
 
@@ -189,30 +190,47 @@ async function startServer() {
     }
   });
 
-  app.post('/api/upload', async (req, res) => {
-    try {
-      const { fileName, fileType, fileData, category, subTopic } = req.body;
-      const publicDir = path.join(process.cwd(), 'public');
-      const pdfsDir = path.join(publicDir, 'pdfs');
-      let targetDir = pdfsDir;
-      
-      if (category) {
-          const catStr = category.toLowerCase().replace(/\s+/g, '-');
-          targetDir = path.join(pdfsDir, catStr);
+  // Fast multipart upload using multer (no base64 overhead)
+  const multerStorage = multer.diskStorage({
+    destination: async (req, file, cb) => {
+      try {
+        const category = (req.body.category || req.query.category || 'general') as string;
+        const isImage = file.mimetype.startsWith('image/');
+        const baseDir = isImage
+          ? path.join(process.cwd(), 'public', 'Images', 'uploads')
+          : path.join(process.cwd(), 'public', 'pdfs', category.toLowerCase().replace(/\s+/g, '-'));
+        await fs.mkdir(baseDir, { recursive: true });
+        cb(null, baseDir);
+      } catch (err: any) {
+        cb(err, '');
       }
-      
-      await fs.mkdir(targetDir, { recursive: true });
-      
-      const filePath = path.join(targetDir, fileName);
-      
-      // Split off the data URI prefix if present (e.g. "data:application/pdf;base64,...")
-      const base64Data = fileData.replace(/^data:([A-Za-z-+/]+);base64,/, '');
-      const buffer = Buffer.from(base64Data, 'base64');
-      await fs.writeFile(filePath, buffer);
-      
-      // Return public URL path
-      const publicPath = `/pdfs/${category ? category.toLowerCase().replace(/\s+/g, '-') + '/' : ''}${fileName}`;
-      res.json({ success: true, path: publicPath, fileName, category, subTopic });
+    },
+    filename: (req, file, cb) => {
+      // Sanitize filename and avoid collisions
+      const sanitized = file.originalname.replace(/[^a-zA-Z0-9._\-\s]/g, '_');
+      cb(null, sanitized);
+    }
+  });
+
+  const upload = multer({
+    storage: multerStorage,
+    limits: { fileSize: 200 * 1024 * 1024 } // 200 MB max
+  });
+
+  app.post('/api/upload', upload.single('file'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file provided' });
+      }
+      const category = (req.body.category || 'general') as string;
+      const isImage = req.file.mimetype.startsWith('image/');
+      let publicPath: string;
+      if (isImage) {
+        publicPath = `/Images/uploads/${req.file.filename}`;
+      } else {
+        publicPath = `/pdfs/${category.toLowerCase().replace(/\s+/g, '-')}/${req.file.filename}`;
+      }
+      res.json({ success: true, path: publicPath, fileName: req.file.filename, category });
     } catch (error) {
       res.status(500).json({ error: String(error) });
     }

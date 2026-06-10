@@ -9,40 +9,15 @@ interface AdminAuthProps {
 }
 
 export default function AdminAuth({ onAdminLogin, onBack }: AdminAuthProps) {
-  const [email, setEmail] = useState('ranbidgesolutonspvtltd@amail.com');
-  const [password, setPassword] = useState('rsplacadamy');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Auto-fill admin credentials on component mount
-  useEffect(() => {
-    // Set credentials
-    setEmail('ranbidgesolutonspvtltd@amail.com');
-    setPassword('rsplacadamy');
-    
-    // Auto-login after a short delay to show the credentials are filled
-    const timer = setTimeout(() => {
-      // Directly call the admin service with the credentials
-      handleAutoLogin();
-    }, 1500);
-    
-    return () => clearTimeout(timer);
-  }, []);
 
-  const handleAutoLogin = async () => {
-    setError('');
-    setIsLoading(true);
-    
-    try {
-      const adminData = await adminService.signInAdmin('ranbidgesolutonspvtltd@amail.com', 'rsplacadamy');
-      onAdminLogin(adminData);
-    } catch (err: any) {
-      setError(err.message || 'Invalid admin credentials. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,30 +60,7 @@ export default function AdminAuth({ onAdminLogin, onBack }: AdminAuthProps) {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="p-8 space-y-6">
-            {/* Auto-fill Indicator */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-slate-50 border border-slate-200 rounded-xl p-4 flex items-center gap-3"
-            >
-              {isLoading ? (
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  className="w-5 h-5 border-2 border-slate-600 border-t-transparent rounded-full flex-shrink-0"
-                />
-              ) : (
-                <Shield size={20} className="text-slate-600 flex-shrink-0" />
-              )}
-              <div className="flex-1">
-                <p className="text-slate-700 text-sm font-medium">
-                  {isLoading ? 'Authenticating...' : 'Admin credentials pre-filled'}
-                </p>
-                <p className="text-slate-600 text-xs">
-                  {isLoading ? 'Please wait while we authenticate' : 'Auto-login in 1.5 seconds or click Quick Login'}
-                </p>
-              </div>
-            </motion.div>
+
 
             {/* Demo Mode Notice */}
             <motion.div
@@ -145,13 +97,12 @@ export default function AdminAuth({ onAdminLogin, onBack }: AdminAuthProps) {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="ranbidgesolutonspvtltd@amail.com"
+                  placeholder="Enter admin email"
                   className="w-full px-4 py-3 pl-12 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all"
                   required
                 />
                 <Mail size={20} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400" />
               </div>
-              <p className="text-xs text-slate-500">Use: ranbidgesolutonspvtltd@amail.com</p>
             </div>
 
             {/* Password Field */}
@@ -165,7 +116,7 @@ export default function AdminAuth({ onAdminLogin, onBack }: AdminAuthProps) {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="rsplacadamy"
+                  placeholder="Enter password"
                   className="w-full px-4 py-3 pl-12 pr-12 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all"
                   required
                 />
@@ -213,7 +164,7 @@ export default function AdminAuth({ onAdminLogin, onBack }: AdminAuthProps) {
               ) : (
                 <>
                   <Shield size={20} />
-                  Quick Login - Admin Panel
+                  Login to Admin Panel
                 </>
               )}
             </motion.button>
