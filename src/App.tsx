@@ -505,6 +505,12 @@ export default function App() {
     setCurrentView('lms');
   };
 
+  const handleDemoLogin = (demoData: any) => {
+    setUser(demoData);
+    setShowAuth(false);
+    setCurrentView('lms');
+  };
+
   const handleAdminLogout = () => {
     setAdmin(null);
     setCurrentView('lms');
@@ -720,6 +726,7 @@ export default function App() {
           <Auth 
             initialMode={authMode as any} 
             onAdminLogin={handleAdminLogin}
+            onDemoLogin={handleDemoLogin}
           />
         </div>
       );

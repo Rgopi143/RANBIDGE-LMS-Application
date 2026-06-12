@@ -24,9 +24,10 @@ type AuthMode = 'login' | 'register' | 'reset' | 'success';
 interface AuthProps {
   initialMode?: AuthMode;
   onAdminLogin?: (adminData: any) => void;
+  onDemoLogin?: (demoData: any) => void;
 }
 
-export default function Auth({ initialMode = 'login', onAdminLogin }: AuthProps) {
+export default function Auth({ initialMode = 'login', onAdminLogin, onDemoLogin }: AuthProps) {
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -116,34 +117,26 @@ export default function Auth({ initialMode = 'login', onAdminLogin }: AuthProps)
           }
         }
 
+        // Check for Demo Credentials
+        if (email === '23471a4245@nrtec.in' && password === '23471a4245') {
+          if (onDemoLogin) {
+            onDemoLogin({
+              id: 'demo-user-id-12345',
+              email: '23471a4245@nrtec.in',
+              user_metadata: { display_name: 'Demo User' }
+            });
+            setIsSuccess(true);
+            setMode('success');
+            return;
+          }
+        }
+
         const { error: signInError } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
 
-        // If it's the demo user and login fails, try to sign them up automatically
-        if (signInError && signInError.message === 'Invalid login credentials' && email === '23471a4245@nrtec.in') {
-          const { error: signUpError } = await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-              data: { display_name: 'Demo User' },
-            },
-          });
-          
-          if (signUpError) throw signUpError;
-          
-          // If sign up succeeds, try to sign in again
-          const { error: retryError } = await supabase.auth.signInWithPassword({
-            email,
-            password,
-          });
-          
-          if (retryError) {
-            setMessage('Demo account created! Please check your email for a confirmation link to finish logging in.');
-            return;
-          }
-        } else if (signInError) {
+        if (signInError) {
           throw signInError;
         }
         

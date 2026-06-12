@@ -668,7 +668,7 @@ courseTitle: course.courseTitle,
 
   // Mock data for demonstration
 
-  const enrolledCourses: Course[] = [
+  const baseEnrolledCourses: Course[] = [
 
     {
 
@@ -743,7 +743,7 @@ courseTitle: course.courseTitle,
     }
   ];
 
-
+  const enrolledCourses = isAdmin ? baseEnrolledCourses : baseEnrolledCourses.filter(c => c.id !== 'backend-development-master');
 
   const availableCourses: Course[] = [
 
@@ -1035,39 +1035,31 @@ Enable JPA repositories with @EnableJpaRepositories`,
     setIsUploading(true);
 
     try {
-      const formData = new FormData();
-      // Append fields BEFORE file so multer can access them in 'destination'
-      formData.append('title', uploadTitle.trim());
-      formData.append('category', uploadCategory);
-      formData.append('file', uploadFile);
-
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData
+      const base64String = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(uploadFile);
       });
 
-      const data = await response.json();
-      if (data.success) {
-        const newResource = {
-          id: Date.now(),
-          title: uploadTitle.trim(),
-          category: uploadCategory,
-          subTopic: undefined,
-          size: (uploadFile.size / (1024 * 1024)).toFixed(1) + ' MB',
-          type: uploadFile.type.includes('image') ? 'image' : 'pdf',
-          downloadUrl: data.path,
-          thumbnail: uploadFile.type.includes('image') ? data.path : 'https://img.icons8.com/3d-fluency/188/pdf.png'
-        };
-        setUploadedResources(prev => [...prev, newResource]);
-        setShowUploadModal(false);
-        setUploadFile(null);
-        setUploadTitle('');
-      } else {
-        alert('Upload failed: ' + (data.error || 'Unknown error'));
-      }
+      const newResource = {
+        id: Date.now(),
+        title: uploadTitle.trim(),
+        category: uploadCategory,
+        subTopic: undefined,
+        size: (uploadFile.size / (1024 * 1024)).toFixed(1) + ' MB',
+        type: uploadFile.type.includes('image') ? 'image' : 'pdf',
+        downloadUrl: base64String,
+        thumbnail: uploadFile.type.includes('image') ? base64String : 'https://img.icons8.com/3d-fluency/188/pdf.png'
+      };
+      
+      setUploadedResources(prev => [...prev, newResource]);
+      setShowUploadModal(false);
+      setUploadFile(null);
+      setUploadTitle('');
     } catch (error) {
       console.error('File upload failed:', error);
-      alert('File upload failed. Please check your connection and try again.');
+      alert('File upload failed. Please try again.');
     } finally {
       setIsUploading(false);
     }
@@ -1247,7 +1239,11 @@ Enable JPA repositories with @EnableJpaRepositories`,
     { id: 261, title: 'Group Selector', category: 'Images', subTopic: 'Data Images', size: '37.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Group-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' }
   ];
 
-  const libraryResources = [...baseLibraryResources, ...uploadedResources];
+  const libraryResources = [...baseLibraryResources, ...uploadedResources].filter(resource => {
+    if (isAdmin) return true;
+    const searchStr = `${resource.title} ${resource.category} ${(resource as any).subTopic || ''}`.toLowerCase();
+    return searchStr.includes('java') || searchStr.includes('mern');
+  });
 
   const stats = {
 
@@ -2248,7 +2244,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
               { id: 'rating', label: 'Rating', icon: StarIcon },
               { id: 'library', label: 'Library', icon: BookOpen }
 
-            ].filter(tab => isAdmin || (tab.id !== 'catalog' && tab.id !== 'rating')).map((tab, index) => (
+            ].filter(tab => isAdmin || (tab.id !== 'rating')).map((tab, index) => (
 
               <motion.div
 
