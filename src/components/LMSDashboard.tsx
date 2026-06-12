@@ -324,9 +324,48 @@ export default function LMSDashboard({
   const [isEditing, setIsEditing] = useState(false);
   const [isAdminMode, setIsAdminMode] = useState(isAdmin);
   const [librarySearchQuery, setLibrarySearchQuery] = useState('');
+  // IndexedDB helpers for storing large PDF/image files
+  const openIDB = (): Promise<IDBDatabase> => new Promise((resolve, reject) => {
+    const req = indexedDB.open('lmsFiles', 1);
+    req.onupgradeneeded = () => req.result.createObjectStore('files');
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+
+  const saveFileToIDB = async (id: number, dataUrl: string) => {
+    const db = await openIDB();
+    return new Promise<void>((resolve, reject) => {
+      const tx = db.transaction('files', 'readwrite');
+      tx.objectStore('files').put(dataUrl, id);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+  };
+
+  const getFileFromIDB = async (id: number): Promise<string | null> => {
+    const db = await openIDB();
+    return new Promise((resolve) => {
+      const tx = db.transaction('files', 'readonly');
+      const req = tx.objectStore('files').get(id);
+      req.onsuccess = () => resolve(req.result ?? null);
+      req.onerror = () => resolve(null);
+    });
+  };
+
+  const deleteFileFromIDB = async (id: number) => {
+    const db = await openIDB();
+    return new Promise<void>((resolve) => {
+      const tx = db.transaction('files', 'readwrite');
+      tx.objectStore('files').delete(id);
+      tx.oncomplete = () => resolve();
+    });
+  };
+
   const [uploadedResources, setUploadedResources] = useState<any[]>(() => {
-    const saved = localStorage.getItem('lmsUploadedResources');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('lmsUploadedResourcesMeta');
+      return saved ? JSON.parse(saved) : [];
+    } catch { return []; }
   });
 
   const [hiddenResourceIds, setHiddenResourceIds] = useState<number[]>(() => {
@@ -335,7 +374,16 @@ export default function LMSDashboard({
   });
 
   useEffect(() => {
-    localStorage.setItem('lmsUploadedResources', JSON.stringify(uploadedResources));
+    try {
+      // Only strip the actual file data (downloadUrl with base64), keep thumbnail and other metadata
+      const meta = uploadedResources.map(({ downloadUrl, ...rest }) => ({
+        ...rest,
+        downloadUrl: downloadUrl && downloadUrl.startsWith('idb:') ? downloadUrl : (downloadUrl && downloadUrl.startsWith('data:') ? `idb:${rest.id}` : downloadUrl)
+      }));
+      localStorage.setItem('lmsUploadedResourcesMeta', JSON.stringify(meta));
+    } catch (e) {
+      console.warn('Could not save resource metadata', e);
+    }
   }, [uploadedResources]);
 
   useEffect(() => {
@@ -344,11 +392,11 @@ export default function LMSDashboard({
 
   const handleDeleteResource = (resourceId: number) => {
     if (window.confirm('Are you sure you want to delete this resource?')) {
-      // If it's an uploaded resource, remove it from uploadedResources state
       if (uploadedResources.some(r => r.id === resourceId)) {
         setUploadedResources(prev => prev.filter(r => r.id !== resourceId));
+        // Also remove from IndexedDB
+        deleteFileFromIDB(resourceId);
       } else {
-        // If it's a base resource, add to hiddenResourceIds
         setHiddenResourceIds(prev => [...prev, resourceId]);
       }
     }
@@ -1021,9 +1069,20 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
   ];
 
-  const handleDownload = (url: string, filename: string) => {
+  const resolveUrl = async (url: string): Promise<string> => {
+    if (url && url.startsWith('idb:')) {
+      const id = parseInt(url.slice(4), 10);
+      const data = await getFileFromIDB(id);
+      return data || '';
+    }
+    return url;
+  };
+
+  const handleDownload = async (url: string, filename: string) => {
+    const resolved = await resolveUrl(url);
+    if (!resolved) return;
     const link = document.createElement('a');
-    link.href = url;
+    link.href = resolved;
     link.download = filename;
     document.body.appendChild(link);
     link.click();
@@ -1042,15 +1101,22 @@ Enable JPA repositories with @EnableJpaRepositories`,
         reader.readAsDataURL(uploadFile);
       });
 
+      const id = Date.now();
+      const isImage = uploadFile.type.includes('image');
+
+      // Store the actual file data in IndexedDB (no size limit)
+      await saveFileToIDB(id, base64String);
+
       const newResource = {
-        id: Date.now(),
+        id,
         title: uploadTitle.trim(),
         category: uploadCategory,
         subTopic: undefined,
         size: (uploadFile.size / (1024 * 1024)).toFixed(1) + ' MB',
-        type: uploadFile.type.includes('image') ? 'image' : 'pdf',
-        downloadUrl: base64String,
-        thumbnail: uploadFile.type.includes('image') ? base64String : 'https://img.icons8.com/3d-fluency/188/pdf.png'
+        type: isImage ? 'image' : 'pdf',
+        // Store a marker instead of the actual data — file is in IndexedDB
+        downloadUrl: `idb:${id}`,
+        thumbnail: isImage ? base64String : 'https://img.icons8.com/3d-fluency/188/pdf.png'
       };
       
       setUploadedResources(prev => [...prev, newResource]);
@@ -1059,7 +1125,6 @@ Enable JPA repositories with @EnableJpaRepositories`,
       setUploadTitle('');
     } catch (error) {
       console.error('File upload failed:', error);
-      alert('File upload failed. Please try again.');
     } finally {
       setIsUploading(false);
     }
@@ -5076,7 +5141,10 @@ Enable JPA repositories with @EnableJpaRepositories`,
                         whileTap={{ scale: 0.9 }}
                         className="p-2 bg-white rounded-full text-slate-900 shadow-lg"
                         title={resource.type === 'image' ? "View Image" : "View PDF"}
-                        onClick={() => setSelectedResourceForView(resource)}
+                        onClick={async () => {
+                          const resolved = await resolveUrl(resource.downloadUrl);
+                          setSelectedResourceForView({ ...resource, downloadUrl: resolved });
+                        }}
                       >
                         <Eye size={18} />
                       </motion.button>
@@ -5129,7 +5197,10 @@ Enable JPA repositories with @EnableJpaRepositories`,
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      onClick={() => setSelectedResourceForView(resource)}
+                      onClick={async () => {
+                        const resolved = await resolveUrl(resource.downloadUrl);
+                        setSelectedResourceForView({ ...resource, downloadUrl: resolved });
+                      }}
                       className="flex-1 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
                     >
                       <Eye size={14} />
