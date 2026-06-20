@@ -31,6 +31,8 @@ import {
 
   CheckCircle2,
 
+  ExternalLink,
+
   PlayCircle,
 
   Code2,
@@ -172,8 +174,6 @@ interface LMSDashboardProps {
   isAdmin?: boolean;
 
 }
-
-
 
 export default function LMSDashboard({
   user,
@@ -406,12 +406,37 @@ export default function LMSDashboard({
   const [uploadCategory, setUploadCategory] = useState('General');
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [driveResources, setDriveResources] = useState<any[]>([]);
+
+  const fetchDriveFiles = async () => {
+    try {
+      // Fetch only Supabase Cloud files
+      const res = await fetch('/api/supabase-files');
+      const data = await res.json();
+
+      setDriveResources(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error('Error fetching library resources:', error);
+    }
+  };
+
+  // Fetch Drive Files
+  useEffect(() => {
+    fetchDriveFiles();
+  }, []);
+
+  useEffect(() => {
+    if (activeTab === 'library') {
+      fetchDriveFiles();
+    }
+  }, [activeTab]);
 
   // Esc key listener to close modals
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setSelectedResourceForView(null);
+        setSelectedNote(null);
         setShowRatingPrompt(false);
         setShowExportMenu(false);
         setShowProfile(false);
@@ -423,6 +448,29 @@ export default function LMSDashboard({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (selectedResourceForView || selectedNote || showUploadModal || showShareModal || showProfile || showSettings || showRatingPrompt) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [selectedResourceForView, selectedNote, showUploadModal, showShareModal, showProfile, showSettings, showRatingPrompt]);
+
+  const openFileInViewer = async (resource: any) => {
+    const resolved = await resolveUrl(resource.downloadUrl);
+    // Auto-match with Drive resources by title (resilient matching)
+    const driveMatch = driveResources.find(dr => {
+      const drTitle = dr.title.toLowerCase().replace(/\.pdf$/, '').trim();
+      const resTitle = resource.title.toLowerCase().replace(/\.pdf$/, '').trim();
+      return drTitle === resTitle;
+    });
+    setSelectedResourceForView({
+      ...resource,
+      downloadUrl: driveMatch ? driveMatch.downloadUrl : resolved
+    });
+  };
 
   const [editedContent, setEditedContent] = useState('');
 
@@ -490,7 +538,7 @@ export default function LMSDashboard({
 
     return {
       courseId: course.courseId,
-courseTitle: course.courseTitle,
+      courseTitle: course.courseTitle,
       total,
       p5,
       p4,
@@ -1091,40 +1139,36 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
   const handleUploadSubmit = async () => {
     if (!uploadFile || !uploadTitle) return;
+
     setIsUploading(true);
 
     try {
-      const base64String = await new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result as string);
-        reader.onerror = reject;
-        reader.readAsDataURL(uploadFile);
+      const formData = new FormData();
+      formData.append("file", uploadFile);
+      formData.append("title", uploadTitle);
+      formData.append("category", uploadCategory);
+
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData
       });
 
-      const id = Date.now();
-      const isImage = uploadFile.type.includes('image');
+      const data = await response.json();
+      if (!data.success) throw new Error("Upload failed");
 
-      // Store the actual file data in IndexedDB (no size limit)
-      await saveFileToIDB(id, base64String);
+      // Auto-refresh library
+      await fetchDriveFiles();
 
-      const newResource = {
-        id,
-        title: uploadTitle.trim(),
-        category: uploadCategory,
-        subTopic: undefined,
-        size: (uploadFile.size / (1024 * 1024)).toFixed(1) + ' MB',
-        type: isImage ? 'image' : 'pdf',
-        // Store a marker instead of the actual data — file is in IndexedDB
-        downloadUrl: `idb:${id}`,
-        thumbnail: isImage ? base64String : 'https://img.icons8.com/3d-fluency/188/pdf.png'
-      };
-      
-      setUploadedResources(prev => [...prev, newResource]);
+      // Dynamic success notification
+      const location = data.source === 'local' ? 'Locally on this server (Drive quota restricted)' : 'Google Drive';
+      alert(`PDF Uploaded Successfully! Location: ${location}`);
+
       setShowUploadModal(false);
       setUploadFile(null);
-      setUploadTitle('');
+      setUploadTitle("");
+
     } catch (error) {
-      console.error('File upload failed:', error);
+      console.error(error);
     } finally {
       setIsUploading(false);
     }
@@ -1138,7 +1182,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
       subTopic: 'Web Development',
       size: '12.8 MB',
       type: 'pdf',
-      downloadUrl: '/pdfs/python/Python Django.pdf',
+      downloadUrl: 'Python Django.pdf',
       thumbnail: 'https://img.icons8.com/3d-fluency/188/python.png'
     },
     {
@@ -1148,7 +1192,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
       subTopic: 'Libraries',
       size: '5.2 MB',
       type: 'pdf',
-      downloadUrl: '/pdfs/python/python libraries.pdf',
+      downloadUrl: 'python libraries.pdf',
       thumbnail: 'https://img.icons8.com/3d-fluency/188/python.png'
     },
     {
@@ -1158,7 +1202,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
       subTopic: 'Basics',
       size: '9.4 MB',
       type: 'pdf',
-      downloadUrl: '/pdfs/python/Python Projects.pdf',
+      downloadUrl: 'Python Projects.pdf',
       thumbnail: 'https://img.icons8.com/3d-fluency/188/python.png'
     },
     {
@@ -1241,73 +1285,95 @@ Enable JPA repositories with @EnableJpaRepositories`,
       downloadUrl: '/Images/roadmaps/dotnet-humor.png',
       thumbnail: 'https://img.icons8.com/3d-fluency/188/bug.png'
     },
-    { id: 201, title: 'Internet Basics', category: 'Images', subTopic: 'Data Images', size: '145.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Internet-Basics.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 202, title: 'World Wide Web (WWW)', category: 'Images', subTopic: 'Data Images', size: '27.1 KB', type: 'image', downloadUrl: '/Images/DATA Images/World-Wide-Web-WWW.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 203, title: 'Web Browsers and Rendering', category: 'Images', subTopic: 'Data Images', size: '55.1 KB', type: 'image', downloadUrl: '/Images/DATA Images/Web-Browsers-and-Rendering.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 204, title: 'Client–Server Architecture', category: 'Images', subTopic: 'Data Images', size: '103.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/ClientServer-Architecture.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 205, title: 'Frontend vs Backend', category: 'Images', subTopic: 'Data Images', size: '93.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Frontend-vs-Backend.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 206, title: 'Full Stack Development', category: 'Images', subTopic: 'Data Images', size: '101.8 KB', type: 'image', downloadUrl: '/Images/DATA Images/Full-Stack-Development.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 207, title: 'Static vs Dynamic Websites', category: 'Images', subTopic: 'Data Images', size: '92.8 KB', type: 'image', downloadUrl: '/Images/DATA Images/Static-vs-Dynamic-Websites.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 208, title: 'Development Tools', category: 'Images', subTopic: 'Data Images', size: '91.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Development-Tools.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 209, title: 'VS Code Setup', category: 'Images', subTopic: 'Data Images', size: '91.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/VS-Code-Setup.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 210, title: 'Browser Developer Tools', category: 'Images', subTopic: 'Data Images', size: '89.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Browser-Developer-Tools.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 211, title: 'HTML Overview', category: 'Images', subTopic: 'Data Images', size: '90.1 KB', type: 'image', downloadUrl: '/Images/DATA Images/HTML-Overview.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 212, title: 'History of HTML', category: 'Images', subTopic: 'Data Images', size: '102 KB', type: 'image', downloadUrl: '/Images/DATA Images/History-of-HTML.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 213, title: 'Features of HTML', category: 'Images', subTopic: 'Data Images', size: '84.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Features-of-HTML.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 214, title: 'HTML Versions', category: 'Images', subTopic: 'Data Images', size: '75.8 KB', type: 'image', downloadUrl: '/Images/DATA Images/HTML-Versions.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 215, title: 'HTML Page Structure', category: 'Images', subTopic: 'Data Images', size: '99.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/HTML-Page-Structure.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 216, title: 'HTML Syntax', category: 'Images', subTopic: 'Data Images', size: '74.8 KB', type: 'image', downloadUrl: '/Images/DATA Images/HTML-Syntax.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 217, title: 'HTML Comments', category: 'Images', subTopic: 'Data Images', size: '97.4 KB', type: 'image', downloadUrl: '/Images/DATA Images/HTML-Comments.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 218, title: 'Heading Tags', category: 'Images', subTopic: 'Data Images', size: '97.5 KB', type: 'image', downloadUrl: '/Images/DATA Images/Heading-Tags.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 219, title: 'Paragraph Tag', category: 'Images', subTopic: 'Data Images', size: '95.5 KB', type: 'image', downloadUrl: '/Images/DATA Images/Paragraph-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 220, title: 'Line Break', category: 'Images', subTopic: 'Data Images', size: '89.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Line-Break.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 221, title: 'Horizontal Rule', category: 'Images', subTopic: 'Data Images', size: '89.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/Horizontal-Rule.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 222, title: 'Text Formatting Tags', category: 'Images', subTopic: 'Data Images', size: '81.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Text-Formatting-Tags.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 223, title: 'Anchor Tag', category: 'Images', subTopic: 'Data Images', size: '75 KB', type: 'image', downloadUrl: '/Images/DATA Images/Anchor-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 224, title: 'Internal Links', category: 'Images', subTopic: 'Data Images', size: '81.7 KB', type: 'image', downloadUrl: '/Images/DATA Images/Internal-Links.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 225, title: 'External Links', category: 'Images', subTopic: 'Data Images', size: '94.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/External-Links.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 226, title: 'Email Links', category: 'Images', subTopic: 'Data Images', size: '121.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Email-Links.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 227, title: 'Bookmark Links', category: 'Images', subTopic: 'Data Images', size: '82 KB', type: 'image', downloadUrl: '/Images/DATA Images/Bookmark-Links.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 228, title: 'Image Tag', category: 'Images', subTopic: 'Data Images', size: '93.5 KB', type: 'image', downloadUrl: '/Images/DATA Images/Image-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 229, title: 'Audio Tag', category: 'Images', subTopic: 'Data Images', size: '55.7 KB', type: 'image', downloadUrl: '/Images/DATA Images/Audio-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 230, title: 'Video Tag', category: 'Images', subTopic: 'Data Images', size: '131.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Video-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 231, title: 'Iframe', category: 'Images', subTopic: 'Data Images', size: '102.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/Iframe.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 232, title: 'Ordered Lists', category: 'Images', subTopic: 'Data Images', size: '55.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/Ordered-Lists.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 233, title: 'Unordered Lists', category: 'Images', subTopic: 'Data Images', size: '87.7 KB', type: 'image', downloadUrl: '/Images/DATA Images/Unordered-Lists.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 234, title: 'Description Lists', category: 'Images', subTopic: 'Data Images', size: '54.6 KB', type: 'image', downloadUrl: '/Images/DATA Images/Description-Lists.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 235, title: 'Nested Lists', category: 'Images', subTopic: 'Data Images', size: '89.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Nested-Lists.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 236, title: 'Table Structure', category: 'Images', subTopic: 'Data Images', size: '88 KB', type: 'image', downloadUrl: '/Images/DATA Images/Table-Structure.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 237, title: 'Table Headers', category: 'Images', subTopic: 'Data Images', size: '82.8 KB', type: 'image', downloadUrl: '/Images/DATA Images/Table-Headers.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 238, title: 'Rowspan and Colspan', category: 'Images', subTopic: 'Data Images', size: '83.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Rowspan-and-Colspan.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 239, title: 'Form Tag', category: 'Images', subTopic: 'Data Images', size: '119.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Form-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 240, title: 'Input Types', category: 'Images', subTopic: 'Data Images', size: '105.6 KB', type: 'image', downloadUrl: '/Images/DATA Images/Input-Types.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 241, title: 'Textarea', category: 'Images', subTopic: 'Data Images', size: '53.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/Textarea.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 242, title: 'Dropdown', category: 'Images', subTopic: 'Data Images', size: '78.2 KB', type: 'image', downloadUrl: '/Images/DATA Images/Dropdown.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 243, title: 'Buttons', category: 'Images', subTopic: 'Data Images', size: '100.7 KB', type: 'image', downloadUrl: '/Images/DATA Images/Buttons.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 244, title: 'Header', category: 'Images', subTopic: 'Data Images', size: '103.1 KB', type: 'image', downloadUrl: '/Images/DATA Images/Header.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 245, title: 'Footer', category: 'Images', subTopic: 'Data Images', size: '36.4 KB', type: 'image', downloadUrl: '/Images/DATA Images/Footer.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 246, title: 'Section', category: 'Images', subTopic: 'Data Images', size: '130 KB', type: 'image', downloadUrl: '/Images/DATA Images/Section.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 247, title: 'Article', category: 'Images', subTopic: 'Data Images', size: '72.5 KB', type: 'image', downloadUrl: '/Images/DATA Images/Article.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 248, title: 'Nav', category: 'Images', subTopic: 'Data Images', size: '19.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/Nav.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 249, title: 'Main', category: 'Images', subTopic: 'Data Images', size: '97.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Main.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 250, title: 'Figure', category: 'Images', subTopic: 'Data Images', size: '90.8 KB', type: 'image', downloadUrl: '/Images/DATA Images/Figure.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 251, title: 'Figcaption', category: 'Images', subTopic: 'Data Images', size: '89.5 KB', type: 'image', downloadUrl: '/Images/DATA Images/Figcaption.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 252, title: 'CSS Overview', category: 'Images', subTopic: 'Data Images', size: '97.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/CSS-Overview.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 253, title: 'CSS Syntax', category: 'Images', subTopic: 'Data Images', size: '98.6 KB', type: 'image', downloadUrl: '/Images/DATA Images/CSS-Syntax.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 254, title: 'Inline CSS', category: 'Images', subTopic: 'Data Images', size: '96.1 KB', type: 'image', downloadUrl: '/Images/DATA Images/Inline-CSS.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 255, title: 'Internal CSS', category: 'Images', subTopic: 'Data Images', size: '100.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Internal-CSS.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 256, title: 'External CSS', category: 'Images', subTopic: 'Data Images', size: '44.9 KB', type: 'image', downloadUrl: '/Images/DATA Images/External-CSS.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 257, title: 'Element Selector', category: 'Images', subTopic: 'Data Images', size: '71.4 KB', type: 'image', downloadUrl: '/Images/DATA Images/Element-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 258, title: 'Class Selector', category: 'Images', subTopic: 'Data Images', size: '76.6 KB', type: 'image', downloadUrl: '/Images/DATA Images/Class-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 259, title: 'ID Selector', category: 'Images', subTopic: 'Data Images', size: '47.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/ID-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 260, title: 'Universal Selector', category: 'Images', subTopic: 'Data Images', size: '49.4 KB', type: 'image', downloadUrl: '/Images/DATA Images/Universal-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
-    { id: 261, title: 'Group Selector', category: 'Images', subTopic: 'Data Images', size: '37.3 KB', type: 'image', downloadUrl: '/Images/DATA Images/Group-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' }
+    { id: 201, title: 'Internet Basics', category: 'Images', subTopic: 'Data Images', size: '145.3 KB', type: 'image', downloadUrl: 'Images/DATA Images/Internet-Basics.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 202, title: 'World Wide Web (WWW)', category: 'Images', subTopic: 'Data Images', size: '27.1 KB', type: 'image', downloadUrl: 'Images/DATA Images/World-Wide-Web-WWW.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 203, title: 'Web Browsers and Rendering', category: 'Images', subTopic: 'Data Images', size: '55.1 KB', type: 'image', downloadUrl: 'Images/DATA Images/Web-Browsers-and-Rendering.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 204, title: 'Client–Server Architecture', category: 'Images', subTopic: 'Data Images', size: '103.2 KB', type: 'image', downloadUrl: 'Images/DATA Images/ClientServer-Architecture.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 205, title: 'Frontend vs Backend', category: 'Images', subTopic: 'Data Images', size: '93.2 KB', type: 'image', downloadUrl: 'Images/DATA Images/Frontend-vs-Backend.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 206, title: 'Full Stack Development', category: 'Images', subTopic: 'Data Images', size: '101.8 KB', type: 'image', downloadUrl: 'Images/DATA Images/Full-Stack-Development.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 207, title: 'Static vs Dynamic Websites', category: 'Images', subTopic: 'Data Images', size: '92.8 KB', type: 'image', downloadUrl: 'Images/DATA Images/Static-vs-Dynamic-Websites.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 208, title: 'Development Tools', category: 'Images', subTopic: 'Data Images', size: '91.3 KB', type: 'image', downloadUrl: 'Images/DATA Images/Development-Tools.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 209, title: 'VS Code Setup', category: 'Images', subTopic: 'Data Images', size: '91.2 KB', type: 'image', downloadUrl: 'Images/DATA Images/VS-Code-Setup.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 210, title: 'Browser Developer Tools', category: 'Images', subTopic: 'Data Images', size: '89.3 KB', type: 'image', downloadUrl: 'Images/DATA Images/Browser-Developer-Tools.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 211, title: 'HTML Overview', category: 'Images', subTopic: 'Data Images', size: '90.1 KB', type: 'image', downloadUrl: 'Images/DATA Images/HTML-Overview.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 212, title: 'History of HTML', category: 'Images', subTopic: 'Data Images', size: '102 KB', type: 'image', downloadUrl: 'Images/DATA Images/History-of-HTML.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 213, title: 'Features of HTML', category: 'Images', subTopic: 'Data Images', size: '84.2 KB', type: 'image', downloadUrl: 'Images/DATA Images/Features-of-HTML.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 214, title: 'HTML Versions', category: 'Images', subTopic: 'Data Images', size: '75.8 KB', type: 'image', downloadUrl: 'Images/DATA Images/HTML-Versions.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 215, title: 'HTML Page Structure', category: 'Images', subTopic: 'Data Images', size: '99.9 KB', type: 'image', downloadUrl: 'Images/DATA Images/HTML-Page-Structure.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 216, title: 'HTML Syntax', category: 'Images', subTopic: 'Data Images', size: '74.8 KB', type: 'image', downloadUrl: 'Images/DATA Images/HTML-Syntax.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 217, title: 'HTML Comments', category: 'Images', subTopic: 'Data Images', size: '97.4 KB', type: 'image', downloadUrl: 'Images/DATA Images/HTML-Comments.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 218, title: 'Heading Tags', category: 'Images', subTopic: 'Data Images', size: '97.5 KB', type: 'image', downloadUrl: 'Images/DATA Images/Heading-Tags.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 219, title: 'Paragraph Tag', category: 'Images', subTopic: 'Data Images', size: '95.5 KB', type: 'image', downloadUrl: 'Images/DATA Images/Paragraph-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 220, title: 'Line Break', category: 'Images', subTopic: 'Data Images', size: '89.3 KB', type: 'image', downloadUrl: 'Images/DATA Images/Line-Break.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 221, title: 'Horizontal Rule', category: 'Images', subTopic: 'Data Images', size: '89.9 KB', type: 'image', downloadUrl: 'Images/DATA Images/Horizontal-Rule.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 222, title: 'Text Formatting Tags', category: 'Images', subTopic: 'Data Images', size: '81.2 KB', type: 'image', downloadUrl: 'Images/DATA Images/Text-Formatting-Tags.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 223, title: 'Anchor Tag', category: 'Images', subTopic: 'Data Images', size: '75 KB', type: 'image', downloadUrl: 'Images/DATA Images/Anchor-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 224, title: 'Internal Links', category: 'Images', subTopic: 'Data Images', size: '81.7 KB', type: 'image', downloadUrl: 'Images/DATA Images/Internal-Links.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 225, title: 'External Links', category: 'Images', subTopic: 'Data Images', size: '94.9 KB', type: 'image', downloadUrl: 'Images/DATA Images/External-Links.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 226, title: 'Email Links', category: 'Images', subTopic: 'Data Images', size: '121.2 KB', type: 'image', downloadUrl: 'Images/DATA Images/Email-Links.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 227, title: 'Bookmark Links', category: 'Images', subTopic: 'Data Images', size: '82 KB', type: 'image', downloadUrl: 'Images/DATA Images/Bookmark-Links.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 228, title: 'Image Tag', category: 'Images', subTopic: 'Data Images', size: '93.5 KB', type: 'image', downloadUrl: 'Images/DATA Images/Image-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 229, title: 'Audio Tag', category: 'Images', subTopic: 'Data Images', size: '55.7 KB', type: 'image', downloadUrl: 'Images/DATA Images/Audio-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 230, title: 'Video Tag', category: 'Images', subTopic: 'Data Images', size: '131.2 KB', type: 'image', downloadUrl: 'Images/DATA Images/Video-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 231, title: 'Iframe', category: 'Images', subTopic: 'Data Images', size: '102.9 KB', type: 'image', downloadUrl: 'Images/DATA Images/Iframe.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 232, title: 'Ordered Lists', category: 'Images', subTopic: 'Data Images', size: '55.9 KB', type: 'image', downloadUrl: 'Images/DATA Images/Ordered-Lists.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 233, title: 'Unordered Lists', category: 'Images', subTopic: 'Data Images', size: '87.7 KB', type: 'image', downloadUrl: 'Images/DATA Images/Unordered-Lists.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 234, title: 'Description Lists', category: 'Images', subTopic: 'Data Images', size: '54.6 KB', type: 'image', downloadUrl: 'Images/DATA Images/Description-Lists.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 235, title: 'Nested Lists', category: 'Images', subTopic: 'Data Images', size: '89.3 KB', type: 'image', downloadUrl: 'Images/DATA Images/Nested-Lists.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 236, title: 'Table Structure', category: 'Images', subTopic: 'Data Images', size: '88 KB', type: 'image', downloadUrl: 'Images/DATA Images/Table-Structure.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 237, title: 'Table Headers', category: 'Images', subTopic: 'Data Images', size: '82.8 KB', type: 'image', downloadUrl: 'Images/DATA Images/Table-Headers.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 238, title: 'Rowspan and Colspan', category: 'Images', subTopic: 'Data Images', size: '83.2 KB', type: 'image', downloadUrl: 'Images/DATA Images/Rowspan-and-Colspan.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 239, title: 'Form Tag', category: 'Images', subTopic: 'Data Images', size: '119.2 KB', type: 'image', downloadUrl: 'Images/DATA Images/Form-Tag.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 240, title: 'Input Types', category: 'Images', subTopic: 'Data Images', size: '105.6 KB', type: 'image', downloadUrl: 'Images/DATA Images/Input-Types.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 241, title: 'Textarea', category: 'Images', subTopic: 'Data Images', size: '53.9 KB', type: 'image', downloadUrl: 'Images/DATA Images/Textarea.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 242, title: 'Dropdown', category: 'Images', subTopic: 'Data Images', size: '78.2 KB', type: 'image', downloadUrl: 'Images/DATA Images/Dropdown.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 243, title: 'Buttons', category: 'Images', subTopic: 'Data Images', size: '100.7 KB', type: 'image', downloadUrl: 'Images/DATA Images/Buttons.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 244, title: 'Header', category: 'Images', subTopic: 'Data Images', size: '103.1 KB', type: 'image', downloadUrl: 'Images/DATA Images/Header.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 245, title: 'Footer', category: 'Images', subTopic: 'Data Images', size: '36.4 KB', type: 'image', downloadUrl: 'Images/DATA Images/Footer.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 246, title: 'Section', category: 'Images', subTopic: 'Data Images', size: '130 KB', type: 'image', downloadUrl: 'Images/DATA Images/Section.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 247, title: 'Article', category: 'Images', subTopic: 'Data Images', size: '72.5 KB', type: 'image', downloadUrl: 'Images/DATA Images/Article.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 248, title: 'Nav', category: 'Images', subTopic: 'Data Images', size: '19.9 KB', type: 'image', downloadUrl: 'Images/DATA Images/Nav.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 249, title: 'Main', category: 'Images', subTopic: 'Data Images', size: '97.3 KB', type: 'image', downloadUrl: 'Images/DATA Images/Main.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 250, title: 'Figure', category: 'Images', subTopic: 'Data Images', size: '90.8 KB', type: 'image', downloadUrl: 'Images/DATA Images/Figure.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 251, title: 'Figcaption', category: 'Images', subTopic: 'Data Images', size: '89.5 KB', type: 'image', downloadUrl: 'Images/DATA Images/Figcaption.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 252, title: 'CSS Overview', category: 'Images', subTopic: 'Data Images', size: '97.3 KB', type: 'image', downloadUrl: 'Images/DATA Images/CSS-Overview.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 253, title: 'CSS Syntax', category: 'Images', subTopic: 'Data Images', size: '98.6 KB', type: 'image', downloadUrl: 'Images/DATA Images/CSS-Syntax.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 254, title: 'Inline CSS', category: 'Images', subTopic: 'Data Images', size: '96.1 KB', type: 'image', downloadUrl: 'Images/DATA Images/Inline-CSS.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 255, title: 'Internal CSS', category: 'Images', subTopic: 'Data Images', size: '100.3 KB', type: 'image', downloadUrl: 'Images/DATA Images/Internal-CSS.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 256, title: 'External CSS', category: 'Images', subTopic: 'Data Images', size: '44.9 KB', type: 'image', downloadUrl: 'Images/DATA Images/External-CSS.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 257, title: 'Element Selector', category: 'Images', subTopic: 'Data Images', size: '71.4 KB', type: 'image', downloadUrl: 'Images/DATA Images/Element-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 258, title: 'Class Selector', category: 'Images', subTopic: 'Data Images', size: '76.6 KB', type: 'image', downloadUrl: 'Images/DATA Images/Class-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 259, title: 'ID Selector', category: 'Images', subTopic: 'Data Images', size: '47.3 KB', type: 'image', downloadUrl: 'Images/DATA Images/ID-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' },
+    { id: 260, title: 'Universal Selector', category: 'Images', subTopic: 'Data Images', size: '49.4 KB', type: 'image', downloadUrl: 'Images/DATA Images/Universal-Selector.jpeg', thumbnail: 'https://img.icons8.com/3d-fluency/188/picture.png' }
   ];
 
-  const libraryResources = [...baseLibraryResources, ...uploadedResources].filter(resource => {
+  const libraryResources = [...baseLibraryResources, ...driveResources].reduce((acc, resource) => {
+    const normalize = (t: string) => t.toLowerCase().replace(/\.pdf$/, "").replace(/\(\d+\)$/, "").replace(/[^a-z0-9]/g, " ").replace(/\s+/g, " ").trim();
+    const resTitle = normalize(resource.title);
+    const existingIndex = acc.findIndex((r: any) => normalize(r.title) === resTitle);
+
+    if (existingIndex !== -1) {
+      const fromDrive = (resource as any).source === 'drive';
+      const existing = acc[existingIndex];
+
+      acc[existingIndex] = {
+        ...existing,
+        ...resource,
+        downloadUrl: fromDrive ? (resource as any).downloadUrl : (existing.source === 'drive' ? (existing as any).downloadUrl : existing.downloadUrl),
+        source: fromDrive || existing.source === 'drive' ? 'drive' : 'local'
+      };
+      return acc;
+    }
+
+    acc.push(resource);
+    return acc;
+  }, [] as any[]).filter(resource => {
     if (isAdmin) return true;
-    const searchStr = `${resource.title} ${resource.category} ${(resource as any).subTopic || ''}`.toLowerCase();
-    return searchStr.includes('java') || searchStr.includes('mern');
+
+    const isImageOrPdf = resource.category === 'Images' || resource.type === 'pdf' || resource.type === 'image';
+    const isExcluded = ['Python', 'Cyber Security'].includes(resource.category);
+
+    return isImageOrPdf && !isExcluded;
   });
 
   const stats = {
@@ -1794,6 +1860,36 @@ Enable JPA repositories with @EnableJpaRepositories`,
   );
 
 
+  const getViewerUrl = (url: string) => {
+    if (!url) return '';
+
+    // Direct load for Supabase or local files
+    if (url.includes('supabase.co') || url.startsWith('/')) {
+      return url;
+    }
+
+    // If it's already a full Google Drive link, extract the ID and use the viewer format
+    if (url.includes('drive.google.com')) {
+      const fileIdMatch = url.match(/\/file\/d\/([^\/]+)/);
+      if (fileIdMatch) {
+        return `https://docs.google.com/viewer?srcid=${fileIdMatch[1]}&pid=explorer&efh=false&a=v&rel=0&hl=en_US&embedded=true`;
+      }
+      return url;
+    }
+
+    if (url.startsWith('http')) return url;
+
+    const cleanUrl = url.startsWith('/') ? url.slice(1) : url;
+    const parts = cleanUrl.split('/');
+    const potentialId = parts[0];
+
+    // If it looks like a standalone Drive ID
+    if (potentialId.length > 20 && parts.length === 1) {
+      return `https://docs.google.com/viewer?srcid=${potentialId}&pid=explorer&efh=false&a=v&rel=0&hl=en_US&embedded=true`;
+    }
+
+    return url.startsWith('/') ? url : `/${url}`;
+  };
 
   return (
 
@@ -2106,11 +2202,11 @@ Enable JPA repositories with @EnableJpaRepositories`,
                   {showProfile && (
                     <>
                       {/* Global Backdrop for outside click closure */}
-                      <div 
-                        className="fixed inset-0 z-40 bg-transparent" 
+                      <div
+                        className="fixed inset-0 z-40 bg-transparent"
                         onClick={() => setShowProfile(false)}
                       />
-                      
+
                       <motion.div
                         variants={dropdownVariants}
                         initial="hidden"
@@ -2119,7 +2215,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
                         className="absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 overflow-hidden"
                       >
                         <div className="p-6 border-b border-slate-200 relative">
-                          <button 
+                          <button
                             onClick={() => setShowProfile(false)}
                             className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
                             title="Close"
@@ -2364,311 +2460,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
       </div>
 
       {/* Main Content */}
-
       <main className="max-w-7xl mx-auto px-6 py-8">
-
-
-        {/* Notes Modal */}
-        {selectedNote && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedNote(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className={`bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden ${isModalMaximized ? 'h-[90vh]' : 'h-auto'
-                }`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Modal Header */}
-              <div className="bg-gradient-to-r from-slate-600 to-slate-700 text-white p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-2xl font-bold mb-2">{selectedNote.title}</h2>
-                    <div className="flex items-center gap-4 text-sm opacity-90">
-                      <span className="bg-white/20 px-3 py-1 rounded-full">{selectedNote.category}</span>
-                      <span className="flex items-center gap-1">
-                        <Calendar size={14} />
-                        {selectedNote.date}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock size={14} />
-                        {selectedNote.time}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-1">
-                    <button
-                      onClick={() => setIsModalMaximized(!isModalMaximized)}
-                      className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-                      title={isModalMaximized ? "Minimize" : "Maximize"}
-                    >
-                      <Maximize size={20} className={isModalMaximized ? "rotate-180" : ""} />
-                    </button>
-                    <button
-                      onClick={() => setSelectedNote(null)}
-                      className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-                    >
-                      <X size={20} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Modal Content */}
-              <div className={`p-6 overflow-y-auto ${isModalMaximized ? 'max-h-[85vh]' : 'max-h-[60vh]'
-                }`}>
-                <div className="prose prose-slate max-w-none">
-                  <h3 className="text-lg font-semibold text-slate-900 mb-4">Note Content</h3>
-
-                  <div className="bg-white rounded-xl p-6 mb-6 shadow-2xl border border-slate-200">
-                    {isEditing ? (
-                      <textarea
-                        value={editedContent}
-                        onChange={(e) => setEditedContent(e.target.value)}
-                        className="w-full h-64 p-4 border border-slate-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-700 leading-relaxed"
-                        placeholder="Edit your note content..."
-                      />
-                    ) : (
-                      <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-6 shadow-lg">
-                        <div className="bg-white/80 backdrop-blur rounded-lg p-4">
-                          <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">{selectedNote.content}</p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex gap-3 mt-6 pt-4 border-t border-slate-200">
-                    {isEditing && (
-                      <>
-                        <motion.button
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={() => {
-                            if (selectedNote) {
-                              const noteIndex = notes.findIndex(note => note.id === selectedNote.id);
-                              if (noteIndex !== -1) {
-                                notes[noteIndex].content = editedContent;
-                                setSelectedNote({ ...selectedNote, content: editedContent });
-                              }
-                              setIsEditing(false);
-                            }
-                          }}
-                          className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
-                        >
-                          <CheckCircle size={16} />
-                          Save
-                        </motion.button>
-
-                        <motion.button
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={() => {
-                            setIsEditing(false);
-                            setEditedContent(selectedNote?.content || '');
-                          }}
-                          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2"
-                        >
-                          <X size={16} />
-                          Cancel
-                        </motion.button>
-                      </>
-                    )}
-
-                    {!isEditing && (
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => {
-                          if (selectedNote) {
-                            setIsEditing(true);
-                            setEditedContent(selectedNote.content);
-                          }
-                        }}
-                        className="px-4 py-2 bg-black text-white rounded-lg hover:bg-slate-800 transition-colors flex items-center gap-2"
-                      >
-                        <Edit size={16} />
-                        Edit Note
-                      </motion.button>
-                    )}
-
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors flex items-center gap-2"
-                    >
-                      <Share2 size={16} />
-                      Share
-                    </motion.button>
-
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => {
-                        if (selectedNote) {
-                          const printWindow = window.open('', '_blank');
-                          if (printWindow) {
-                            const processedContent = selectedNote.content
-                              .replace(/^(🌱 What is Spring Boot\?)/gm, '<strong>$1</strong>')
-                              .replace(/^(⚙️ 1\. Prerequisites)/gm, '<strong>$1</strong>')
-                              .replace(/^(🚀 2\. Creating a Spring Boot Project)/gm, '<strong>$1</strong>')
-                              .replace(/^(📁 3\. Project Structure)/gm, '<strong>$1</strong>')
-                              .replace(/^(🧠 4\. Main Application Class)/gm, '<div style="page-break-before: always;"></div><strong>$1</strong>')
-                              .replace(/^(🔧 5\. Spring Boot Configuration)/gm, '<strong>$1</strong>')
-                              .replace(/^(🔁 6\. Auto Configuration Concept)/gm, '<strong>$1</strong>')
-                              .replace(/^(🌐 7\. Creating a Simple REST Controller)/gm, '<div style="page-break-before: always;"></div><strong>$1</strong>')
-                              .replace(/^(▶️ 8\. Running the Application)/gm, '<strong>$1</strong>')
-                              .replace(/^(🌍 9\. Output)/gm, '<strong>$1</strong>')
-                              .replace(/^(🧩 10\. Key Annotations Summary)/gm, '<strong>$1</strong>')
-                              .replace(/^(🏁 Final Flow)/gm, '<strong>$1</strong>')
-                              .replace(/^(Key Points)/gm, '<strong>$1</strong>')
-                              .replace(/^(Explanation:)/gm, '<strong>$1</strong>')
-                              .replace(/^(Method 1: Using Spring Initializr)/gm, '<strong>$1</strong>')
-                              .replace(/^(Steps:)/gm, '<strong>$1</strong>')
-                              .replace(/^(Important folders:)/gm, '<strong>$1</strong>')
-                              .replace(/^(Spring Boot automatically:)/gm, '<strong>$1</strong>')
-                              .replace(/^(👉 Based on:)/gm, '<strong>$1</strong>')
-                              .replace(/^(Using IDE:)/gm, '<strong>$1</strong>')
-                              .replace(/^(Open browser:)/gm, '<strong>$1</strong>')
-                              .replace(/^(Output:)/gm, '<strong>$1</strong>')
-                              .replace(/^(Annotation\tPurpose)/gm, '<strong>Annotation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Purpose</strong>')
-                              .replace(/^(Annotation\s+Purpose)/gm, '<strong>Annotation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Purpose</strong>')
-                              .replace(/^(@SpringBootApplication\s+Main config)/gm, '@SpringBootApplication&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;Main config')
-                              .replace(/^(@RestController\s+REST API)/gm, '@RestController&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REST API')
-                              .replace(/^(@GetMapping\s+HTTP GET)/gm, '@GetMapping&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HTTP GET')
-                              .replace(/^(@Autowired\s+Dependency injection)/gm, '@Autowired&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&10;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dependency injection')
-                              .replace(/^(Flow:)/gm, '<strong>$1</strong>')
-                              .replace(/\n/g, '<br>');
-
-                            const noteContent = `
-                            <html>
-                              <head>
-                                <title>${selectedNote.title}</title>
-                                <style>
-                                  body { 
-                                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-                                    line-height: 1.6; 
-                                    margin: 40px; 
-                                    color: #333;
-                                    text-align: left;
-                                  }
-                                  h1 { 
-                                    color: #000000; 
-                                    border-bottom: none; 
-                                    padding-bottom: 10px; 
-                                    font-weight: bold;
-                                    font-size: 24px;
-                                    text-align: center;
-                                  }
-                                  .content { 
-                                    white-space: pre-wrap; 
-                                    margin-top: 20px;
-                                    font-size: 14px;
-                                    text-align: left;
-                                  }
-                                  @media print {
-                                    body { margin: 20px; }
-                                    .no-print { display: none; }
-                                  }
-                                </style>
-                              </head>
-                              <body>
-                                <h1>${selectedNote.title}</h1>
-                                <div class="content">${processedContent}</div>
-                                <script>
-                                  window.onload = function() {
-                                    setTimeout(() => {
-                                      window.print();
-                                      window.close();
-                                    }, 500);
-                                  };
-                                </script>
-                              </body>
-                            </html>
-                          `;
-                            printWindow.document.write(noteContent);
-                            printWindow.document.close();
-                          }
-                        }
-                      }}
-                      className="px-4 py-2 border border-slate-300 text-slate-600 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-2"
-                    >
-                      <Download size={16} />
-                      Export
-                    </motion.button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-
-        {/* Share Modal */}
-        <AnimatePresence>
-          {showShareModal && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-              onClick={() => setShowShareModal(false)}
-            >
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-slate-900">Share Note</h3>
-                  <button
-                    onClick={() => setShowShareModal(false)}
-                    className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
-                  >
-                    <X size={20} />
-                  </button>
-                </div>
-
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    Shareable Link
-                  </label>
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      value={shareLink}
-                      readOnly
-                      className="flex-1 px-3 py-2 border border-slate-300 rounded-lg bg-slate-50 text-slate-700 text-sm"
-                    />
-                    <button
-                      onClick={() => {
-                        navigator.clipboard.writeText(shareLink);
-                      }}
-                      className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-                    >
-                      Copy
-                    </button>
-                  </div>
-                </div>
-
-                <div className="text-xs text-slate-500">
-                  Anyone with this link can view this note. The link contains all note data and can be shared via email, messaging apps, or social media.
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-
-
 
         {/* Schedule Tab */}
 
@@ -3988,9 +3780,9 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                   key={note.id}
 
-                  initial={{ opacity: 0, y: 20 }}
+                  // initial={{ opacity: 0, y: 20 }}
 
-                  animate={{ opacity: 1, y: 0 }}
+                  // animate={{ opacity: 1, y: 0 }}
 
                   whileHover={{ scale: 1.02, y: -2 }}
 
@@ -4000,7 +3792,7 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
                 >
 
-                  <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-start justify-between mb-1">
 
                     <div className="flex items-center gap-2">
 
@@ -4021,12 +3813,6 @@ Enable JPA repositories with @EnableJpaRepositories`,
                     </div>
 
                     <div className="flex items-center gap-1">
-
-                      <button className="p-1 text-slate-400 hover:text-slate-600">
-
-                        <Edit size={14} />
-
-                      </button>
 
                       <button className="p-1 text-slate-400 hover:text-red-600">
 
@@ -4128,34 +3914,22 @@ Enable JPA repositories with @EnableJpaRepositories`,
         {selectedNote && (
 
           <motion.div
-
             initial={{ opacity: 0 }}
-
             animate={{ opacity: 1 }}
-
             exit={{ opacity: 0 }}
-
-            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-
+            className={`fixed inset-0 bg-black/60 flex items-center justify-center z-50 ${isModalMaximized ? 'p-0' : 'p-4'}`}
             onClick={() => setSelectedNote(null)}
-
           >
 
             <motion.div
-
               initial={{ scale: 0.9, opacity: 0 }}
-
               animate={{ scale: 1, opacity: 1 }}
-
               exit={{ scale: 0.9, opacity: 0 }}
-
               onClick={(e) => e.stopPropagation()}
-
-              className={`bg-white rounded-2xl shadow-2xl shadow-black/20 transition-all duration-300 ${isModalMaximized
-                ? 'w-[95vw] h-[95vh] max-w-none max-h-none'
-                : 'max-w-2xl w-full max-h-[80vh]'
-                } overflow-hidden`}
-
+              className={`bg-white shadow-2xl transition-all duration-300 ${isModalMaximized
+                ? 'w-full h-full rounded-none'
+                : 'max-w-2xl w-full max-h-[85vh] rounded-2xl'
+                } overflow-hidden flex flex-col`}
             >
 
               {/* Modal Header */}
@@ -4200,34 +3974,30 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
 
 
-                  <div className="flex items-center gap-1">
-
+                  <div className="flex items-center gap-2">
                     <button
-
                       onClick={() => setIsModalMaximized(!isModalMaximized)}
-
-                      className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-
+                      className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-all text-sm font-bold"
                       title={isModalMaximized ? "Minimize" : "Maximize"}
-
                     >
-
-                      <Maximize size={20} className={isModalMaximized ? "rotate-180" : ""} />
-
+                      {isModalMaximized ? (
+                        <>
+                          <ArrowLeft size={16} />
+                          <span>Back</span>
+                        </>
+                      ) : (
+                        <>
+                          <Maximize size={16} />
+                          <span>Maximize</span>
+                        </>
+                      )}
                     </button>
-
                     <button
-
                       onClick={() => setSelectedNote(null)}
-
-                      className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-
+                      className="p-2 hover:bg-slate-100 rounded-lg transition-colors text-slate-500"
                     >
-
                       <X size={20} />
-
                     </button>
-
                   </div>
 
                 </div>
@@ -4247,23 +4017,19 @@ Enable JPA repositories with @EnableJpaRepositories`,
 
 
 
-                  <div className="bg-white rounded-xl p-6 mb-6 shadow-2xl border border-slate-200">
-
+                  <div className="mb-6">
                     {isEditing ? (
                       <textarea
                         value={editedContent}
                         onChange={(e) => setEditedContent(e.target.value)}
-                        className="w-full h-64 p-4 border border-slate-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-700 leading-relaxed"
+                        className="w-full h-96 p-6 bg-slate-50 border border-slate-200 rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all text-slate-800 leading-relaxed font-medium"
                         placeholder="Edit your note content..."
                       />
                     ) : (
-                      <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-6 shadow-lg">
-                        <div className="bg-white/80 backdrop-blur rounded-lg p-4">
-                          <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">{selectedNote.content}</p>
-                        </div>
+                      <div className="bg-slate-50 border border-slate-100 rounded-2xl p-8 shadow-inner">
+                        <p className="text-slate-700 leading-relaxed whitespace-pre-wrap font-medium text-lg">{selectedNote.content}</p>
                       </div>
                     )}
-
                   </div>
 
 
@@ -4670,27 +4436,27 @@ Enable JPA repositories with @EnableJpaRepositories`,
             )}
 
             {
-            perCoursePieData.length > 0 && (
-              <div className="flex flex-wrap items-center justify-center gap-48 my-8">
-                {perCoursePieData.map((course) => (
-                  <div key={course.courseId} className="relative w-[20rem] h-[20rem] min-w-[20rem] min-h-[20rem] max-w-[20rem] max-h-[20rem] rounded-full flex-shrink-0" style={course.chartStyle}>
-                    <div className="absolute inset-6 bg-white rounded-full flex items-center justify-center">
-                      {course.centerImage ? (
-                        <img
-                          src={course.centerImage}
-                          alt={course.courseTitle}
-                          className="w-24 h-24 object-contain"
-                        />
-                      ) : (
-                        <div className="text-center leading-tight">
-                          <div className="text-3xl font-bold text-slate-700">{course.courseInitials}</div>
-                        </div>
-                      )}
+              perCoursePieData.length > 0 && (
+                <div className="flex flex-wrap items-center justify-center gap-48 my-8">
+                  {perCoursePieData.map((course) => (
+                    <div key={course.courseId} className="relative w-[20rem] h-[20rem] min-w-[20rem] min-h-[20rem] max-w-[20rem] max-h-[20rem] rounded-full flex-shrink-0" style={course.chartStyle}>
+                      <div className="absolute inset-6 bg-white rounded-full flex items-center justify-center">
+                        {course.centerImage ? (
+                          <img
+                            src={course.centerImage}
+                            alt={course.courseTitle}
+                            className="w-24 h-24 object-contain"
+                          />
+                        ) : (
+                          <div className="text-center leading-tight">
+                            <div className="text-3xl font-bold text-slate-700">{course.courseInitials}</div>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
+                  ))}
+                </div>
+              )}
 
             <div className="space-y-3">
 
@@ -4957,15 +4723,15 @@ Enable JPA repositories with @EnableJpaRepositories`,
                   />
                 </div>
 
-                {isAdmin && (
-                  <button
-                    onClick={() => setShowUploadModal(true)}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
-                  >
-                    <Plus size={18} />
-                    Add File
-                  </button>
-                )}
+
+                {/* Enabled upload for both admins and users as per request */}
+                <button
+                  onClick={() => setShowUploadModal(true)}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2 cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+                >
+                  <Plus size={18} />
+                  Add File
+                </button>
               </div>
             </div>
 
@@ -4974,11 +4740,11 @@ Enable JPA repositories with @EnableJpaRepositories`,
             {/* Library Categories */}
             <div className="space-y-4">
               <div className="flex gap-2 flex-wrap pb-2">
-                {['All', ...Array.from(new Set(libraryResources.map(r => r.category)))].map((category) => (
+                {['All', 'PDFs', 'Images'].map((category: any) => (
                   <motion.button
-                    key={category}
+                    key={String(category)}
                     onClick={() => {
-                      setSelectedLibraryCategory(category);
+                      setSelectedLibraryCategory(String(category));
                       setSelectedLibrarySubTopic('All');
                     }}
                     whileHover={{ scale: 1.05 }}
@@ -4993,456 +4759,373 @@ Enable JPA repositories with @EnableJpaRepositories`,
                 ))}
               </div>
 
-              {/* Cyber Security Sub-topics Container */}
-              <AnimatePresence>
-                {selectedLibraryCategory === 'Cyber Security' && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="bg-slate-50 rounded-2xl p-4 border border-slate-200"
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="p-2 bg-slate-900 text-white rounded-lg">
-                        <Lock size={16} />
-                      </div>
-                      <h3 className="text-sm font-bold text-slate-900">Cyber Security Tracks</h3>
-                    </div>
-                    <div className="flex gap-2 flex-wrap">
-                      {['All', ...Array.from(new Set(libraryResources.filter(r => r.category === 'Cyber Security').map(r => (r as any).subTopic).filter(Boolean)))].map((subTopic: any) => (
-                        <motion.button
-                          key={subTopic}
-                          onClick={() => setSelectedLibrarySubTopic(subTopic)}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          className={`px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all border ${subTopic === selectedLibrarySubTopic
-                            ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
-                            : 'bg-white text-slate-600 border-slate-200 hover:bg-white hover:border-slate-300'
-                            }`}
-                        >
-                          {subTopic}
-                        </motion.button>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
 
-              {/* Python Projects Container */}
-              <AnimatePresence>
-                {selectedLibraryCategory === 'Python' && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="bg-slate-50 rounded-2xl p-4 border border-slate-200"
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="p-2 bg-blue-600 text-white rounded-lg">
-                        <Terminal size={16} />
-                      </div>
-                      <h3 className="text-sm font-bold text-slate-900">Python Project Categories</h3>
-                    </div>
-                    <div className="flex gap-2 flex-wrap">
-                      {['All', ...Array.from(new Set(libraryResources.filter(r => r.category === 'Python').map(r => (r as any).subTopic).filter(Boolean)))].map((subTopic: any) => (
-                        <motion.button
-                          key={subTopic}
-                          onClick={() => setSelectedLibrarySubTopic(subTopic)}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          className={`px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all border ${subTopic === selectedLibrarySubTopic
-                            ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
-                            : 'bg-white text-slate-600 border-slate-200 hover:bg-white hover:border-slate-300'
-                            }`}
-                        >
-                          {subTopic}
-                        </motion.button>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              {/* Images Container */}
-              <AnimatePresence>
-                {selectedLibraryCategory === 'Images' && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="bg-slate-50 rounded-2xl p-4 border border-slate-200"
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="p-2 bg-purple-600 text-white rounded-lg">
-                        <Grid size={16} />
-                      </div>
-                      <h3 className="text-sm font-bold text-slate-900">Gallery Categories</h3>
-                    </div>
-                    <div className="flex gap-2 flex-wrap">
-                      {['All', ...Array.from(new Set(libraryResources.filter(r => r.category === 'Images').map(r => (r as any).subTopic).filter(Boolean)))].map((subTopic: any) => (
-                        <motion.button
-                          key={subTopic}
-                          onClick={() => setSelectedLibrarySubTopic(subTopic)}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          className={`px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all border ${subTopic === selectedLibrarySubTopic
-                            ? 'bg-purple-600 text-white border-purple-600 shadow-sm'
-                            : 'bg-white text-slate-600 border-slate-200 hover:bg-white hover:border-slate-300'
-                            }`}
-                        >
-                          {subTopic}
-                        </motion.button>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {selectedLibrarySubTopic === 'Data Images' && (
-                <div className="col-span-full">
-                  <h3 className="text-lg font-bold text-slate-800 border-l-4 border-purple-600 pl-3">Data Images Collection</h3>
-                  <p className="text-sm text-slate-500 mt-1">A curated collection of visual learning resources</p>
-                </div>
-              )}
+
               {libraryResources
                 .filter(resource => {
                   // Filter out hidden resources
                   if (hiddenResourceIds.includes(resource.id)) return false;
 
-                  const matchesCategory = selectedLibraryCategory === 'All' || 
+                  const matchesCategory = selectedLibraryCategory === 'All' ||
+                    (selectedLibraryCategory === 'PDFs' && resource.type === 'pdf') ||
+                    (selectedLibraryCategory === 'Images' && resource.type === 'image') ||
                     resource.category === selectedLibraryCategory;
-                  
-                  const matchesSubTopic = selectedLibrarySubTopic === 'All' || 
+
+                  const matchesSubTopic = selectedLibrarySubTopic === 'All' ||
                     (resource as any).subTopic === selectedLibrarySubTopic;
-                  
+
                   const matchesSearch = resource.title.toLowerCase().includes(librarySearchQuery.toLowerCase()) ||
                     resource.category.toLowerCase().includes(librarySearchQuery.toLowerCase());
-                  
+
                   return matchesCategory && matchesSubTopic && matchesSearch;
                 })
                 .map((resource) => (
-                <motion.div
-                  key={resource.id}
-                  whileHover={{ y: -5 }}
-                  className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-all flex flex-col"
-                >
-                  <div className="h-44 bg-slate-50 rounded-xl flex items-center justify-center mb-4 relative group overflow-hidden">
-                    <img
-                      src={resource.type === 'image' ? resource.downloadUrl : resource.thumbnail}
-                      alt={resource.title}
-                      className={`${resource.type === 'image' ? 'w-full h-full object-cover' : 'w-16 h-16 object-contain'} group-hover:scale-110 transition-transform`}
-                    />
+                  <motion.div
+                    key={resource.id}
+                    whileHover={{ y: -5 }}
+                    className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-all flex flex-col"
+                  >
+                    <div className="h-44 bg-slate-50 rounded-xl flex items-center justify-center mb-4 relative group overflow-hidden">
+                      <img
+                        src={resource.type === 'image' ? resource.downloadUrl : resource.thumbnail}
+                        alt={resource.title}
+                        className={`${resource.type === 'image' ? 'w-full h-full object-cover' : 'w-16 h-16 object-contain'} group-hover:scale-110 transition-transform`}
+                      />
 
-                    <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="p-2 bg-white rounded-full text-slate-900 shadow-lg"
-                        title={resource.type === 'image' ? "View Image" : "View PDF"}
-                        onClick={async () => {
-                          const resolved = await resolveUrl(resource.downloadUrl);
-                          setSelectedResourceForView({ ...resource, downloadUrl: resolved });
-                        }}
-                      >
-                        <Eye size={18} />
-                      </motion.button>
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="p-2 bg-white rounded-full text-blue-600 shadow-lg"
-                        title={resource.type === 'image' ? "Download Image" : "Download PDF"}
-                        onClick={() => handleDownload(resource.downloadUrl, resource.title + (resource.type === 'image' ? '.png' : '.pdf'))}
-                      >
-                        <Download size={18} />
-                      </motion.button>
-                      {isAdmin && (
+                      <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
-                          className="p-2 bg-white rounded-full text-red-600 shadow-lg"
-                          title="Delete Resource"
-                          onClick={() => handleDeleteResource(resource.id)}
+                          className="p-2 bg-white rounded-full text-slate-900 shadow-lg"
+                          title={resource.type === 'image' ? "View Image" : "View PDF"}
+                          onClick={() => openFileInViewer(resource)}
                         >
-                          <Trash2 size={18} />
+                          <Eye size={18} />
                         </motion.button>
-                      )}
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="p-2 bg-white rounded-full text-blue-600 shadow-lg"
+                          title={resource.type === 'image' ? "Download Image" : "Download PDF"}
+                          onClick={() => handleDownload(resource.downloadUrl, resource.title + (resource.type === 'image' ? '.png' : '.pdf'))}
+                        >
+                          <Download size={18} />
+                        </motion.button>
+                        {isAdmin && (
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="p-2 bg-white rounded-full text-red-600 shadow-lg"
+                            title="Delete Resource"
+                            onClick={() => handleDeleteResource(resource.id)}
+                          >
+                            <Trash2 size={18} />
+                          </motion.button>
+                        )}
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${resource.category === 'Books' ? 'bg-purple-100 text-purple-700' :
-                        resource.category === 'PDFs' ? 'bg-blue-100 text-blue-700' :
-                          resource.category === 'Python' ? 'bg-yellow-100 text-yellow-700' :
-                            resource.category === 'DSA' ? 'bg-indigo-100 text-indigo-700' :
-                              resource.category === 'Cyber Security' ? 'bg-red-100 text-red-700' :
-                                resource.category === 'Images' ? 'bg-purple-100 text-purple-700' :
-                                  'bg-emerald-100 text-emerald-700'
-                        }`}>
-                        {resource.category}
-                      </span>
-                      {(resource as any).subTopic && (
-                        <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold">
-                          {(resource as any).subTopic}
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${resource.category === 'Books' ? 'bg-purple-100 text-purple-700' :
+                          resource.category === 'PDFs' ? 'bg-blue-100 text-blue-700' :
+                            resource.category === 'Python' ? 'bg-yellow-100 text-yellow-700' :
+                              resource.category === 'DSA' ? 'bg-indigo-100 text-indigo-700' :
+                                resource.category === 'Cyber Security' ? 'bg-red-100 text-red-700' :
+                                  resource.category === 'Images' ? 'bg-purple-100 text-purple-700' :
+                                    'bg-emerald-100 text-emerald-700'
+                          }`}>
+                          {resource.category}
                         </span>
-                      )}
-                      <span className="text-[10px] text-slate-400 font-medium ml-auto">{resource.size}</span>
+                        {(resource as any).source === 'drive' && (
+                          <span className="px-2 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-bold flex items-center gap-1">
+                            <Globe size={10} />
+                            Drive
+                          </span>
+                        )}
+                        {(resource as any).subTopic && (
+                          <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold">
+                            {(resource as any).subTopic}
+                          </span>
+                        )}
+                        <span className="text-[10px] text-slate-400 font-medium ml-auto">{resource.size}</span>
+                      </div>
+                      <h3 className="font-bold text-slate-900 mb-2 truncate">{resource.title}</h3>
                     </div>
-                    <h3 className="font-bold text-slate-900 mb-2 truncate">{resource.title}</h3>
-                  </div>
 
-                  <div className="flex gap-2 mt-4">
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={async () => {
-                        const resolved = await resolveUrl(resource.downloadUrl);
-                        setSelectedResourceForView({ ...resource, downloadUrl: resolved });
-                      }}
-                      className="flex-1 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
-                    >
-                      <Eye size={14} />
-                      {resource.type === 'image' ? 'View Image' : 'Read Now'}
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="px-3 py-2 border border-slate-200 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-50 transition-colors"
-                      onClick={() => handleDownload(resource.downloadUrl, resource.title + (resource.type === 'image' ? '.png' : '.pdf'))}
-                    >
-                      <Download size={14} />
-                    </motion.button>
-                    {isAdmin && (
+                    <div className="flex gap-2 mt-4">
+                      <button
+                        onClick={() => openFileInViewer(resource)}
+                        className="flex-1 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-2 hover:bg-slate-800"
+                      >
+                        <Eye size={14} />
+                        {resource.type === 'image' ? 'View Image' : 'Read Now'}
+                      </button>
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="px-3 py-2 border border-red-200 text-red-600 rounded-lg text-xs font-bold hover:bg-red-50 transition-colors"
-                        title="Delete"
-                        onClick={() => handleDeleteResource(resource.id)}
+                        className="px-3 py-2 border border-slate-200 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-50 transition-colors"
+                        onClick={() => handleDownload(resource.downloadUrl, resource.title + (resource.type === 'image' ? '.png' : '.pdf'))}
                       >
-                        <Trash2 size={14} />
+                        <Download size={14} />
                       </motion.button>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
+                      {isAdmin && (
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="px-3 py-2 border border-red-200 text-red-600 rounded-lg text-xs font-bold hover:bg-red-50 transition-colors"
+                          title="Delete"
+                          onClick={() => handleDeleteResource(resource.id)}
+                        >
+                          <Trash2 size={14} />
+                        </motion.button>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
             </div>
 
-            {/* In-App Resource Viewer Modal */}
-            {/* Fullscreen Integrated Resource Viewer (Images & PDFs) */}
-            <AnimatePresence>
-              {selectedResourceForView && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="fixed inset-0 z-[60] bg-slate-900 flex flex-col"
-                >
-                  {/* Integrated Header Toolbar */}
-                  <div className="h-14 bg-slate-900 border-b border-slate-800 flex items-center justify-between px-4 shrink-0 shadow-xl z-50">
-                    <div className="flex items-center gap-4">
-                      <motion.button
-                        whileHover={{ x: -3 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => setSelectedResourceForView(null)}
-                        className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-medium pr-4 border-r border-slate-800"
-                      >
-                        < ArrowLeft size={18} />
-                        <span>Back to Library</span>
-                      </motion.button>
-                      <div className="flex items-center gap-3 text-white">
-                        <div className={`p-1.5 rounded-lg ${selectedResourceForView.type === 'image' ? 'bg-purple-500/10' : 'bg-blue-500/10'}`}>
-                          {selectedResourceForView.type === 'image' ? 
-                            <Grid size={18} className="text-purple-400" /> : 
-                            <FileText size={18} className="text-blue-400" />
-                          }
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="font-bold text-sm leading-none tracking-tight">
-                            {selectedResourceForView.title}
-                          </span>
-                          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">
-                            {selectedResourceForView.category} • {selectedResourceForView.type.toUpperCase()}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-1.5">
-                      <motion.button
-                        whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.05)' }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => handleDownload(selectedResourceForView.downloadUrl, selectedResourceForView.title + (selectedResourceForView.type === 'image' ? '.png' : '.pdf'))}
-                        className="flex items-center gap-2 px-3 py-1.5 text-slate-300 hover:text-white rounded-lg transition-all text-xs font-bold border border-transparent hover:border-slate-700"
-                        title={selectedResourceForView.type === 'image' ? "Download Image" : "Download PDF"}
-                      >
-                        <Download size={16} />
-                        <span className="hidden sm:inline">Download</span>
-                      </motion.button>
-                      <div className="w-px h-6 bg-slate-800 mx-1" />
-                      <motion.button
-                        whileHover={{ scale: 1.1, backgroundColor: 'rgba(239,68,68,0.1)' }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => setSelectedResourceForView(null)}
-                        className="p-2 text-slate-400 hover:text-red-400 rounded-lg transition-all"
-                        title="Close Viewer"
-                      >
-                        <X size={20} />
-                      </motion.button>
-                    </div>
-                  </div>
-
-                  {/* Viewer Content Area */}
-                  <div className="flex-1 bg-slate-950 flex items-center justify-center relative overflow-hidden">
-                    {selectedResourceForView.type === 'image' ? (
-                      <div className="w-full h-full p-4 sm:p-8 flex items-center justify-center">
-                        <motion.img
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          src={selectedResourceForView.downloadUrl}
-                          alt={selectedResourceForView.title}
-                          className="max-w-full max-h-full object-contain shadow-2xl rounded-lg"
-                        />
-                      </div>
-                    ) : (
-                      <embed
-                        src={`${selectedResourceForView.downloadUrl}#toolbar=1&navpanes=0`}
-                        type="application/pdf"
-                        className="w-full h-full border-none block"
-                      />
-                    )}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </motion.div>
         )}
 
       </main>
 
-      {/* Upload File Modal */}
+      {/* Fullscreen Integrated Resource Viewer (Images & PDFs) */}
       <AnimatePresence>
-        {showUploadModal && (
+        {selectedResourceForView && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm"
-            onClick={() => setShowUploadModal(false)}
+            className="fixed inset-0 z-[100] bg-slate-900/95 backdrop-blur-md flex flex-col overflow-hidden"
           >
-            <motion.div
-              variants={modalVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col"
-            >
-              <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center shadow-inner">
-                    <Plus size={20} />
+            {/* Integrated Header Toolbar */}
+            <div className="h-20 bg-slate-900 border-b border-white/5 flex items-center justify-between px-8 shrink-0 shadow-2xl z-[110]">
+              <div className="flex items-center gap-6">
+                <motion.button
+                  whileHover={{ scale: 1.05, x: -3 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setSelectedResourceForView(null)}
+                  className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-bold pr-6 border-r border-white/10"
+                >
+                  <ArrowLeft size={20} />
+                  <span>Back to Library</span>
+                </motion.button>
+                <div className="flex items-center gap-4">
+                  <div className={`p-2.5 rounded-xl ${selectedResourceForView.type === 'image' ? 'bg-purple-500/10' : 'bg-blue-500/10'} border border-white/5`}>
+                    {selectedResourceForView.type === 'image' ?
+                      <Grid size={22} className="text-purple-400" /> :
+                      <FileText size={22} className="text-blue-400" />
+                    }
                   </div>
-                  <div>
-                    <h3 className="font-bold text-slate-800 text-lg">Upload Resource</h3>
-                    <p className="text-xs font-semibold text-slate-500">Add a new PDF or Image</p>
+                  <div className="flex flex-col">
+                    <span className="font-bold text-base leading-tight text-white tracking-tight">
+                      {selectedResourceForView.title}
+                    </span>
+                    <span className="text-[11px] text-slate-500 font-bold uppercase tracking-[0.2em] mt-1.5 flex items-center gap-2">
+                      <span className="w-1 h-1 rounded-full bg-slate-600" />
+                      {selectedResourceForView.category} • {selectedResourceForView.type.toUpperCase()}
+                    </span>
                   </div>
                 </div>
-                <button
-                  onClick={() => setShowUploadModal(false)}
-                  className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
-                >
-                  <X size={20} />
-                </button>
               </div>
 
-              <div className="p-6 space-y-5">
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-1.5">Resource Name</label>
-                  <input
-                    type="text"
-                    value={uploadTitle}
-                    onChange={(e) => setUploadTitle(e.target.value)}
-                    placeholder="Enter course or material title"
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all text-slate-800 font-medium placeholder:text-slate-400/80"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-1.5">Category</label>
-                  <input
-                    type="text"
-                    value={uploadCategory}
-                    onChange={(e) => setUploadCategory(e.target.value)}
-                    placeholder="e.g. General, Python, Cyber Security"
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all text-slate-800 font-medium placeholder:text-slate-400/80"
-                  />
-                </div>
+              <div className="flex items-center gap-3">
+                {selectedResourceForView.downloadUrl.includes('drive.google.com') && (
+                  <motion.button
+                    whileHover={{ scale: 1.05, backgroundColor: 'rgba(59,130,246,0.15)' }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => window.open(selectedResourceForView.downloadUrl.replace('/preview', '/view'), '_blank')}
+                    className="flex items-center gap-2.5 px-4 py-2 text-blue-400 hover:text-blue-300 rounded-xl transition-all text-xs font-bold border border-blue-500/20 hover:border-blue-500/40 bg-blue-500/5"
+                    title="Open in new window"
+                  >
+                    <ExternalLink size={18} />
+                    <span className="hidden sm:inline">Check Original</span>
+                  </motion.button>
+                )}
+                <motion.button
+                  whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.08)' }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleDownload(selectedResourceForView.downloadUrl, selectedResourceForView.title + (selectedResourceForView.type === 'image' ? '.png' : '.pdf'))}
+                  className="flex items-center gap-2.5 px-4 py-2 text-slate-300 hover:text-white rounded-xl transition-all text-xs font-bold border border-white/10 hover:border-white/20 bg-white/5"
+                  title={selectedResourceForView.type === 'image' ? "Download Image" : "Download PDF"}
+                >
+                  <Download size={18} />
+                  <span className="hidden sm:inline">Download</span>
+                </motion.button>
+                <div className="w-px h-8 bg-white/10 mx-2" />
+                <motion.button
+                  whileHover={{ scale: 1.1, rotate: 90, backgroundColor: 'rgba(239,68,68,0.15)' }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setSelectedResourceForView(null)}
+                  className="p-2.5 text-slate-400 hover:text-red-400 rounded-xl transition-all bg-white/5 hover:bg-red-500/10"
+                  title="Exit Fullscreen"
+                >
+                  <X size={24} />
+                </motion.button>
+              </div>
+            </div>
 
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-1.5">File</label>
-                  <div className="relative group">
-                    <input
-                      type="file"
-                      id="file-upload"
-                      className="hidden"
-                      accept=".pdf,image/*"
-                      onChange={(e) => setUploadFile(e.target.files?.[0] || null)}
+            {/* Viewer Content Area */}
+            <div className="flex-1 bg-slate-950 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(30,41,59,1)_0%,rgba(15,23,42,1)_100%)] opacity-50" />
+              <div className="relative w-full h-full z-10">
+                {selectedResourceForView.type === 'image' ? (
+                  <div className="w-full h-full p-6 sm:p-12 flex items-center justify-center bg-slate-950">
+                    <motion.img
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      src={getViewerUrl(selectedResourceForView.downloadUrl)}
+                      alt={selectedResourceForView.title}
+                      className="max-w-full max-h-full object-contain shadow-2xl rounded-lg border border-white/5"
                     />
-                    <label
-                      htmlFor="file-upload"
-                      className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-xl cursor-pointer transition-all ${
-                        uploadFile ? 'border-blue-500 bg-blue-50/50' : 'border-slate-300 hover:border-blue-400 hover:bg-slate-50'
-                      }`}
-                    >
-                      {uploadFile ? (
-                        <div className="flex flex-col items-center text-blue-600">
-                          <CheckCircle2 size={32} className="mb-2" />
-                          <span className="text-sm font-semibold text-center px-4 truncate w-full">{uploadFile.name}</span>
-                        </div>
-                      ) : (
-                        <div className="flex flex-col items-center text-slate-500 group-hover:text-blue-500">
-                          <Download size={32} className="mb-2" />
-                          <span className="text-sm font-medium">Click to select PDF or Image</span>
-                        </div>
-                      )}
-                    </label>
                   </div>
-                </div>
+                ) : (
+                  <div className="relative w-full h-full">
+                    <iframe
+                      src={getViewerUrl(selectedResourceForView.downloadUrl)}
+                      className="w-full h-full border-none"
+                      title={selectedResourceForView.title}
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-slate-50/50 pointer-events-none -z-10">
+                      <div className="text-center p-6 bg-white rounded-2xl shadow-xl border border-slate-200">
+                        <p className="text-slate-600 mb-4">If the PDF doesn't load, you can open it directly:</p>
+                        <button
+                          onClick={() => window.open(getViewerUrl(selectedResourceForView.downloadUrl).replace('&embedded=true', ''), '_blank')}
+                          className="px-6 py-2 bg-blue-600 text-white rounded-xl font-bold pointer-events-auto"
+                        >
+                          Open in New Tab
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-
-              <div className="p-6 border-t border-slate-100 bg-slate-50/50 flex gap-3">
-                <button
-                  onClick={() => setShowUploadModal(false)}
-                  className="flex-1 px-4 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl text-sm font-bold hover:bg-slate-50 transition-colors shadow-sm"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleUploadSubmit}
-                  disabled={!uploadFile || !uploadTitle || isUploading}
-                  className="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 transition-colors shadow-md shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
-                >
-                  {isUploading ? (
-                    <>
-                      <Loader2 className="animate-spin" size={16} />
-                      Uploading...
-                    </>
-                  ) : (
-                    'Upload File'
-                  )}
-                </button>
-              </div>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
+      {/* Upload File Modal */}
+      <AnimatePresence />
+      {showUploadModal && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm"
+          onClick={() => setShowUploadModal(false)}
+        >
+          <motion.div
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col"
+          >
+            <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center shadow-inner">
+                  <Plus size={20} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-800 text-lg">Upload Resource</h3>
+                  <p className="text-xs font-semibold text-slate-500">Add a new PDF or Image</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowUploadModal(false)}
+                className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="p-6 space-y-5">
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1.5">Resource Name</label>
+                <input
+                  type="text"
+                  value={uploadTitle}
+                  onChange={(e) => setUploadTitle(e.target.value)}
+                  placeholder="Enter course or material title"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all text-slate-800 font-medium placeholder:text-slate-400/80"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1.5">Category</label>
+                <input
+                  type="text"
+                  value={uploadCategory}
+                  onChange={(e) => setUploadCategory(e.target.value)}
+                  placeholder="e.g. General, Python, Cyber Security"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all text-slate-800 font-medium placeholder:text-slate-400/80"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1.5">File</label>
+                <div className="relative group">
+                  <input
+                    type="file"
+                    id="file-upload"
+                    className="hidden"
+                    accept=".pdf,image/*"
+                    onChange={(e) => setUploadFile(e.target.files?.[0] || null)}
+                  />
+                  <label
+                    htmlFor="file-upload"
+                    className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-xl cursor-pointer transition-all ${uploadFile ? 'border-blue-500 bg-blue-50/50' : 'border-slate-300 hover:border-blue-400 hover:bg-slate-50'
+                      }`}
+                  >
+                    {uploadFile ? (
+                      <div className="flex flex-col items-center text-blue-600">
+                        <CheckCircle2 size={32} className="mb-2" />
+                        <span className="text-sm font-semibold text-center px-4 truncate w-full">{uploadFile.name}</span>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center text-slate-500 group-hover:text-blue-500">
+                        <Download size={32} className="mb-2" />
+                        <span className="text-sm font-medium">Click to select PDF or Image</span>
+                      </div>
+                    )}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-6 border-t border-slate-100 bg-slate-50/50 flex gap-3">
+              <button
+                onClick={() => setShowUploadModal(false)}
+                className="flex-1 px-4 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl text-sm font-bold hover:bg-slate-50 transition-colors shadow-sm"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleUploadSubmit}
+                disabled={!uploadFile || !uploadTitle || isUploading}
+                className="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 transition-colors shadow-md shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+              >
+                {isUploading ? (
+                  <>
+                    <Loader2 className="animate-spin" size={16} />
+                    Uploading...
+                  </>
+                ) : (
+                  'Upload File'
+                )}
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+
+      <AnimatePresence />
     </div>
-
   );
-
 }
-

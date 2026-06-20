@@ -535,30 +535,6 @@ export default function Auth({ initialMode = 'login', onAdminLogin, onDemoLogin 
             </button>
           )}
         </div>
-
-        {/* Features highlight */}
-        <div className="pt-4 border-t border-slate-200">
-          <div className="flex justify-around text-center">
-            <div className="space-y-1">
-              <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center mx-auto">
-                <Zap size={16} className="text-slate-600" />
-              </div>
-              <p className="text-xs text-slate-500">Fast</p>
-            </div>
-            <div className="space-y-1">
-              <div className="w-8 h-8 bg-teal-100 rounded-lg flex items-center justify-center mx-auto">
-                <Shield size={16} className="text-teal-600" />
-              </div>
-              <p className="text-xs text-slate-500">Secure</p>
-            </div>
-            <div className="space-y-1">
-              <div className="w-8 h-8 bg-cyan-100 rounded-lg flex items-center justify-center mx-auto">
-                <Heart size={16} className="text-cyan-600" />
-              </div>
-              <p className="text-xs text-slate-500">Reliable</p>
-            </div>
-          </div>
-        </div>
       </motion.div>
     </div>
   );

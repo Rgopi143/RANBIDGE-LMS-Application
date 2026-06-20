@@ -1,2 +1,0 @@
-Place your Cyber Security PDFs here.
-To make them visible in the Library, ensure the filename matches the 'downloadUrl' in LMSDashboard.tsx (e.g., /pdfs/cyber-security/filename.pdf).
